@@ -1,0 +1,26 @@
+@import "normalize";
+
+body {
+	overflow-x: hidden;
+}
+
+header {
+	position: fixed;
+	top: 5em;
+	text-align: center;
+	width: 100%;
+	h1 {
+		color: #fafafa;
+		font-size: 3rem;
+	}
+}
+
+div {
+	display: block;
+	z-index: -1;
+	width: 100%;
+}
+
+.effect1 {
+	background: #333333;
+}
