@@ -383,6 +383,7 @@ div {
       color: #fafafa;
       font-size: 3rem;
       margin-top: -2em;
+      line-height: 3.5rem;
       border-bottom: 0.1em solid #fafafa; }
       @media (max-width: 600px) {
         div .container h1 {

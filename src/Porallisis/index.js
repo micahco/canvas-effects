@@ -12,10 +12,6 @@ export default class Constellations extends CanvasEffect {
 		this.fill = '#666666';
 	}
 	getComplexity() {
-		let modifier = 8000;
-		if (this.config.complexor) {
-			modifier = this.complexor;
-		}
 		return this.canvas.width * this.canvas.height / this.config.complexor;
 	}
 	init() {

@@ -23,6 +23,7 @@ div {
 			color: $color-fg;
 			font-size: 3rem;
 			margin-top: -2em;
+			line-height: 3.5rem;
 			border-bottom: 0.1em solid $color-fg;
 			@media (max-width: 600px) {
 				font-size: 2rem;
