@@ -367,19 +367,28 @@ textarea {
 body {
   overflow-x: hidden; }
 
-header {
-  position: fixed;
-  top: 5em;
-  text-align: center;
-  width: 100%; }
-  header h1 {
-    color: #fafafa;
-    font-size: 3rem; }
-
 div {
+  position: relative;
   display: block;
-  z-index: -1;
   width: 100%; }
+  div .container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; }
+    div .container h1 {
+      color: #fafafa;
+      font-size: 3rem;
+      margin-top: -2em;
+      border-bottom: 0.1em solid #fafafa; }
+      @media (max-width: 600px) {
+        div .container h1 {
+          font-size: 2rem; } }
+  div canvas {
+    z-index: -1; }
 
 .effect1 {
   background: #333333; }

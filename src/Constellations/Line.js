@@ -1,4 +1,4 @@
-import Entity from '../Entity';
+import Entity from '../CanvasEffect/Entity';
 
 export default class Line extends Entity {
 	constructor(ctx) {
