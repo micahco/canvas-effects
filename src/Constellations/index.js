@@ -9,12 +9,15 @@ export default class Constellations extends CanvasEffect {
 		this.points = [];
 		this.lines = [];
 	}
-	getComplexity() {
-		return this.canvas.width * this.canvas.height / 8000;
-	}
 	init() {
 		super.init();
-		this.complexity = this.getComplexity();
+		this.complexity = this.canvas.width * this.canvas.height / 10000;
+		this.generateData();
+		super.main();
+	}
+	generateData() {
+		this.points.length = 0;
+		this.lines.length = 0;
 		let l = 0;
 		for (let i = 0; i < this.complexity; i++) {
 			let x = Math.random() * this.canvas.width;
@@ -25,7 +28,6 @@ export default class Constellations extends CanvasEffect {
 				l++;
 			}
 		}
-		super.main();
 	}
 	update() {
 		for (let p = 0; p < this.complexity; p++) {

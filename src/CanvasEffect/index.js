@@ -1,22 +1,32 @@
-import requestAnimationFrame from './requestAnimationFrame';
+import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
 
 export default class CanvasEffect {
 	constructor(el) {
 		this.canvas = document.querySelector(el);
 		this.ctx = this.canvas.getContext('2d');
-		this.debounce;
+		this.requestId;
+		this.timer;
 		window.addEventListener('resize', this.resize.bind(this));
 	}
 	resize() {
-		clearTimeout(this.debounce);
-  		this.debounce = setTimeout(this.init.bind(this), 100);
+		if (this.requestId) {
+	       cancelAnimationFrame(this.requestId);
+	       this.requestId = undefined;
+	    }
+		clearTimeout(this.timer);
+  		this.timer = setTimeout(this.init.bind(this), 250);
 	}
 	init() {
 		this.canvas.width = window.innerWidth;
 		this.canvas.height = window.innerHeight;
 	}
+	run() {
+		if (!this.requestId) {
+			this.main();
+		}
+	}
 	main() {
-		requestAnimationFrame(this.main.bind(this));
+		this.requestId = requestAnimFrame(this.main.bind(this));
 		this.update();
 		this.render();
 	}
