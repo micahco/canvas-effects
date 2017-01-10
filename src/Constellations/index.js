@@ -3,22 +3,18 @@ import Point from './Point';
 import Line from './Line';
 
 export default class Constellations extends CanvasEffect {
-	constructor(el, config) {
+	constructor(el) {
 		super(el);
-		this.config = config;
-		this.complexity = this.getComplexity();
+		this.complexity;
 		this.points = [];
 		this.lines = [];
-		this.fill = '#666666';
 	}
 	getComplexity() {
-		let modifier = 8000;
-		if (this.config.complexor) {
-			modifier = this.complexor;
-		}
-		return this.canvas.width * this.canvas.height / this.config.complexor;
+		return this.canvas.width * this.canvas.height / 8000;
 	}
 	init() {
+		super.init();
+		this.complexity = this.getComplexity();
 		let l = 0;
 		for (let i = 0; i < this.complexity; i++) {
 			let x = Math.random() * this.canvas.width;
@@ -29,7 +25,7 @@ export default class Constellations extends CanvasEffect {
 				l++;
 			}
 		}
-		super.init();
+		super.main();
 	}
 	update() {
 		for (let p = 0; p < this.complexity; p++) {

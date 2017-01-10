@@ -7,9 +7,8 @@ export default class Line extends Entity {
 		this.alpha = 0;
 		this.fade = 0.05;
 	}
-	inProximity() {
-		return Math.abs(this.x1 - this.x2) <= this.max &&
-			   Math.abs(this.y1 - this.y2) <= this.max;
+	getDistance() {
+		return Math.sqrt((this.x1-this.x2)*(this.x1-this.x2) + (this.y1-this.y2)*(this.y1-this.y2));
 	}
 	update(x1, y1, x2, y2) {
 		this.x1 = x1;
@@ -18,7 +17,7 @@ export default class Line extends Entity {
 		this.y2 = y2;
 	}
 	render() {
-		if (this.inProximity()) {
+		if (this.getDistance() < this.max) {
 			if (this.alpha <= 1) {
 				this.alpha +=  this.fade;
 			}

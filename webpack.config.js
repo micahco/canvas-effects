@@ -1,22 +1,14 @@
 const webpack = require('webpack');
 
 module.exports = {
-	entry: './src/app.js',
+	entry: './src/index.js',
 	output: {
-		filename: 'bundle.js',
+		filename: 'bundle.min.js',
 		publicPath: '/build',
 		path: __dirname + '/build'
 	},
 	module: {
 		loaders: [
-			{
-				test: /\.html$/,
-				loader: "raw-loader"
-			},
-			{
-				test: /\.scss/,
-				loader: "raw-loader"
-			},
 			{
 				test: /\.js$/,
 				loader: 'babel-loader'

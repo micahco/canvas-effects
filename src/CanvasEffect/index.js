@@ -3,12 +3,17 @@ import requestAnimationFrame from './requestAnimationFrame';
 export default class CanvasEffect {
 	constructor(el) {
 		this.canvas = document.querySelector(el);
-		this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
 		this.ctx = this.canvas.getContext('2d');
+		this.debounce;
+		window.addEventListener('resize', this.resize.bind(this));
+	}
+	resize() {
+		clearTimeout(this.debounce);
+  		this.debounce = setTimeout(this.init.bind(this), 100);
 	}
 	init() {
-		this.main();
+		this.canvas.width = window.innerWidth;
+		this.canvas.height = window.innerHeight;
 	}
 	main() {
 		requestAnimationFrame(this.main.bind(this));
