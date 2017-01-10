@@ -18,7 +18,7 @@ export default class Line extends Entity {
 	}
 	init(config) {
 		if (config) {
-			if (config.color.length == 3 && this.isValidRGB(config.color)) {
+			if (config.color && config.color.length == 3 && this.isValidRGB(config.color)) {
 				this.color = config.color;
 			}
 			this.fade = config.fade || this.fade;

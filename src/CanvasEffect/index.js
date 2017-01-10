@@ -16,14 +16,19 @@ export default class CanvasEffect {
 	}
 	createCanvas() {
 		this.canvas = document.createElement('canvas');
+		this.ctx = this.canvas.getContext('2d');
 		if (this.config.id) {
 			this.canvas.id = this.config.id;
 		}
 		if (this.config.backgroundColor) {
 			this.canvas.style.backgroundColor = this.config.backgroundColor;
 		}
-		this.ctx = this.canvas.getContext('2d');
-		document.body.appendChild(this.canvas);
+		let container = document.querySelector(this.config.container);
+		if (container && container.nodeName == 'DIV') {
+			container.appendChild(this.canvas);
+		} else {
+			throw new TypeError(`Invalid container: ${this.config.container}.`);
+		}
 	}
 	isValidDimensions(w, h) {
 		return (typeof w == 'number' || w == '100%') && (typeof h == 'number' || h == '100%');
@@ -39,6 +44,7 @@ export default class CanvasEffect {
 				if (height == '100%') {
 					height = document.body.clientHeight;
 				}
+				document.body.style.overflowX = 'hidden';
 				window.addEventListener('resize', this.debounce.bind(this));
 			}
 			this.canvas.width = width;

@@ -20,10 +20,10 @@ export default class Point extends Entity {
 	init(config) {
 		if (config) {
 			this.color = config.color || this.color;
-			if (config.radius.length == 2 && config.radius[0] > config.radius[1]) {
+			if (config.radius && config.radius.length == 2 && config.radius[0] > config.radius[1]) {
 				this.radius = this.getRandomArbitrary(config.radius[0], config.radius[1]);
 			}
-			if (config.speed.length == 2 && config.speed[0] > config.speed[1]) {
+			if (config.speed && config.speed.length == 2 && config.speed[0] > config.speed[1]) {
 				this.speed = this.getRandomArbitrary(config.speed[0], config.speed[1]);
 			}
 		}
