@@ -1,26 +1,32 @@
 import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
 
 export default class CanvasEffect {
-	constructor(el) {
+	constructor(el, config) {
 		this.canvas = document.querySelector(el);
 		this.ctx = this.canvas.getContext('2d');
+		this.config = config;
 		this.requestId;
 		this.timer;
-		window.addEventListener('resize', this.resize.bind(this));
+		this.setCanvasSize();
+		window.addEventListener('resize', this.debounce.bind(this));
 	}
-	resize() {
+	setCanvasSize() {
+		this.canvas.width = window.innerWidth;
+		this.canvas.height = window.innerHeight;
+	}
+	debounce() {
 		if (this.requestId) {
 	       cancelAnimationFrame(this.requestId);
 	       this.requestId = undefined;
 	    }
 		clearTimeout(this.timer);
-  		this.timer = setTimeout(this.init.bind(this), 250);
+  		this.timer = setTimeout(this.resize.bind(this), 250);
+	}
+	resize() {
+		this.setCanvasSize();
+		this.init();
 	}
 	init() {
-		this.canvas.width = window.innerWidth;
-		this.canvas.height = window.innerHeight;
-	}
-	run() {
 		if (!this.requestId) {
 			this.main();
 		}

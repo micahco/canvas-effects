@@ -5,11 +5,10 @@ export default class Point extends Entity {
 		super(ctx);
 		this.x = x;
 		this.y = y;
-		this.speed = this.getRandomArbitrary(0.2, 0.1); 	// slow
-		//this.speed = this.getRandomArbitrary(5, 2.5);		// fast
+		this.color = '#000000';
 		this.radius = this.getRandomArbitrary(3, 1);
+		this.speed = this.getRandomArbitrary(0.2, 0.1);
 		this.theta = this.getRandomTheta();
-		this.color = '#666666';
 	}
 	getRandomArbitrary(max, min) {
 		return Math.random() * (max - min) + min;
@@ -17,6 +16,15 @@ export default class Point extends Entity {
 	getRandomTheta() {
 		let angles = [1/6, 1/4, 1/3, 2/3, 3/4, 5/6, 7/6, 6/5, 4/3, 5/3, 7/4, 11/6];
 		return Math.PI + angles[Math.floor(Math.random() * angles.length)];
+	}
+	init(config) {
+		this.color = config.color || this.color;
+		if (config.radius.length == 2 && config.radius[0] > config.radius[1]) {
+			this.radius = this.getRandomArbitrary(config.radius[0], config.radius[1]);
+		}
+		if (config.speed.length == 2 && config.speed[0] > config.speed[1]) {
+			this.speed = this.getRandomArbitrary(config.speed[0], config.speed[1]);
+		}
 	}
 	update() {
 		if (this.x <= 0 || this.x >= this.cw) {

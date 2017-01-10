@@ -3,31 +3,32 @@ import Point from './Point';
 import Line from './Line';
 
 export default class Constellations extends CanvasEffect {
-	constructor(el) {
-		super(el);
+	constructor(el, config) {
+		super(el, config);
 		this.complexity;
 		this.points = [];
 		this.lines = [];
 	}
-	init() {
-		super.init();
-		this.complexity = this.canvas.width * this.canvas.height / 10000;
-		this.generateData();
-		super.main();
+	getComplexity(c) {
+		return this.canvas.width * this.canvas.height / c;
 	}
-	generateData() {
+	init() {
+		this.complexity = this.getComplexity(this.config.complexor || 10000);
 		this.points.length = 0;
 		this.lines.length = 0;
-		let l = 0;
+		let k = 0;
 		for (let i = 0; i < this.complexity; i++) {
 			let x = Math.random() * this.canvas.width;
 			let y = Math.random() * this.canvas.height;
 			this.points[i] = new Point(this.ctx, x, y);
+			this.points[i].init(this.config.point);
 			for (let j = i+1; j < this.complexity; j++) {
-				this.lines[l] = new Line(this.ctx);
-				l++;
+				this.lines[k] = new Line(this.ctx);
+				this.lines[k].init(this.config.line);
+				k++;
 			}
 		}
+		super.init();
 	}
 	update() {
 		for (let p = 0; p < this.complexity; p++) {
