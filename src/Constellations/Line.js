@@ -5,8 +5,9 @@ export default class Line extends Entity {
 		super(ctx);
 		this.alpha = 0;
 		this.color = [0,0,0];
-		this.fade = 0.1;
+		this.fade = 0.05;
 		this.max = 100;
+		this.transparency = 1;
 		this.width = 1;
 	}
 	getDistance() {
@@ -21,6 +22,7 @@ export default class Line extends Entity {
 		}
 		this.fade = config.fade || this.fade;
 		this.max = config.max || this.max;
+		this.transparency = config.transparency || this.transparency;
 		this.width = config.width || this.width;
 	}
 	update(x1, y1, x2, y2) {
@@ -31,7 +33,7 @@ export default class Line extends Entity {
 	}
 	render() {
 		if (this.getDistance() < this.max) {
-			if (this.alpha <= 1) {
+			if (this.alpha <= this.transparency) {
 				this.alpha +=  this.fade;
 			}
 		} else {

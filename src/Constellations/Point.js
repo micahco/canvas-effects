@@ -27,10 +27,10 @@ export default class Point extends Entity {
 		}
 	}
 	update() {
-		if (this.x <= 0 || this.x >= this.cw) {
+		if (this.x <= 0 + this.radius || this.x >= this.cw - this.radius) {
 			this.theta = Math.PI - this.theta;
 		}
-		if (this.y <= 0 || this.y >= this.ch) {
+		if (this.y <= 0 + this.radius || this.y >= this.ch - this.radius) {
 			this.theta = 2*Math.PI - this.theta;
 		}
 		this.x += Math.cos(this.theta) * this.speed;
