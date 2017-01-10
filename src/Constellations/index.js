@@ -13,7 +13,7 @@ export default class Constellations extends CanvasEffect {
 		return this.canvas.width * this.canvas.height / c;
 	}
 	init() {
-		this.complexity = this.getComplexity(this.config.complexor || 10000);
+		this.complexity = this.getComplexity(this.config.complexor || 8000);
 		this.points.length = 0;
 		this.lines.length = 0;
 		let k = 0;
