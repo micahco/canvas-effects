@@ -20,7 +20,6 @@ const foo = new Effect({
 });
 ```
 
-
 ## Parameters
 
 Whenever you instantiate an effect you need to pass in the following required parameters:
@@ -66,7 +65,7 @@ Config:
 	* Default: `8000`
 * *point:*
 	* *color:* `"color"`
-		* Default: `'#000000'`
+		* Default: `"#000000"`
 	* *radius:* `[max,min]`
 		* Default: `[4,2]`
 	* *speed:* `[max,min]`
