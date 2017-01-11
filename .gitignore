@@ -4,3 +4,4 @@
 *.css
 *.css.map
 /scss
+/lib

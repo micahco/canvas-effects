@@ -6,7 +6,7 @@ export default class Point extends Entity {
 		this.x = x;
 		this.y = y;
 		this.color = '#000000';
-		this.radius = this.getRandomArbitrary(3, 1);
+		this.radius = this.getRandomArbitrary(4, 2);
 		this.speed = this.getRandomArbitrary(0.2, 0.1);
 		this.theta = this.getRandomTheta();
 	}

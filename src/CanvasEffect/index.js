@@ -31,18 +31,32 @@ export default class CanvasEffect {
 		}
 	}
 	isValidDimensions(w, h) {
-		return (typeof w == 'number' || w == '100%') && (typeof h == 'number' || h == '100%');
+		if (typeof w == 'number' || typeof w == 'string') {
+			if (typeof w == 'string' && w.slice(-1) != '%') {
+				return false;
+			}
+			return true;
+		}
+		if (typeof h == 'number' || typeof h == 'string') {
+			if (typeof h == 'string' && h.slice(-1) != '%') {
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 	setCanvasSize() {
 		let width = this.config.width;
 		let height = this.config.height;
 		if (this.isValidDimensions(width, height)) {
-			if (width == '100%' || height == '100%') {
-				if (width == '100%') {
-					width = window.innerWidth;
+			if (typeof width == 'string' || typeof height == 'string') {
+				if (typeof width == 'string') {
+					let per = width.slice(0, -1);
+					width = (per/100) * window.innerWidth;
 				}
-				if (height == '100%') {
-					height = window.innerHeight;
+				if (typeof height == 'string') {
+					let per = height.slice(0, -1);
+					height = (per/100) * window.innerHeight;
 				}
 				document.body.style.overflowX = 'hidden';
 				window.addEventListener('resize', this.debounce.bind(this));
