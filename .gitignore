@@ -5,3 +5,4 @@
 *.css.map
 /scss
 /lib
+npm-debug.log
