@@ -6,9 +6,13 @@
 A Javascript library of canvas visualizations.
 
 ## Getting Started
-Download and install the latest version from npm:
+Download and install the latest beta from npm:
 
 `npm install --save canvas-effects`
+
+Or you can install the latest alpha from Github:
+
+`npm install --save getmicah/canvas-effects`
 
 Then import the effects you want into your project:
 
