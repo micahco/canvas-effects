@@ -28,7 +28,7 @@ Whenever you instantiate an effect you need to pass in the following required pa
 * container: `"selector"`
 	* Selector **must** be to a \<div\> element.
 	* `"#bar"` or `"div.bar"`
-* width: `int / "%"`
+* width: `int` or `"%"`
 	* `800` or `"100%"`
 * height: `int / '%'`
 	* `400` or `"50%"`
