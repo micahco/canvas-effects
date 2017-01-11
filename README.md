@@ -23,7 +23,7 @@ const foo = new Effect({
 ## Config
 These are global parameters that must be included in the config of every effect.
 
-###### container
+##### container
 A CSS selector that represents a **\<div\>** element.
 ```
 const foo = new Effect({
@@ -31,7 +31,7 @@ const foo = new Effect({
 });
 ```
 
-###### width / height
+##### width / height
 Declares the desired width and height of the element.
 ```
 const foo = new Effect({
@@ -61,7 +61,7 @@ const foo = new Constellations({
 ### Config
 All of the following config options are optional and contain default values.
 
-###### seed
+##### seed
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in less performance.
 ```
 const foo = new Constellations({
@@ -69,7 +69,7 @@ const foo = new Constellations({
 });
 ```
 
-###### point
+##### point
 Changes the properties of the randomly generated points on the canvas which act as vertices for the constellations.
 ```
 const foo = new Constellations({
@@ -81,7 +81,7 @@ const foo = new Constellations({
 });
 ```
 
-###### line
+##### line
 Changes the properties of lines that connect each point. The code generates every line then programmatically decides whether to render it.
 ```
 const foo = new Constellations({
