@@ -14,8 +14,7 @@ export default class Point extends Entity {
 		return Math.random() * (max - min) + min;
 	}
 	getRandomTheta() {
-		let angles = [1/6, 1/4, 1/3, 2/3, 3/4, 5/6, 7/6, 6/5, 4/3, 5/3, 7/4, 11/6];
-		return Math.PI + angles[Math.floor(Math.random() * angles.length)];
+		return Math.random() * 2 * Math.PI;
 	}
 	init(config) {
 		if (config) {
