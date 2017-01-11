@@ -4,26 +4,24 @@ export default class Line extends Entity {
 	constructor(ctx) {
 		super(ctx);
 		this.alpha = 0;
-		this.color = [0,0,0];
+		this.color = [0,0,0,1];
 		this.fade = 0.05;
 		this.max = 100;
-		this.transparency = 1;
 		this.width = 1;
 	}
 	getDistance() {
 		return Math.sqrt((this.x1-this.x2)*(this.x1-this.x2) + (this.y1-this.y2)*(this.y1-this.y2));
 	}
-	isValidRGB(array) {
-		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255;
+	isValidRGBA(array) {
+		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255 && array[3] <= 1;
 	}
 	init(config) {
 		if (config) {
-			if (config.color && config.color.length == 3 && this.isValidRGB(config.color)) {
+			if (config.color && config.color.length == 4 && this.isValidRGBA(config.color)) {
 				this.color = config.color;
 			}
-			this.fade = config.fade || this.fade;
+			this.fade = config.fade < 1 ? config.fade : this.fade;
 			this.max = config.max || this.max;
-			this.transparency = config.transparency || this.transparency;
 			this.width = config.width || this.width;
 		}
 	}
@@ -35,7 +33,7 @@ export default class Line extends Entity {
 	}
 	render() {
 		if (this.getDistance() < this.max) {
-			if (this.alpha <= this.transparency) {
+			if (this.alpha <= this.color[3]) {
 				this.alpha +=  this.fade;
 			}
 		} else {
