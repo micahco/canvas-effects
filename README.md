@@ -26,15 +26,12 @@ const foo = new Effect({
 Whenever you instantiate an effect you need to pass in the following required parameters:
 
 * container: `"selector"`
-	* Selector **must** be to a <div> element.
-	* `"#bar"`
-	* `"div.bar"`
+	* Selector **must** be to a \<div\> element.
+	* `"#bar"` or `"div.bar"`
 * width: `int / "%"`
-	* `800`
-	* `"100%"`
+	* `800` or `"100%"`
 * height: `int / '%'`
-	* `400`
-	* `"50%"`
+	* `400` or `"50%"`
 
 ```
 const foo = new Effect({
