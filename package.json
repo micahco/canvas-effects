@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server",
-    "build": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
+    "build": "babel src --out-dir lib"
   },
   "repository": {
     "type": "git",

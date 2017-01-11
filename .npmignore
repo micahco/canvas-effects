@@ -6,5 +6,5 @@
 /scss
 index.html
 /src
-dev.js
+/dev
 webpack.config.js
