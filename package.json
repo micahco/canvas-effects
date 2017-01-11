@@ -2,7 +2,7 @@
   "name": "CanvasEffects",
   "description": "A Collection of HTML5 Canvas Effects Edit",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server",
     "build": "babel src --out-dir lib"
