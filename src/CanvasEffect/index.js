@@ -39,10 +39,10 @@ export default class CanvasEffect {
 		if (this.isValidDimensions(width, height)) {
 			if (width == '100%' || height == '100%') {
 				if (width == '100%') {
-					width = document.body.clientWidth;
+					width = window.innerWidth;
 				}
 				if (height == '100%') {
-					height = document.body.clientHeight;
+					height = window.innerHeight;
 				}
 				document.body.style.overflowX = 'hidden';
 				window.addEventListener('resize', this.debounce.bind(this));
