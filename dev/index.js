@@ -12,7 +12,7 @@ const foo = new Constellations({
 	},
 	line: {
 		color: [255,0,0,0.1],
-		fade: 1,
+		fade: 0.01,
 		max: 150,
 		width: 4
 	}

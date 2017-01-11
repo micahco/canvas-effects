@@ -1,5 +1,4 @@
 # canvas-effects
-
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
 **BETA:** Expect everything to change.
@@ -7,7 +6,6 @@
 A Javascript library of canvas visualizations.
 
 ## Getting Started
-
 Download and install the latest version from npm:
 
 `npm install --save canvas-effects`
@@ -22,37 +20,38 @@ const foo = new Effect({
 });
 ```
 
-## Parameters
+## Config
+These are global parameters that must be included in the config of every effect.
 
-Whenever you instantiate an effect you need to pass in the following required parameters:
-
-* *container:* `"selector"`
-	* Selector **must** be to a `<div>` element.
-	* `"#bar"` or `"div.bar"`
-* *width:* `int`, `"%"`
-	* `800` or `"100%"`
-* *height:* `int`, `"%"`
-	* `400` or `"50%"`
-
+###### container
+A CSS selector that represents a **\<div\>** element.
 ```
 const foo = new Effect({
-	container: '#bar',
+	container: '#selector'
+});
+```
+
+###### width / height
+Declares the desired width and height of the element.
+```
+const foo = new Effect({
+	width: 500,
+	height: 500
+});
+
+const bar = new Effect({
 	width: '100%',
 	height: 400
-	// ...
 });
 ```
 
 ## Effects
-
 Currently there are **1** total effects in the library with more being built.
 
 ### Constellations
-
 [Demo](http://micahcowell.com/)
 
 Instantiate:
-
 ```
 import { Constellations } from 'canvas-effects';
 
@@ -61,34 +60,43 @@ const foo = new Constellations({
 });
 ```
 
-Config:
+#### Config
+All of the following config options are optional and contain default values.
 
-* *seed:* `int`
-	* Changes amount of points based on canvas area.
-	* Smaller = more points = less performance.
-	* Default: `8000`
-* *point:*
-	* *color:* `"color"`
-		* Default: `"#000000"`
-	* *radius:* `[max,min]`
-		* Default: `[4,2]`
-	* *speed:* `[max,min]`
-		* Default: `[0.2,0.1]`
-* *line:*
-	* *color:* [r,g,b,a]
-		* Default: `[0,0,0,1]`
-	* *fade:* `int`
-		* 1 = no fade
-		* Default: `0.05`
-	* *max:* `int`
-		* Longest distance for a line to appear between points.
-		* Bigger = more lines = less performance.
-		* Default: `100`
-	* *width:* `int`
-		* Default: `1`
+###### seed
+Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in less performance.
+```
+const foo = new Constellations({
+	seed: int // Default: 8000
+});
+```
 
-**Example:**
+###### point
+Changes the properties of the randomly generated points on the canvas which act as vertices for the constellations.
+```
+const foo = new Constellations({
+	point: {				// Defaults:
+		color: String,		// '#000000'
+		radius: [max,min],	// [4, 2]
+		speed: [max,min]	// [0.2, 0.1]
+	}
+});
+```
 
+###### line
+Changes the properties of lines that connect each point. The code generates every line then programmatically decides whether to render it.
+```
+const foo = new Constellations({
+	line: {					// Defaults:
+		color: [r,g,b,a],	// [0, 0, 0, 1]
+		fade: int,			// 0.05
+		max: int,			// 100
+		width: int			// 1
+	}
+});
+```
+
+#### Example
 ```
 import { Constellations } from 'canvas-effects';
 
@@ -104,7 +112,7 @@ const foo = new Constellations({
 	},
 	line: {
 		color: [255,0,0,0.1],
-		fade: 1,
+		fade: 0.01,
 		max: 150,
 		width: 4
 	}
@@ -112,7 +120,6 @@ const foo = new Constellations({
 ```
 
 ## License
-
 Everything is under the [MIT License](https://opensource.org/licenses/MIT).
 
 Copyright (c) 2017 Micah Cowell
