@@ -4,7 +4,7 @@
 
 A Javascript library of canvas visualizations.
 
-# Getting Started
+## Getting Started
 
 Download and install the latest version from npm:
 
@@ -21,7 +21,7 @@ const foo = new Effect({
 ```
 
 
-# Parameters
+## Parameters
 
 Whenever you instantiate an effect you need to pass in the following required parameters:
 
@@ -42,11 +42,11 @@ const foo = new Effect({
 });
 ```
 
-# Effects
+## Effects
 
 Currently there are **1** total effects in the library with more being built.
 
-## Constellations
+### Constellations
 
 Instantiate:
 
@@ -109,7 +109,7 @@ const foo = new Constellations({
 ```
 
 
-# License
+## License
 
 Everything is under the [MIT License](https://opensource.org/licenses/MIT).
 
