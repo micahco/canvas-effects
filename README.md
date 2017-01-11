@@ -49,6 +49,8 @@ Currently there are **1** total effects in the library with more being built.
 
 ### Constellations
 
+[Demo](http://micahcowell.com/)
+
 Instantiate:
 
 ```
@@ -108,7 +110,6 @@ const foo = new Constellations({
 	}
 });
 ```
-
 
 ## License
 
