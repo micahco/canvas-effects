@@ -5,6 +5,6 @@
 *.css.map
 /scss
 index.html
-/lib
+/src
 dev.js
 webpack.config.js
