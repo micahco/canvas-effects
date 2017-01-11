@@ -1,1 +1,1 @@
-# CanvasEffects
+# canvas-effects

@@ -1,6 +1,6 @@
 {
-  "name": "CanvasEffects",
-  "description": "A Collection of HTML5 Canvas Effects Edit",
+  "name": "canvas-effects",
+  "description": "modular canvas visualizations",
   "version": "1.0.0",
   "main": "lib/index.js",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/getmicah/CanvasEffects.git"
+    "url": "git+https://github.com/getmicah/canvas-effects.git"
   },
   "author": "Micah Cowell",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/getmicah/CanvasEffects/issues"
+    "url": "https://github.com/getmicah/canvas-effects/issues"
   },
-  "homepage": "https://github.com/getmicah/CanvasEffects#readme",
+  "homepage": "https://github.com/getmicah/canvas-effects#readme",
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
