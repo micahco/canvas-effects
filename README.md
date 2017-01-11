@@ -1,12 +1,11 @@
 # canvas-effects
+
 **BETA:** Expect everything to change.
 
 A Javascript library of canvas visualizations.
 
-Documentation is under construction.
-
-
 # Getting Started
+
 Download and install the latest version from npm:
 
 `npm install --save canvas-effects`
@@ -23,6 +22,7 @@ const foo = new Effect({
 
 
 # Parameters
+
 Whenever you instantiate an effect you need to pass in the following required parameters:
 
 * container: selector
@@ -46,6 +46,7 @@ const foo = new Effect({
 ```
 
 # Effects
+
 Currently there are **1** total effects in the library with more being built.
 
 ## Constellations
