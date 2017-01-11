@@ -25,16 +25,16 @@ const foo = new Effect({
 
 Whenever you instantiate an effect you need to pass in the following required parameters:
 
-* container: selector
+* container: `"selector"`
 	* Selector **must** be to a <div> element.
-	* `container: '#bar'`
-	* `container: 'div.bar'`
-* width: int / '%'
-	* `width: 800`
-	* `width: '100%'`
-* height: int / '%'
-	* `height: 400`
-	* `height: '50%'`
+	* `"#bar"`
+	* `"div.bar"`
+* width: `int / "%"`
+	* `800`
+	* `"100%"`
+* height: `int / '%'`
+	* `400`
+	* `"50%"`
 
 ```
 const foo = new Effect({
@@ -63,28 +63,28 @@ const foo = new Constellations({
 
 Config:
 
-* seed: int
+* seed: `int`
 	* Changes amount of points based on canvas area.
 	* Smaller = more points = less performance.
 	* Default: `8000`
 * point: {}
-	* color: 'color'
+	* color: `"color"`
 		* Default: `'#000000'`
-	* radius: [max,min]
+	* radius: `[max,min]`
 		* Default: `[4,2]`
-	* speed: [max,min]
+	* speed: `[max,min]`
 		* Default: `[0.2,0.1]`
 * line: {}
 	* color: [r,g,b,a]
 		* Default: `[0,0,0,1]`
-	* fade: int
+	* fade: `int`
 		* 1 = no fade
 		* Default: `0.05`
-	* max: int
+	* max: `int`
 		* Longest distance for a line to appear between points.
 		* Bigger = more lines = less performance.
 		* Default: `100`
-	* width: int
+	* width: `int`
 		* Default: `1`
 
 **Example:**
