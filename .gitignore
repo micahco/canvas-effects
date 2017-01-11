@@ -1,8 +1,0 @@
-.DS_Store
-/node_modules
-/.sass-cache
-*.css
-*.css.map
-/scss
-/lib
-npm-debug.log
