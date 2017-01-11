@@ -1,0 +1,10 @@
+.DS_Store
+/node_modules
+/.sass-cache
+*.css
+*.css.map
+/scss
+index.html
+/src
+/dev
+webpack.config.js
