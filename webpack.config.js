@@ -4,8 +4,8 @@ module.exports = {
 	entry: './dev/index.js',
 	output: {
 		filename: 'bundle.min.js',
-		publicPath: '/build',
-		path: __dirname + '/build'
+		publicPath: '/',
+		path: __dirname
 	},
 	module: {
 		loaders: [
@@ -26,7 +26,9 @@ module.exports = {
 	devServer: {
 		colors: true,
 		inline: true,
-		historyApiFallback: true,
-		port: 8080
+		port: 8080,
+		historyApiFallback: {
+			index: 'dev/index.html'
+		}
 	}
 }
