@@ -17,9 +17,6 @@ export default class CanvasEffect {
 	createCanvas() {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
-		if (this.config.id) {
-			this.canvas.id = this.config.id;
-		}
 		if (this.config.backgroundColor) {
 			this.canvas.style.backgroundColor = this.config.backgroundColor;
 		}

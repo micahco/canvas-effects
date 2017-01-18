@@ -1,19 +1,7 @@
-import Constellations from '../src/Constellations';
+import { Constellations, Test } from '../src';
 
-const foo = new Constellations({
+const foo = new Test({
 	container: '#foo',
 	width: '100%',
-	height: 400,
-	seed: 4000,
-	point: {
-		color: 'rgba(0,0,255,0.5)',
-		radius: [8,4],
-		speed: [0.8,0.4]
-	},
-	line: {
-		color: [255,0,0,0.1],
-		fade: 0.01,
-		max: 150,
-		width: 4
-	}
+	height: '100%'
 });

@@ -1,5 +1,7 @@
 import Constellations from './Constellations';
+import Test from './Test';
 
 export {
-	Constellations
+	Constellations,
+	Test
 }
