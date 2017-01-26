@@ -20,7 +20,7 @@ export default class Line extends Entity {
 			if (config.color && config.color.length == 4 && this.isValidRGBA(config.color)) {
 				this.color = config.color;
 			}
-			this.fade = config.fade < 1 ? config.fade : this.fade;
+			this.fade = config.fade ? config.fade : this.fade;
 			this.max = config.max || this.max;
 			this.width = config.width || this.width;
 		}
