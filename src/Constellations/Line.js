@@ -5,7 +5,7 @@ export default class Line extends Entity {
 		super(ctx);
 		this.alpha = 0;
 		this.color = [0,0,0,1];
-		this.fade = 0.05;
+		this.fade = true;
 		this.max = 100;
 		this.width = 1;
 	}
@@ -33,13 +33,13 @@ export default class Line extends Entity {
 	}
 	render() {
 		if (this.getDistance() < this.max) {
-			if (this.alpha <= this.color[3]) {
-				this.alpha +=  this.fade;
+			if (this.fade) {
+				this.alpha = 1 - (this.getDistance() / this.max);
+			} else {
+				this.alpha = 1;
 			}
 		} else {
-			if (this.alpha > 0) {
-				this.alpha -=  this.fade;
-			}
+			this.alpha = 0;
 		}
 		if (this.alpha > 0) {
 			this.ctx.strokeStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.alpha})`;
