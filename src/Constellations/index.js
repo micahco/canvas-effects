@@ -49,11 +49,11 @@ export default class Constellations extends CanvasEffect {
 	}
 	render() {
 		super.render();
-		for (let j = 0; j < this.lines.length; j++) {
-			this.lines[j].render();
-		}
 		for (let i = 0; i < this.points.length; i++) {
 			this.points[i].render();
+		}
+		for (let j = 0; j < this.lines.length; j++) {
+			this.lines[j].render();
 		}
 	}
 }
