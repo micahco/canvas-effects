@@ -78,7 +78,7 @@ Changes the properties of the randomly generated points on the canvas which act 
 ```
 const foo = new Constellations({
 	point: {				// Defaults:
-		color: String,		// '#000000'
+		color: [r,g,b,a],	// [0, 0, 0, 1]
 		radius: [max,min],	// [4, 2]
 		speed: [max,min]	// [0.2, 0.1]
 	}
@@ -108,7 +108,7 @@ const foo = new Constellations({
 	height: 400,
 	seed: 4000,
 	point: {
-		color: 'rgba(0,0,255,0.5)',
+		color: [0,0,255,0.5],
 		radius: [8,4],
 		speed: [0.8,0.4]
 	},
