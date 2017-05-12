@@ -1,4 +1,5 @@
 import CanvasEffect from '../CanvasEffect';
+import Point from './Point';
 import Triangle from './Triangle';
 import Delaunay from 'faster-delaunay';
 
@@ -22,16 +23,22 @@ export default class Polygonal extends CanvasEffect {
 		let t = d.triangulate();
 		let k = 0;
 		for (let i = 0; i < t.length; i+=3) {
-			this.triangles[k] = new Triangle(this.ctx, t[i], t[i+1], t[i+2]);
+			let p = [];
+			for (let j = i; j <= i + 2; j++) {
+				let point = new Point(t[j]);
+				point.init();
+				p.push(point);
+			}
+			this.triangles[k] = new Triangle(this.ctx, p[0], p[1], p[2]);
 			this.triangles[k].init(this.config.triangle);
 			k++;
 		}
 	}
 	init() {
-		this.complexity = this.getComplexity(this.config.seed || 8000);
+		this.complexity = this.getComplexity(this.config.seed || 12000);
 		this.triangles = [];
 		this.verticies = [];
-		let pad = 50;
+		let pad = 100;
 		let cw = this.canvas.width+pad*2;
 		let ch = this.canvas.height+pad*2;
 		let iy = ch/Math.round(Math.sqrt((ch*this.complexity)/cw));
@@ -50,7 +57,9 @@ export default class Polygonal extends CanvasEffect {
 		super.init();
 	}
 	update() {
-
+		for (let i = 0; i < this.triangles.length; i++) {
+			this.triangles[i].update();
+		}
 	}
 	render() {
 		super.render();
