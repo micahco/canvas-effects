@@ -12,24 +12,16 @@ export default class Triangle extends Entity {
 	getArea() {
 		return Math.abs(0.5*(this.x1*(this.y1-this.y2)+this.x2*(this.y3-this.y1)+this.x3*(this.y1-this.y2)));
 	}
-	hasSpacing() {
-		return Math.abs(this.x1-this.x2)
-	}
-	isValidRGBA(array) {
-		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255 && array[3] <= 1;
+	getRandomArbitrary(max, min) {
+		return Math.random() * (max - min) + min;
 	}
 	init(config) {
-		if (config) {
-			if (config.color && config.color.length == 4 && this.isValidRGBA(config.color)) {
-				this.color = config.color;
-			}
-			this.width = config.width || this.width;
-		}
+		this.a[2] = this.getRandomArbitrary(1,0);
+		this.b[2] = this.getRandomArbitrary(1,0);
+		this.c[2] = this.getRandomArbitrary(1,0);
 	}
-	update(a, b, c) {
-		this.a = a;
-		this.b = b;
-		this.c = c;
+	update() {
+
 	}
 	render() {
 		this.ctx.strokeStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.color[3]})`;

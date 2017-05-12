@@ -1,10 +1,8 @@
-import { Polygonal } from '../src';
+import { Constellations, Polygonal } from '../src';
 
-const foo = new Polygonal({
+const foo = new Constellations({
 	container: '#foo',
 	width: '100%',
 	height: '100%',
-	triangle: {
-		color: [0,0,0,0.8]
-	}
+	seed: 8000
 });

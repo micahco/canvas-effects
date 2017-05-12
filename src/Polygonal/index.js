@@ -7,14 +7,15 @@ export default class Polygonal extends CanvasEffect {
 	constructor(config) {
 		super(config);
 		this.complexity;
-		this.minProximity = 100;
-		this.seed = 8000;
-		this.triangles = [];
-		this.verticies = [];
+		this.triangles;
+		this.verticies;
 		this.init();
 	}
 	getComplexity(seed) {
-		return this.canvas.width * this.canvas.height / seed;
+		return Math.round(this.canvas.width * this.canvas.height / seed);
+	}
+	getRandomArbitrary(max, min) {
+		return Math.random() * (max - min) + min;
 	}
 	triangulation(v) {
 		let d = new Delaunay(v);
@@ -26,31 +27,25 @@ export default class Polygonal extends CanvasEffect {
 			k++;
 		}
 	}
-	hasSpacing(x, y) {
-		for (let i = 0; i < this.verticies.length; i++) {
-			var a = x - this.verticies[i][0];
-			var b = y - this.verticies[i][1];
-			var c = Math.sqrt( a*a + b*b );
-			if (c < this.minProximity) {
-				console.log('too close');
-				return false;
+	init() {
+		this.complexity = this.getComplexity(this.config.seed || 8000);
+		this.triangles = [];
+		this.verticies = [];
+		let pad = 50;
+		let cw = this.canvas.width+pad*2;
+		let ch = this.canvas.height+pad*2;
+		let iy = ch/Math.round(Math.sqrt((ch*this.complexity)/cw));
+		let ix = cw/Math.round(this.complexity/Math.sqrt((ch*this.complexity)/cw));
+		let k = 0;
+		for (let y = -pad; y < this.canvas.height+pad; y+=iy) {
+			for (let x = -pad; x < this.canvas.width+pad; x+=ix) {
+				this.verticies[k] = [
+					this.getRandomArbitrary(x,x+ix),
+					this.getRandomArbitrary(y,y+iy),
+				];
+				k++;
 			}
 		}
-		return true;
-	}
-	init() {
-		this.complexity = this.getComplexity(this.config.seed || this.seed);
-		let i = 0;
-		do {
-			let x = Math.random() * this.canvas.width;
-			let y = Math.random() * this.canvas.height;
-			if (this.hasSpacing(x, y)) {
-				let x = Math.random() * this.canvas.width;
-				let y = Math.random() * this.canvas.height;
-				this.verticies[i] = [x,y];
-				i++;
-			}
-		} while (i < this.complexity);
 		this.triangulation(this.verticies);
 		super.init();
 	}
