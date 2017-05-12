@@ -10,7 +10,7 @@ export default class Line extends Entity {
 		this.width = 1;
 	}
 	getDistance() {
-		return Math.sqrt((this.x1-this.x2)*(this.x1-this.x2) + (this.y1-this.y2)*(this.y1-this.y2));
+		return Math.sqrt((this.a[0]-this.b[0])*(this.a[0]-this.b[0]) + (this.a[1]-this.b[1])*(this.a[1]-this.b[1]));
 	}
 	isValidRGBA(array) {
 		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255 && array[3] <= 1;
@@ -25,11 +25,9 @@ export default class Line extends Entity {
 			this.width = config.width || this.width;
 		}
 	}
-	update(x1, y1, x2, y2) {
-		this.x1 = x1;
-		this.x2 = x2;
-		this.y1 = y1;
-		this.y2 = y2;
+	update(a, b) {
+		this.a = a;
+		this.b = b;
 	}
 	render() {
 		if (this.getDistance() < this.max) {
@@ -45,8 +43,8 @@ export default class Line extends Entity {
 			this.ctx.strokeStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.alpha})`;
 			this.ctx.lineWidth = this.width;
 			this.ctx.beginPath();
-			this.ctx.moveTo(this.x1, this.y1);
-			this.ctx.lineTo(this.x2, this.y2);
+			this.ctx.moveTo(this.a[0], this.a[1]);
+			this.ctx.lineTo(this.b[0], this.b[1]);
 			this.ctx.stroke();
 		}
 	}

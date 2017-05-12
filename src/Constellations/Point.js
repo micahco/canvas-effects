@@ -1,10 +1,9 @@
 import Entity from '../CanvasEffect/Entity';
 
 export default class Point extends Entity {
-	constructor(ctx, x, y) {
+	constructor(ctx, pos) {
 		super(ctx);
-		this.x = x;
-		this.y = y;
+		this.pos = pos;
 		this.color = [0,0,0,1];
 		this.radius = this.getRandomArbitrary(4, 2);
 		this.speed = this.getRandomArbitrary(0.2, 0.1);
@@ -33,19 +32,19 @@ export default class Point extends Entity {
 		}
 	}
 	update() {
-		if (this.x <= 0 + this.radius || this.x >= this.cw - this.radius) {
+		if (this.pos[0] <= 0 + this.radius || this.pos[0] >= this.cw - this.radius) {
 			this.theta = Math.PI - this.theta;
 		}
-		if (this.y <= 0 + this.radius || this.y >= this.ch - this.radius) {
+		if (this.pos[1] <= 0 + this.radius || this.pos[1] >= this.ch - this.radius) {
 			this.theta = 2*Math.PI - this.theta;
 		}
-		this.x += Math.cos(this.theta) * this.speed;
-		this.y += Math.sin(this.theta) * this.speed;
+		this.pos[0] += Math.cos(this.theta) * this.speed;
+		this.pos[1] += Math.sin(this.theta) * this.speed;
 	}
 	render() {
 		this.ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.color[3]})`;
 		this.ctx.beginPath();
-		this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+		this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
 		this.ctx.fill();
 	}
 }
