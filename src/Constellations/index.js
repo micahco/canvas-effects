@@ -11,7 +11,7 @@ export default class Constellations extends CanvasEffect {
 		this.init();
 	}
 	getComplexity(seed) {
-		return this.canvas.width * this.canvas.height / seed;
+		return Math.round(this.canvas.width * this.canvas.height / seed);
 	}
 	init() {
 		this.complexity = this.getComplexity(this.config.seed || 8000);
