@@ -4,7 +4,7 @@ import Triangle from './Triangle';
 import Delaunay from 'faster-delaunay';
 
 
-export default class Polygonal extends CanvasEffect {
+export default class Mosaic extends CanvasEffect {
 	constructor(config) {
 		super(config);
 		this.complexity;
