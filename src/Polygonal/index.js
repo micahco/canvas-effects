@@ -15,17 +15,54 @@ export default class Polygonal extends CanvasEffect {
 	getRandomArbitrary(max, min) {
 		return Math.random() * (max - min) + min;
 	}
+	triangleHasPeak(v, i) {
+		let a;
+		let b;
+		switch (i%3) {
+			case 1:
+				a = i - 1;
+				b = i + 1;
+				break;
+			case 2:
+				a = i - 2;
+				b = i - 1;
+				break;
+			default:
+				a = i + 1;
+				b = i + 2;
+		}
+		if (v[a][2] || v[b][2]) {
+			return true;
+		}
+		return false;
+	}
 	elevate(v) {
 		for (let i = 0; i < v.length; i++) {
-			let z = this.getRandomArbitrary(1,0);
 			if (!v[i][2]) {
-				for (let j = i+1; j < v.length; j++) {
-					if (v[i] == v[j]) {
-						v[j][2] = z;
+				let hasAdjacentPeak = false;
+				let j = i;
+				do {
+					if (v[j] == v[i] && this.triangleHasPeak(v, j)) {
+						hasAdjacentPeak = true;
+					}
+					j++;
+				} while (j < v.length && !hasAdjacentPeak);
+				for (let k = i; k < v.length; k++) {
+					if (v[k] == v[i]) {
+						if (!hasAdjacentPeak) {
+							v[k][2] = 1;
+						} else {
+							v[k][2] = 0;
+						}
 					}
 				}
-				v[i][2] = z;
+				if (!hasAdjacentPeak) {
+					v[i][2] = 1;
+				} else {
+					v[i][2] = 0;
+				}
 			}
+			console.log(v[i][2]);
 		}
 		return v;
 	}
