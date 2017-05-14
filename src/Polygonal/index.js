@@ -1,15 +1,12 @@
 import CanvasEffect from '../CanvasEffect';
-import Point from './Point';
 import Triangle from './Triangle';
 import Delaunay from 'faster-delaunay';
 
-
-export default class Mosaic extends CanvasEffect {
+export default class Polygonal extends CanvasEffect {
 	constructor(config) {
 		super(config);
 		this.complexity;
 		this.triangles;
-		this.verticies;
 		this.init();
 	}
 	getComplexity(seed) {
@@ -18,18 +15,27 @@ export default class Mosaic extends CanvasEffect {
 	getRandomArbitrary(max, min) {
 		return Math.random() * (max - min) + min;
 	}
-	triangulation(v) {
-		let d = new Delaunay(v);
+	elevate(v) {
+		for (let i = 0; i < v.length; i++) {
+			let z = this.getRandomArbitrary(1,0);
+			if (!v[i][2]) {
+				for (let j = i+1; j < v.length; j++) {
+					if (v[i] == v[j]) {
+						v[j][2] = z;
+					}
+				}
+				v[i][2] = z;
+			}
+		}
+		return v;
+	}
+	triangulate(p) {
+		let d = new Delaunay(p);
 		let t = d.triangulate();
+		let v = this.elevate(t);
 		let k = 0;
 		for (let i = 0; i < t.length; i+=3) {
-			let p = [];
-			for (let j = i; j <= i + 2; j++) {
-				let point = new Point(t[j]);
-				point.init();
-				p.push(point);
-			}
-			this.triangles[k] = new Triangle(this.ctx, p[0], p[1], p[2]);
+			this.triangles[k] = new Triangle(this.ctx, v[i], v[i+1], v[i+2]);
 			this.triangles[k].init(this.config.triangle);
 			k++;
 		}
@@ -37,8 +43,8 @@ export default class Mosaic extends CanvasEffect {
 	init() {
 		this.complexity = this.getComplexity(this.config.seed || 12000);
 		this.triangles = [];
-		this.verticies = [];
-		let pad = 100;
+		let points = [];
+		let pad = 200;
 		let cw = this.canvas.width+pad*2;
 		let ch = this.canvas.height+pad*2;
 		let iy = ch/Math.round(Math.sqrt((ch*this.complexity)/cw));
@@ -46,14 +52,14 @@ export default class Mosaic extends CanvasEffect {
 		let k = 0;
 		for (let y = -pad; y < this.canvas.height+pad; y+=iy) {
 			for (let x = -pad; x < this.canvas.width+pad; x+=ix) {
-				this.verticies[k] = [
+				points[k] = [
 					this.getRandomArbitrary(x,x+ix),
 					this.getRandomArbitrary(y,y+iy),
 				];
 				k++;
 			}
 		}
-		this.triangulation(this.verticies);
+		this.triangulate(points);
 		super.init();
 	}
 	update() {
@@ -63,8 +69,8 @@ export default class Mosaic extends CanvasEffect {
 	}
 	render() {
 		super.render();
-		for (let j = 0; j < this.triangles.length; j++) {
-			this.triangles[j].render();
+		for (let i = 0; i < this.triangles.length; i++) {
+			this.triangles[i].render();
 		}
 	}
 }

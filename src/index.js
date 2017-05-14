@@ -1,7 +1,7 @@
 import Constellations from './Constellations';
-import Mosaic from './Mosaic';
+import Polygonal from './Polygonal';
 
 export {
 	Constellations,
-	Mosaic
+	Polygonal
 }
