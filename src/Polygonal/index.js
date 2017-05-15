@@ -5,10 +5,10 @@ import Delaunay from 'faster-delaunay';
 export default class Polygonal extends CanvasEffect {
 	constructor(config) {
 		super(config);
-		this.color = '#FFFFFF'
 		this.complexity;
 		this.debug = false;
-		this.light = [1, 1];
+		this.light = [-10,10];
+		this.lightOG;
 		this.mouse = true;
 		this.triangles;
 		this.init();
@@ -29,8 +29,8 @@ export default class Polygonal extends CanvasEffect {
 	onMouseMove(e) {
 		var pos = this.getMousePosition(e);
 		this.light = [
-			(pos[0] - this.canvas.width/2)/this.canvas.width*100,
-			(-(pos[1] - this.canvas.height/2))/this.canvas.height*100
+			(pos[0] - this.canvas.width/2)/this.canvas.width*10*Math.abs(this.lightOG[0]),
+			(-(pos[1] - this.canvas.height/2))/this.canvas.height*10*Math.abs(this.lightOG[1])
 		];
 	}
 	elevate(v) {
@@ -55,16 +55,16 @@ export default class Polygonal extends CanvasEffect {
 		let k = 0;
 		for (let i = 0; i < v.length; i+=3) {
 			this.triangles[k] = new Triangle(this.ctx, this.light, v[i], v[i+1], v[i+2]);
-			this.triangles[k].init(this.config.triangle);
+			this.triangles[k].init(this.config);
 			k++;
 		}
 	}
 	init() {
 		this.complexity = this.getComplexity(this.config.seed || 4000);
-		this.color = this.config.color ? this.config.color : this.color;
 		if (this.config.light && this.config.light.length == 2) {
 			this.light = this.config.light;
 		}
+		this.lightOG = this.light;
 		this.mouse = this.config.mouse ? this.config.mouse : this.mouse;
 		this.triangles = [];
 		let points = [];
@@ -94,8 +94,6 @@ export default class Polygonal extends CanvasEffect {
 	}
 	render() {
 		super.render();
-		this.ctx.fillStyle = this.color;
-		this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 		for (let i = 0; i < this.triangles.length; i++) {
 			this.triangles[i].render();
 		}

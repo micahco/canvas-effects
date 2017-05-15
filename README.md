@@ -112,7 +112,7 @@ import { Constellations } from 'canvas-effects';
 const foo = new Constellations({
 	container: '#bar',
 	width: '100%',
-	height: 400,
+	height: '100%',
 	seed: 4000,
 	point: {
 		color: [0,0,255,0.5],
@@ -154,23 +154,40 @@ const foo = new Polygonal({
 
 #### color
 
-This will set the base color of the canvas which will lie below the polygons. The value can be any valid html color.
+This will set the base color of the polygons.
 
 ```
 const foo = new Polygonal({
-	color: String // Default: "#FFFFFF"
+	color: [r,g,b,a] // Default: [0,0,0,1]
 });
 ```
 
-#### triangle
+#### debug
 
-Changes the properties of the randomly generated triangles.
+Allows developer to view the height (z value) of each vertex.
 
 ```
 const foo = new Polygonal({
-	triangle: {			// Defaults:
-		color: [r,g,b]	// [0,0,0]
-	}
+	debug: boolean // Default: false
+});
+```
+
+#### light
+
+Changes the starting location of the light source. The further the source is the less the light will affect the polygons.
+
+```
+const foo = new Polygonal({
+	light: [x,y] // Default: [-10,10]
+});
+```
+
+#### mouse
+
+Allow the mouse to change the position of the light source.
+```
+const foo = new Polygonal({
+	mouse: boolean // Default: true
 });
 ```
 
@@ -182,26 +199,14 @@ import { Polygonal } from 'canvas-effects';
 const foo = new Polygonal({
 	container: '#bar',
 	width: '100%',
-	height: 400,
+	height: '100%',
 	seed: 6000,
-	color: 'lightblue',
-	triangle: {
-		color: [0,0,255]
-	}
+	color: [0,0,255,0.8],
+	debug: false,
+	light: [16,-12],
+	mouse: true
 });
 ```
-
-
-
-
-
-
-
-# License
-
-Everything is under the [MIT License](https://opensource.org/licenses/MIT).
-
-Copyright (c) 2017 Micah Cowell
 
 
 
@@ -214,3 +219,16 @@ Copyright (c) 2017 Micah Cowell
 # Credits
 
 Math Formulas: [@danthecodingman](https://github.com/danthecodingman)
+
+
+
+
+
+
+
+
+# License
+
+Everything is under the [MIT License](https://opensource.org/licenses/MIT).
+
+Copyright (c) 2017 Micah Cowell

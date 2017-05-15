@@ -3,10 +3,10 @@ import { Constellations, Polygonal } from '../src';
 const foo = new Polygonal({
 	container: '#foo',
 	width: '100%',
-	height: 400,
+	height: '100%',
 	seed: 6000,
-	color: 'lightblue',
-	triangle: {
-		color: [0,0,255]
-	}
+	color: [0,0,255,0.8],
+	debug: false,
+	light: [16,-12],
+	mouse: true
 });

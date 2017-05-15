@@ -9,6 +9,7 @@ export default class Triangle extends Entity {
 		this.alpha;
 		this.color = [0,0,0];
 		this.light = light;
+		this.maxAlpha = 1;
 		this.normal;
 	}
 	getCrossProduct(u, v) {
@@ -29,8 +30,8 @@ export default class Triangle extends Entity {
 			(this.a[1]+this.b[1]+this.c[1])/3
 		];
 	}
-	isValidRGB(array) {
-		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255;
+	isValidRGBA(array) {
+		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255 && array[3] <= 1;
 	}
 	setAlpha() {
 		// credit: @danthecodingman
@@ -38,13 +39,12 @@ export default class Triangle extends Entity {
 			(this.b[1]-this.a[1])*(this.c[2]-this.a[2])-(this.b[2]-this.a[2])*(this.c[1]-this.a[1]),
 			(this.b[0]-this.a[0])*(this.c[2]-this.a[2])-(this.b[2]-this.a[2])*(this.c[0]-this.a[0])
 		];
-		this.alpha = this.getDistance(this.light, this.normal) / 200;
+		this.alpha = this.getDistance(this.light, this.normal) / 200 * this.maxAlpha;
 	}
 	init(config) {
-		if (config) {
-			if (config.color && this.isValidRGB(config.color)) {
-				this.color = config.color;
-			}
+		if (config.color && this.isValidRGBA(config.color)) {
+			this.color = config.color.slice(0,3);
+			this.maxAlpha = config.color[3];
 		}
 		this.setAlpha();
 	}
