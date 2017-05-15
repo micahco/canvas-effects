@@ -1,35 +1,59 @@
 import Entity from '../CanvasEffect/Entity';
 
 export default class Triangle extends Entity {
-	constructor(ctx, complexity, a, b, c) {
+	constructor(ctx, light, a, b, c) {
 		super(ctx);
 		this.a = a;
 		this.b = b;
 		this.c = c;
 		this.alpha;
 		this.color = [0,0,0];
-		this.light = [-1, 1];
+		this.light = light;
+		this.normal;
+	}
+	getCrossProduct(u, v) {
+		return [
+			u[1]*v[2]-u[2]*v[1],
+			u[2]*v[0]-u[0]*v[2],
+			u[0]*v[1]-u[1]*v[0]
+		];
 	}
 	getDistance(u, v) {
 		let a = u[0]-v[0];
 		let b = u[1]-v[1];
 		return Math.sqrt(a*a+b*b);
 	}
-	setColor() {
-		// credit: @danthecodingman
-		let normal = [
-			(this.b[1]-this.a[1])*(this.c[2]-this.a[2])-(this.b[2]-this.a[2])*(this.c[1]-this.a[1]),
-			-((this.b[0]-this.a[0])*(this.c[2]-this.a[2])-((this.b[2]-this.a[2])*(this.c[0]-this.a[0])))
+	getCenteroid() {
+		return [
+			(this.a[0]+this.b[0]+this.c[0])/3,
+			(this.a[1]+this.b[1]+this.c[1])/3
 		];
-		this.alpha = this.getDistance(normal, this.light) / 300;
+	}
+	isValidRGB(array) {
+		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255;
+	}
+	setAlpha() {
+		// credit: @danthecodingman
+		this.normal = [
+			(this.b[1]-this.a[1])*(this.c[2]-this.a[2])-(this.b[2]-this.a[2])*(this.c[1]-this.a[1]),
+			(this.b[0]-this.a[0])*(this.c[2]-this.a[2])-(this.b[2]-this.a[2])*(this.c[0]-this.a[0])
+		];
+		this.alpha = this.getDistance(this.light, this.normal) / 200;
 	}
 	init(config) {
-		this.setColor();
+		if (config) {
+			if (config.color && this.isValidRGB(config.color)) {
+				this.color = config.color;
+			}
+		}
+		this.setAlpha();
 	}
-	update() {}
+	update(light) {
+		this.light = light;
+		this.setAlpha();
+	}
 	render() {
 		this.ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.alpha})`;
-		this.ctx.lineWidth = 1;
 		this.ctx.beginPath();
 		this.ctx.moveTo(this.a[0], this.a[1]);
 		this.ctx.lineTo(this.b[0], this.b[1]);
