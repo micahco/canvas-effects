@@ -53,16 +53,13 @@ const bar = new Effect({
 
 
 
----
+
 
 
 
 
 # Constellations
 
-[Demo](http://micahcowell.com/)
-
-Instantiate:
 ```
 import { Constellations } from 'canvas-effects';
 
@@ -71,13 +68,9 @@ const foo = new Constellations({
 });
 ```
 
-## Config
-
-All of the following config options are optional and contain default values.
-
 #### seed
 
-Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in less performance.
+Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in worse performance.
 ```
 const foo = new Constellations({
 	seed: int // Default: 8000
@@ -111,7 +104,7 @@ const foo = new Constellations({
 });
 ```
 
-## Example
+### Example
 
 ```
 import { Constellations } from 'canvas-effects';
@@ -137,16 +130,69 @@ const foo = new Constellations({
 
 
 
----
 
 
 
 # Polygonal
 
+```
+import { Polygonal } from 'canvas-effects';
+
+const foo = new Polygonal({
+	// ...
+});
+```
+
+#### seed
+
+Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in worse performance.
+```
+const foo = new Polygonal({
+	seed: int // Default: 8000
+});
+```
+
+#### color
+
+This will set the base color of the canvas which will lie below the polygons. The value can be any valid html color.
+
+```
+const foo = new Polygonal({
+	color: String // Default: "#FFFFFF"
+});
+```
+
+#### triangle
+
+Changes the properties of the randomly generated triangles.
+
+```
+const foo = new Polygonal({
+	triangle: {			// Defaults:
+		color: [r,g,b]	// [0,0,0]
+	}
+});
+```
+
+### Example
+
+```
+import { Polygonal } from 'canvas-effects';
+
+const foo = new Polygonal({
+	container: '#bar',
+	width: '100%',
+	height: 400,
+	seed: 6000,
+	color: 'lightblue',
+	triangle: {
+		color: [0,0,255]
+	}
+});
+```
 
 
 
----
 
 
 
@@ -160,7 +206,7 @@ Copyright (c) 2017 Micah Cowell
 
 
 
----
+
 
 
 

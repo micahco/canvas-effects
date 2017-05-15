@@ -5,7 +5,7 @@ import Delaunay from 'faster-delaunay';
 export default class Polygonal extends CanvasEffect {
 	constructor(config) {
 		super(config);
-		this.color = 'white'
+		this.color = '#FFFFFF'
 		this.complexity;
 		this.debug = false;
 		this.light = [1, 1];
@@ -32,7 +32,6 @@ export default class Polygonal extends CanvasEffect {
 			(pos[0] - this.canvas.width/2)/this.canvas.width*100,
 			(-(pos[1] - this.canvas.height/2))/this.canvas.height*100
 		];
-		console.log(this.light);
 	}
 	elevate(v) {
 		for (let i = 0; i < v.length; i++) {
