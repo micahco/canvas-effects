@@ -146,15 +146,14 @@ const foo = new Polygonal({
 #### seed
 
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in worse performance.
-```
-const foo = new Polygonal({
-	seed: int // Default: 8000
-});
-```
+
+`seed: <int> // Default: 8000`
 
 #### color
 
 This will set the base color of the polygons.
+
+`color: <array> // Default: [0,0,0,1]`
 
 ```
 const foo = new Polygonal({

@@ -10,6 +10,7 @@ export default class Polygonal extends CanvasEffect {
 		this.light = [-10,10];
 		this.lightOG;
 		this.mouse = true;
+		this.seed = 6000;
 		this.triangles;
 		this.init();
 	}
@@ -51,7 +52,7 @@ export default class Polygonal extends CanvasEffect {
 		let d = new Delaunay(p);
 		let t = d.triangulate();
 		let v = this.elevate(t);
-		this.v = v;
+		this.vertices = v;
 		let k = 0;
 		for (let i = 0; i < v.length; i+=3) {
 			this.triangles[k] = new Triangle(this.ctx, this.light, v[i], v[i+1], v[i+2]);
@@ -59,15 +60,8 @@ export default class Polygonal extends CanvasEffect {
 			k++;
 		}
 	}
-	init() {
-		this.complexity = this.getComplexity(this.config.seed || 4000);
-		if (this.config.light && this.config.light.length == 2) {
-			this.light = this.config.light;
-		}
-		this.lightOG = this.light;
-		this.mouse = this.config.mouse ? this.config.mouse : this.mouse;
-		this.triangles = [];
-		let points = [];
+	generate() {
+		let p = [];
 		let pad = 200;
 		let cw = this.canvas.width+pad*2;
 		let ch = this.canvas.height+pad*2;
@@ -76,14 +70,26 @@ export default class Polygonal extends CanvasEffect {
 		let k = 0;
 		for (let y = -pad; y < this.canvas.height+pad; y+=iy) {
 			for (let x = -pad; x < this.canvas.width+pad; x+=ix) {
-				points[k] = [
+				p[k] = [
 					this.getRandomArbitrary(x,x+ix),
 					this.getRandomArbitrary(y,y+iy),
 				];
 				k++;
 			}
 		}
-		this.triangulate(points);
+		this.triangulate(p);
+	}
+	init() {
+		this.color = this.config.color ? this.config.color : this.color;
+		this.complexity = this.getComplexity(this.config.seed || this.seed);
+		this.debug = this.config.debug ? this.config.debug : this.debug;
+		if (this.config.light && this.config.light.length == 2) {
+			this.light = this.config.light;
+		}
+		this.lightOG = this.light;
+		this.mouse = this.config.mouse ? this.config.mouse : this.mouse;
+		this.triangles = [];
+		this.generate()
 		this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this), false);
 		super.init();
 	}
@@ -98,9 +104,10 @@ export default class Polygonal extends CanvasEffect {
 			this.triangles[i].render();
 		}
 		if (this.debug) {
-			for (let j = 0; j < this.v.length; j++) {
+			for (let j = 0; j < this.vertices.length; j++) {
 				this.ctx.font = "10px monospace";
-				this.ctx.fillText(`${parseFloat(this.v[j][2]).toFixed(2)}`, this.v[j][0], this.v[j][1]);
+				this.ctx.fillStyle = 'red';
+				this.ctx.fillText(`${parseFloat(this.vertices[j][2]).toFixed(2)}`, this.vertices[j][0], this.vertices[j][1]);
 			}
 		}
 	}

@@ -27,6 +27,7 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "color": "^1.0.3",
     "faster-delaunay": "^1.0.0",
     "ismobilejs": "^0.4.1"
   }
