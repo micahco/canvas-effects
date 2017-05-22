@@ -23,8 +23,8 @@ export default class Polygonal extends CanvasEffect {
 	getMousePosition(e) {
 		let rect = this.canvas.getBoundingClientRect();
 	    return [
-	    	e.clientX - rect.left,
-	    	e.clientY - rect.top
+	    	e.clientX - rect.right/2,
+	    	e.clientY - rect.bottom/2
 	    ];
 	}
 	onMouseMove(e) {
@@ -90,7 +90,7 @@ export default class Polygonal extends CanvasEffect {
 		this.mouse = this.config.mouse ? this.config.mouse : this.mouse;
 		this.triangles = [];
 		this.generate()
-		this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this), false);
+		addEventListener('mousemove', this.onMouseMove.bind(this), false);
 		super.init();
 	}
 	update() {

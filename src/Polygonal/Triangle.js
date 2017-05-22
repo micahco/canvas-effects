@@ -14,13 +14,16 @@ export default class Triangle extends Entity {
 		this.maxShade = 0.5;
 		this.normal;
 	}
+	getCenteroid() {
+		return [
+			(this.a[0]+this.b[0]+this.c[0])/3,
+			(this.a[1]+this.b[1]+this.c[1])/3
+		];
+	}
 	getDistance(u, v) {
 		let a = u[0]-v[0];
 		let b = u[1]-v[1];
 		return Math.sqrt(a*a+b*b);
-	}
-	isValidRGBA(array) {
-		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255 && array[3] <= 1;
 	}
 	colorize() {
 		// credit: @danthecodingman
@@ -47,12 +50,10 @@ export default class Triangle extends Entity {
 	render() {
 		this.ctx.fillStyle = this.color;
 		this.ctx.strokeStyle = this.color;
-		this.ctx.lineWidth = 2;
 		this.ctx.beginPath();
 		this.ctx.moveTo(this.a[0], this.a[1]);
 		this.ctx.lineTo(this.b[0], this.b[1]);
 		this.ctx.lineTo(this.c[0], this.c[1]);
 		this.ctx.fill();
-		this.ctx.stroke();
 	}
 }

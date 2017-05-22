@@ -4,6 +4,6 @@ const foo = new Polygonal({
 	container: '#foo',
 	width: '100%',
 	height: '100%',
-	color: [52, 46, 55],
+	color: 'cyan',
 	debug: false
 });
