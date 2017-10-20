@@ -9,15 +9,6 @@ export default class Point extends Entity {
 		this.speed = this.getRandomArbitrary(0.2, 0.1);
 		this.theta = this.getRandomTheta();
 	}
-	getRandomArbitrary(max, min) {
-		return Math.random() * (max - min) + min;
-	}
-	getRandomTheta() {
-		return Math.random() * 2 * Math.PI;
-	}
-	isValidRGBA(array) {
-		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255 && array[3] <= 1;
-	}
 	init(config) {
 		if (config) {
 			if (config.color && config.color.length == 4 && this.isValidRGBA(config.color)) {
@@ -46,5 +37,14 @@ export default class Point extends Entity {
 		this.ctx.beginPath();
 		this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
 		this.ctx.fill();
+	}
+	getRandomArbitrary(max, min) {
+		return Math.random() * (max - min) + min;
+	}
+	getRandomTheta() {
+		return Math.random() * 2 * Math.PI;
+	}
+	isValidRGBA(array) {
+		return array[0] <= 255 && array[1] <= 255 && array[2] <= 255 && array[3] <= 1;
 	}
 }

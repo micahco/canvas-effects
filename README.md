@@ -70,9 +70,9 @@ const foo = new Constellations({
 
 #### seed
 
-Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in worse performance.
+Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
 
-`seed: <int> // Default: 8000`
+`seed: <Number> // Default: 8000`
 
 #### point
 
@@ -82,19 +82,19 @@ The point property is an object that allows the user to configure the vertices.
 
 Sets the color (r, g, b, a) of the vertice.
 
-`color: <int>[4] // Default: [0, 0, 0, 1]`
+`color: <Number>[4] // Default: [0, 0, 0, 1]`
 
 **radius**
 
 Sets the range (max, min) of the size of the vertices.
 
-`radius: <int>[2] // Default: [4, 2]`
+`radius: <Number>[2] // Default: [4, 2]`
 
 **speed**
 
 Sets the range (max, min) of the speed at which the vertices travel.
 
-`speed: <int>[2] // Default: [0.2, 0.1]`
+`speed: <Number>[2] // Default: [0.2, 0.1]`
 
 #### line
 
@@ -104,26 +104,26 @@ The line property is an object that allows the user to configure the lines conne
 
 Sets the color (r, g, b, a) of the line.
 
-`color: <int>[4] // Default: [0, 0, 0, 1]`
+`color: <Number>[4] // Default: [0, 0, 0, 1]`
 
 **fade**
 
-Sets the speed at which the lines fade away once reaching the *max* length.
+If true, the lines will slowly disappear as the become larger.
 
-`fade: <int> // Default: 0.05`
+`fade: <Boolean> // Default: true`
 
 
 **max**
 
 Sets the maximum length at which the line fades away and is no longer rendered.
 
-`max: <int> // Default: 100`
+`max: <Number> // Default: 100`
 
 **width**
 
 Sets the width of the line.
 
-`width: <int> // Default: 1`
+`width: <Number> // Default: 1`
 
 ### Example
 
@@ -166,23 +166,23 @@ const foo = new Polygonal({
 
 **seed**
 
-Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in worse performance.
+Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
 
-`seed: <int> // Default: 8000`
+`seed: <Number> // Default: 8000`
 
 **color**
 
 This will set the base color (r, g, b, a) of the polygons.
 
-NOTE: It is recommended that you use semi-transparent color values (a < 1);
+It is recommended that you use semi-transparent color values (a < 1);
 
-`color: <int>[4] // Default: [255, 255, 255, 0.5]`
+`color: <Number>[4] // Default: [255, 255, 255, 0.5]`
 
 **debug**
 
 Allows developer to view the height (z value) of each vertex.
 
-`debug: <boolean> // Default: false`
+`debug: <Boolean> // Default: false`
 
 **light**
 
@@ -190,7 +190,7 @@ Changes the starting location of the light source and overall distance from the 
 
 The further away the light source is, the less affect it will have on the polygons.
 
-`light: <int>[2] // Default: [-10,10]`
+`light: <Number>[2] // Default: [-10,10]`
 
 ### Example
 

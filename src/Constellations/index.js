@@ -11,23 +11,6 @@ export default class Constellations extends CanvasEffect {
 		this.seed = 8000;
 		this.init();
 	}
-	getComplexity(seed) {
-		return Math.round(this.canvas.width * this.canvas.height / seed);
-	}
-	generate() {
-		let k = 0;
-		for (let i = 0; i < this.complexity; i++) {
-			let x = Math.random() * this.canvas.width;
-			let y = Math.random() * this.canvas.height;
-			this.points[i] = new Point(this.ctx, [x,y]);
-			this.points[i].init(this.config.point);
-			for (let j = i+1; j < this.complexity; j++) {
-				this.lines[k] = new Line(this.ctx);
-				this.lines[k].init(this.config.line);
-				k++;
-			}
-		}
-	}
 	init() {
 		this.complexity = this.getComplexity(this.config.seed || this.seed);
 		this.lines = [];
@@ -58,6 +41,23 @@ export default class Constellations extends CanvasEffect {
 		}
 		for (let j = 0; j < this.lines.length; j++) {
 			this.lines[j].render();
+		}
+	}
+	getComplexity(seed) {
+		return Math.round(this.canvas.width * this.canvas.height / seed);
+	}
+	generate() {
+		let k = 0;
+		for (let i = 0; i < this.complexity; i++) {
+			let x = Math.random() * this.canvas.width;
+			let y = Math.random() * this.canvas.height;
+			this.points[i] = new Point(this.ctx, [x,y]);
+			this.points[i].init(this.config.point);
+			for (let j = i+1; j < this.complexity; j++) {
+				this.lines[k] = new Line(this.ctx);
+				this.lines[k].init(this.config.line);
+				k++;
+			}
 		}
 	}
 }

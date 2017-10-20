@@ -14,6 +14,24 @@ export default class Triangle extends Entity {
 		this.maxShade = 0.5;
 		this.normal;
 	}
+	init(config) {
+		this.base = config.color ? Color(config.color) : Color(this.base);
+		this.maxShade = config.maxShade ? config.maxShade : this.maxShade;
+		this.colorize();
+	}
+	update(light) {
+		this.light = light;
+		this.colorize();
+	}
+	render() {
+		this.ctx.fillStyle = this.color;
+		this.ctx.strokeStyle = this.color;
+		this.ctx.beginPath();
+		this.ctx.moveTo(this.a[0], this.a[1]);
+		this.ctx.lineTo(this.b[0], this.b[1]);
+		this.ctx.lineTo(this.c[0], this.c[1]);
+		this.ctx.fill();
+	}
 	getCenteroid() {
 		return [
 			(this.a[0]+this.b[0]+this.c[0])/3,
@@ -37,23 +55,5 @@ export default class Triangle extends Entity {
 		} else {
 			this.color = this.base.lighten(shade).string();
 		}
-	}
-	init(config) {
-		this.base = config.color ? Color(config.color) : Color(this.base);
-		this.maxShade = config.maxShade ? config.maxShade : this.maxShade;
-		this.colorize();
-	}
-	update(light) {
-		this.light = light;
-		this.colorize();
-	}
-	render() {
-		this.ctx.fillStyle = this.color;
-		this.ctx.strokeStyle = this.color;
-		this.ctx.beginPath();
-		this.ctx.moveTo(this.a[0], this.a[1]);
-		this.ctx.lineTo(this.b[0], this.b[1]);
-		this.ctx.lineTo(this.c[0], this.c[1]);
-		this.ctx.fill();
 	}
 }

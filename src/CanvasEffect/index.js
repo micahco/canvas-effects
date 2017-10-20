@@ -15,6 +15,20 @@ export default class CanvasEffect {
 		this.createCanvas();
 		this.setCanvasSize();
 	}
+	init() {
+		if (!this.requestId) {
+			this.main();
+		}
+	}
+	main() {
+		this.requestId = requestAnimFrame(this.main.bind(this));
+		this.update();
+		this.render();
+	}
+	update() {}
+	render() {
+		this.clear();
+	}
 	createCanvas() {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
@@ -28,7 +42,7 @@ export default class CanvasEffect {
 			throw new TypeError(`Invalid container: ${this.config.container}.`);
 		}
 	}
-	isValidDimensions(w, h) {
+	hasValidDimensions(w, h) {
 		if (typeof w == 'number' || typeof w == 'string') {
 			if (typeof w == 'string' && w.slice(-1) != '%') {
 				return false;
@@ -46,7 +60,7 @@ export default class CanvasEffect {
 	setCanvasSize() {
 		let width = this.config.width;
 		let height = this.config.height;
-		if (this.isValidDimensions(width, height)) {
+		if (this.hasValidDimensions(width, height)) {
 			if (typeof width == 'string' || typeof height == 'string') {
 				if (typeof width == 'string') {
 					let per = width.slice(0, -1);
@@ -82,19 +96,5 @@ export default class CanvasEffect {
 	}
 	clear() {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-	}
-	init() {
-		if (!this.requestId) {
-			this.main();
-		}
-	}
-	main() {
-		this.requestId = requestAnimFrame(this.main.bind(this));
-		this.update();
-		this.render();
-	}
-	update() {}
-	render() {
-		this.clear();
 	}
 }

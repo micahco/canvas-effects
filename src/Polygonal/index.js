@@ -5,14 +5,45 @@ import Delaunay from 'faster-delaunay';
 export default class Polygonal extends CanvasEffect {
 	constructor(config) {
 		super(config);
+		this.color = [255, 255, 255, 0.5];
 		this.complexity;
 		this.debug = false;
 		this.light = [-10,10];
-		this.lightOG;
-		this.mouse = true;
+		this.lightSource;
 		this.seed = 6000;
 		this.triangles;
 		this.init();
+	}
+	init() {
+		this.color = this.config.color ? this.config.color : this.color;
+		this.complexity = this.getComplexity(this.config.seed || this.seed);
+		this.debug = this.config.debug ? this.config.debug : this.debug;
+		if (this.config.light && this.config.light.length == 2) {
+			this.light = this.config.light;
+		}
+		this.lightSource = this.light;
+		this.triangles = [];
+		this.generate()
+		addEventListener('mousemove', this.onMouseMove.bind(this), false);
+		super.init();
+	}
+	update() {
+		for (let i = 0; i < this.triangles.length; i++) {
+			this.triangles[i].update(this.light);
+		}
+	}
+	render() {
+		super.render();
+		for (let i = 0; i < this.triangles.length; i++) {
+			this.triangles[i].render();
+		}
+		if (this.debug) {
+			for (let j = 0; j < this.vertices.length; j++) {
+				this.ctx.font = "10px monospace";
+				this.ctx.fillStyle = 'red';
+				this.ctx.fillText(`${parseFloat(this.vertices[j][2]).toFixed(2)}`, this.vertices[j][0], this.vertices[j][1]);
+			}
+		}
 	}
 	getComplexity(seed) {
 		return Math.round(this.canvas.width * this.canvas.height / seed);
@@ -30,8 +61,8 @@ export default class Polygonal extends CanvasEffect {
 	onMouseMove(e) {
 		var pos = this.getMousePosition(e);
 		this.light = [
-			(pos[0] - this.canvas.width/2)/this.canvas.width*10*Math.abs(this.lightOG[0]),
-			(-(pos[1] - this.canvas.height/2))/this.canvas.height*10*Math.abs(this.lightOG[1])
+			(pos[0] - this.canvas.width/2)/this.canvas.width*10*Math.abs(this.lightSource[0]),
+			(-(pos[1] - this.canvas.height/2))/this.canvas.height*10*Math.abs(this.lightSource[1])
 		];
 	}
 	elevate(v) {
@@ -78,37 +109,5 @@ export default class Polygonal extends CanvasEffect {
 			}
 		}
 		this.triangulate(p);
-	}
-	init() {
-		this.color = this.config.color ? this.config.color : this.color;
-		this.complexity = this.getComplexity(this.config.seed || this.seed);
-		this.debug = this.config.debug ? this.config.debug : this.debug;
-		if (this.config.light && this.config.light.length == 2) {
-			this.light = this.config.light;
-		}
-		this.lightOG = this.light;
-		this.mouse = this.config.mouse ? this.config.mouse : this.mouse;
-		this.triangles = [];
-		this.generate()
-		addEventListener('mousemove', this.onMouseMove.bind(this), false);
-		super.init();
-	}
-	update() {
-		for (let i = 0; i < this.triangles.length; i++) {
-			this.triangles[i].update(this.light);
-		}
-	}
-	render() {
-		super.render();
-		for (let i = 0; i < this.triangles.length; i++) {
-			this.triangles[i].render();
-		}
-		if (this.debug) {
-			for (let j = 0; j < this.vertices.length; j++) {
-				this.ctx.font = "10px monospace";
-				this.ctx.fillStyle = 'red';
-				this.ctx.fillText(`${parseFloat(this.vertices[j][2]).toFixed(2)}`, this.vertices[j][0], this.vertices[j][1]);
-			}
-		}
 	}
 }

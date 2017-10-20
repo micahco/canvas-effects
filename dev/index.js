@@ -1,9 +1,13 @@
 import { Constellations, Polygonal } from '../src';
-
-const foo = new Polygonal({
+/*
+const foo = new Constellations({
 	container: '#foo',
 	width: '100%',
-	height: '100%',
-	color: [255, 255, 255, 1],
-	debug: false
+	height: '100%'
+});
+*/
+const bar = new Polygonal({
+	container: '#bar',
+	width: '100%',
+	height: '100%'
 });
