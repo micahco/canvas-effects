@@ -25,7 +25,7 @@ const foo = new Effect({
 
 # Config
 
-These are global parameters that must be included in the config of every effect.
+These are global parameters that **must** be included in the config of every effect.
 
 #### container
 
@@ -51,7 +51,7 @@ const bar = new Effect({
 });
 ```
 
-
+All config options listed from this point on are **optional**.
 
 
 
@@ -71,38 +71,59 @@ const foo = new Constellations({
 #### seed
 
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in worse performance.
-```
-const foo = new Constellations({
-	seed: int // Default: 8000
-});
-```
+
+`seed: <int> // Default: 8000`
 
 #### point
 
-Changes the properties of the randomly generated points on the canvas which act as vertices for the constellations.
-```
-const foo = new Constellations({
-	point: {				// Defaults:
-		color: [r,g,b,a],	// [0, 0, 0, 1]
-		radius: [max,min],	// [4, 2]
-		speed: [max,min]	// [0.2, 0.1]
-	}
-});
-```
+The point property is an object that allows the user to configure the vertices.
+
+**color**
+
+Sets the color (r, g, b, a) of the vertice.
+
+`color: <int>[4] // Default: [0, 0, 0, 1]`
+
+**radius**
+
+Sets the range (max, min) of the size of the vertices.
+
+`radius: <int>[2] // Default: [4, 2]`
+
+**speed**
+
+Sets the range (max, min) of the speed at which the vertices travel.
+
+`speed: <int>[2] // Default: [0.2, 0.1]`
 
 #### line
 
-Changes the properties of lines that connect each point. The code generates every line then programmatically decides whether to render it.
-```
-const foo = new Constellations({
-	line: {					// Defaults:
-		color: [r,g,b,a],	// [0, 0, 0, 1]
-		fade: int,			// 0.05
-		max: int,			// 100
-		width: int			// 1
-	}
-});
-```
+The line property is an object that allows the user to configure the lines connecting two vertices.
+
+**color**
+
+Sets the color (r, g, b, a) of the line.
+
+`color: <int>[4] // Default: [0, 0, 0, 1]`
+
+**fade**
+
+Sets the speed at which the lines fade away once reaching the *max* length.
+
+`fade: <int> // Default: 0.05`
+
+
+**max**
+
+Sets the maximum length at which the line fades away and is no longer rendered.
+
+`max: <int> // Default: 100`
+
+**width**
+
+Sets the width of the line.
+
+`width: <int> // Default: 1`
 
 ### Example
 
@@ -113,17 +134,17 @@ const foo = new Constellations({
 	container: '#bar',
 	width: '100%',
 	height: '100%',
-	seed: 4000,
+	seed: 8000,
 	point: {
-		color: [0,0,255,0.5],
-		radius: [8,4],
-		speed: [0.8,0.4]
+		color: [0, 0, 0, 1],
+		radius: [4, 2],
+		speed: [0.2, 0.1]
 	},
 	line: {
-		color: [255,0,0,0.1],
-		fade: 0.01,
-		max: 150,
-		width: 4
+		color: [0, 0, 0, 1],
+		fade: 0.05,
+		max: 100,
+		width: 1
 	}
 });
 ```
@@ -143,52 +164,33 @@ const foo = new Polygonal({
 });
 ```
 
-#### seed
+**seed**
 
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in worse performance.
 
 `seed: <int> // Default: 8000`
 
-#### color
+**color**
 
-This will set the base color of the polygons.
+This will set the base color (r, g, b, a) of the polygons.
 
-`color: <array> // Default: [0,0,0,1]`
+NOTE: It is recommended that you use semi-transparent color values (a < 1);
 
-```
-const foo = new Polygonal({
-	color: [r,g,b,a] // Default: [0,0,0,1]
-});
-```
+`color: <int>[4] // Default: [255, 255, 255, 0.5]`
 
-#### debug
+**debug**
 
 Allows developer to view the height (z value) of each vertex.
 
-```
-const foo = new Polygonal({
-	debug: boolean // Default: false
-});
-```
+`debug: <boolean> // Default: false`
 
-#### light
+**light**
 
-Changes the starting location of the light source. The further the source is the less the light will affect the polygons.
+Changes the starting location of the light source and overall distance from the canvas.
 
-```
-const foo = new Polygonal({
-	light: [x,y] // Default: [-10,10]
-});
-```
+The further away the light source is, the less affect it will have on the polygons.
 
-#### mouse
-
-Allow the mouse to change the position of the light source.
-```
-const foo = new Polygonal({
-	mouse: boolean // Default: true
-});
-```
+`light: <int>[2] // Default: [-10,10]`
 
 ### Example
 
@@ -199,16 +201,12 @@ const foo = new Polygonal({
 	container: '#bar',
 	width: '100%',
 	height: '100%',
-	seed: 6000,
-	color: [0,0,255,0.8],
+	seed: 8000,
+	color: [255, 255, 255, 0.5],
 	debug: false,
-	light: [16,-12],
-	mouse: true
+	light: [-10,-10]
 });
 ```
-
-
-
 
 
 
@@ -218,8 +216,6 @@ const foo = new Polygonal({
 # Credits
 
 Math Formulas: [@danthecodingman](https://github.com/danthecodingman)
-
-
 
 
 
