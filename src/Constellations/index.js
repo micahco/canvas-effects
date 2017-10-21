@@ -12,7 +12,11 @@ export default class Constellations extends CanvasEffect {
 		this.init();
 	}
 	init() {
-		this.complexity = this.getComplexity(this.config.seed || this.seed);
+		if (this.validate.number(this.config.seed)) {
+			this.complexity = this.getComplexity(this.config.seed);
+		} else {
+			this.complexity = this.getComplexity(this.seed);
+		}
 		this.lines = [];
 		this.points = [];
 		this.generate();
@@ -25,10 +29,10 @@ export default class Constellations extends CanvasEffect {
 		let l = 0;
 		for (let i = 0; i < this.complexity; i++) {
 			for (let j = i+1; j < this.complexity; j++) {
-				let x1 = this.points[i].pos[0];
-				let y1 = this.points[i].pos[1];
-				let x2 = this.points[j].pos[0];
-				let y2 = this.points[j].pos[1];
+				const x1 = this.points[i].pos[0];
+				const y1 = this.points[i].pos[1];
+				const x2 = this.points[j].pos[0];
+				const y2 = this.points[j].pos[1];
 				this.lines[l].update([x1,y1], [x2,y2]);
 				l++;
 			}
@@ -49,8 +53,8 @@ export default class Constellations extends CanvasEffect {
 	generate() {
 		let k = 0;
 		for (let i = 0; i < this.complexity; i++) {
-			let x = Math.random() * this.canvas.width;
-			let y = Math.random() * this.canvas.height;
+			const x = Math.random() * this.canvas.width;
+			const y = Math.random() * this.canvas.height;
 			this.points[i] = new Point(this.ctx, [x,y]);
 			this.points[i].init(this.config.point);
 			for (let j = i+1; j < this.complexity; j++) {

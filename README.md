@@ -1,15 +1,15 @@
-# canvas-effects *BETA*
+# canvas-effects *WIP*
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
 A Javascript library of canvas visualizations.
 
 ## Getting Started
 
-Download and install the latest version from npm:
+Download and install the latest published version from npm:
 
 `npm install --save canvas-effects`
 
-Or you can test the alpha from Github:
+Or you can test the version from Github:
 
 `npm install --save getmicah/canvas-effects`
 
@@ -29,7 +29,8 @@ These are global parameters that **must** be included in the config of every eff
 
 #### container
 
-A CSS selector that represents a **\<div\>** element.
+A CSS selector that points to a **\<div\>** element in your html.
+
 ```
 const foo = new Effect({
 	container: '#selector'
@@ -39,6 +40,9 @@ const foo = new Effect({
 #### width / height
 
 Declares the desired width and height of the element.
+
+Can either be a fixed px value or a percentage.
+
 ```
 const foo = new Effect({
 	width: 500,
@@ -90,11 +94,11 @@ Sets the range (max, min) of the size of the vertices.
 
 `radius: <Number>[2] // Default: [4, 2]`
 
-**speed**
+**velocity**
 
-Sets the range (max, min) of the speed at which the vertices travel.
+Sets the range (max, min) of the velocity at which the vertices travel.
 
-`speed: <Number>[2] // Default: [0.2, 0.1]`
+`velocity: <Number>[2] // Default: [0.2, 0.1]`
 
 #### line
 
@@ -182,15 +186,15 @@ It is recommended that you use semi-transparent color values (a < 1);
 
 Allows developer to view the height (z value) of each vertex.
 
+Defaults to red (255,0,0) text and there's currently no way to change it with the config.
+
 `debug: <Boolean> // Default: false`
 
-**light**
+**mouse**
 
-Changes the starting location of the light source and overall distance from the canvas.
+If true, the position of the light source will move with relation to the mouse pointer.
 
-The further away the light source is, the less affect it will have on the polygons.
-
-`light: <Number>[2] // Default: [-10,10]`
+`mouse: <Boolean> // Default: true`
 
 ### Example
 
@@ -204,7 +208,7 @@ const foo = new Polygonal({
 	seed: 8000,
 	color: [255, 255, 255, 0.5],
 	debug: false,
-	light: [-10,-10]
+	power: 1000
 });
 ```
 

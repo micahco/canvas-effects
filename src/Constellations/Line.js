@@ -11,12 +11,10 @@ export default class Line extends Entity {
 	}
 	init(config) {
 		if (config) {
-			if (config.color && config.color.length == 4 && this.isValidRGBA(config.color)) {
-				this.color = config.color;
-			}
-			this.fade = config.fade || this.fade;
-			this.max = config.max || this.max;
-			this.width = config.width || this.width;
+			this.color = this.validate.color(config.color) ? config.color : this.color;
+			this.fade = this.validate.boolean(config.fade) ? config.fade : this.fade;
+			this.max = this.validate.number(config.max) ? config.max : this.max;
+			this.width = this.validate.number(config.width) ? config.width : this.width;
 		}
 	}
 	update(a, b) {

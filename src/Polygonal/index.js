@@ -5,26 +5,29 @@ import Delaunay from 'faster-delaunay';
 export default class Polygonal extends CanvasEffect {
 	constructor(config) {
 		super(config);
-		this.color = [255, 255, 255, 0.5];
+		this.color = [255,255,255,0.5];
 		this.complexity;
 		this.debug = false;
-		this.light = [-10,10];
-		this.lightSource;
-		this.seed = 6000;
+		this.light = [0,0];
+		this.mouse = true;
+		this.seed = 8000;
 		this.triangles;
 		this.init();
 	}
 	init() {
-		this.color = this.config.color ? this.config.color : this.color;
-		this.complexity = this.getComplexity(this.config.seed || this.seed);
-		this.debug = this.config.debug ? this.config.debug : this.debug;
-		if (this.config.light && this.config.light.length == 2) {
-			this.light = this.config.light;
+		this.color = this.validate.color(this.config.color) ? this.config.color : this.color;
+		if (this.validate.number(this.config.seed)) {
+			this.complexity = this.getComplexity(this.config.seed);
+		} else {
+			this.complexity = this.getComplexity(this.seed);
 		}
-		this.lightSource = this.light;
+		this.debug = this.validate.boolean(this.config.debug) ? this.config.debug : this.debug;
+		this.mouse = this.validate.boolean(this.config.mouse) ? this.config.mouse : this.mouse;
 		this.triangles = [];
 		this.generate()
-		addEventListener('mousemove', this.onMouseMove.bind(this), false);
+		if (this.mouse) {
+			addEventListener('mousemove', this.onMouseMove.bind(this), false);
+		}		
 		super.init();
 	}
 	update() {
@@ -46,13 +49,13 @@ export default class Polygonal extends CanvasEffect {
 		}
 	}
 	getComplexity(seed) {
-		return Math.round(this.canvas.width * this.canvas.height / seed);
+		return Math.round(this.canvas.width*this.canvas.height/seed);
 	}
 	getRandomArbitrary(max, min) {
-		return Math.random() * (max - min) + min;
+		return Math.random()*(max-min)+min;
 	}
 	getMousePosition(e) {
-		let rect = this.canvas.getBoundingClientRect();
+		const rect = this.canvas.getBoundingClientRect();
 	    return [
 	    	e.clientX - rect.right/2,
 	    	e.clientY - rect.bottom/2
@@ -61,13 +64,13 @@ export default class Polygonal extends CanvasEffect {
 	onMouseMove(e) {
 		var pos = this.getMousePosition(e);
 		this.light = [
-			(pos[0] - this.canvas.width/2)/this.canvas.width*10*Math.abs(this.lightSource[0]),
-			(-(pos[1] - this.canvas.height/2))/this.canvas.height*10*Math.abs(this.lightSource[1])
+			(pos[0]/this.canvas.width)*2,
+			-(pos[1]/this.canvas.height)*2
 		];
 	}
 	elevate(v) {
 		for (let i = 0; i < v.length; i++) {
-			let z = this.getRandomArbitrary(1,0);
+			const z = this.getRandomArbitrary(1, 0);
 			if (!v[i][2]) {
 				for (let j = i+1; j < v.length; j++) {
 					if (v[i] == v[j]) {
@@ -80,9 +83,9 @@ export default class Polygonal extends CanvasEffect {
 		return v;
 	}
 	triangulate(p) {
-		let d = new Delaunay(p);
-		let t = d.triangulate();
-		let v = this.elevate(t);
+		const d = new Delaunay(p);
+		const t = d.triangulate();
+		const v = this.elevate(t);
 		this.vertices = v;
 		let k = 0;
 		for (let i = 0; i < v.length; i+=3) {
@@ -92,12 +95,12 @@ export default class Polygonal extends CanvasEffect {
 		}
 	}
 	generate() {
-		let p = [];
-		let pad = 200;
-		let cw = this.canvas.width+pad*2;
-		let ch = this.canvas.height+pad*2;
-		let iy = ch/Math.round(Math.sqrt((ch*this.complexity)/cw));
-		let ix = cw/Math.round(this.complexity/Math.sqrt((ch*this.complexity)/cw));
+		const p = [];
+		const pad = 200;
+		const cw = this.canvas.width+pad*2;
+		const ch = this.canvas.height+pad*2;
+		const iy = ch/Math.round(Math.sqrt((ch*this.complexity)/cw));
+		const ix = cw/Math.round(this.complexity/Math.sqrt((ch*this.complexity)/cw));
 		let k = 0;
 		for (let y = -pad; y < this.canvas.height+pad; y+=iy) {
 			for (let x = -pad; x < this.canvas.width+pad; x+=ix) {

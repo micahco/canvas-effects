@@ -1,4 +1,5 @@
 import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
+import * as validate from './validate';
 import isMobile from 'ismobilejs';
 
 export default class CanvasEffect {
@@ -12,6 +13,7 @@ export default class CanvasEffect {
 		this.delay = 250;
 		this.requestId;
 		this.timer;
+		this.validate = validate;
 		this.createCanvas();
 		this.setCanvasSize();
 	}
@@ -70,7 +72,7 @@ export default class CanvasEffect {
 					let per = height.slice(0, -1);
 					height = (per/100) * window.innerHeight;
 				}
-				document.body.style.overflowX = 'hidden';
+				//document.body.style.overflowX = 'hidden';
 				if (!isMobile.apple.device) {
 					window.addEventListener('resize', this.debounce.bind(this));
 				}
