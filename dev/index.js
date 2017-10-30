@@ -4,5 +4,6 @@ const foo = new Polygonal({
 	container: '#foo',
 	width: '100%',
 	height: '100%',
+	seed: 20000,
 	debug: true
 });

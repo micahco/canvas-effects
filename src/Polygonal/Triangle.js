@@ -1,23 +1,22 @@
-import Entity from '../CanvasEffect/Entity';
-import Color from 'color';
+import * as validate from '../CanvasEffect/validate';
 
-//TODO: Get rid of 'color' dependency and write own color shader
+// math equations: Dan Avila <daniel.avila@yale.edu>
+// light intesity: https://stackoverflow.com/a/31682068/4616986
 
-export default class Triangle extends Entity {
+export default class Triangle {
 	constructor(ctx, light, a, b, c) {
-		super(ctx);
+		this.ctx = ctx;
+		this.light = light;
 		this.a = a;
 		this.b = b;
 		this.c = c;
-		this.base = [0,0,0,1];
-		this.color = this.base;
 		this.debug = false;
-		this.light = light;
-		this.normal = null;
+		this.color = [255,255,255,1];
+		this.shade = this.color;
 	}
 	init(config) {
-		this.base = this.validate.color(config.color) ? config.color : this.base;
-		this.debug = this.validate.boolean(config.debug) ? config.debug : this.debug;
+		this.color = validate.color(config.color) ? config.color : this.color;
+		this.debug = validate.boolean(config.debug) ? config.debug : this.debug;
 		this.shader();
 	}
 	update(light) {
@@ -25,41 +24,67 @@ export default class Triangle extends Entity {
 		this.shader();
 	}
 	render() {
-		this.ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.color[3]})`;
-		this.ctx.strokeStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.color[3]})`;
+		this.ctx.fillStyle = `rgba(${this.shade[0]},${this.shade[1]},${this.shade[2]},${this.shade[3]})`;
+		this.ctx.strokeStyle = `rgba(${this.shade[0]},${this.shade[1]},${this.shade[2]},${this.shade[3]})`;
+		this.ctx.strokeStyle = 'black';
 		this.ctx.beginPath();
 		this.ctx.moveTo(this.a[0], this.a[1]);
 		this.ctx.lineTo(this.b[0], this.b[1]);
 		this.ctx.lineTo(this.c[0], this.c[1]);
+		this.ctx.fill();
 		this.ctx.stroke();
 		if (this.debug) {
-			this.ctx.font = "10px monospace";
+			this.ctx.font = '12px monospace';
 			this.ctx.fillStyle = 'green';
 			const c = this.getCenteroid();
-			this.ctx.fillText(`${parseInt(this.normal[0])}`, c[0], c[1]);
-			this.ctx.fillText(`${parseInt(this.normal[1])}`, c[0], c[1]-10);
+			this.ctx.fillText(
+				parseFloat(this.test).toFixed(2),
+				c[0], c[1]
+			);
 		}
+	}
+	shader() {
+		const v1 = this.vector(this.a, this.b);
+		const v2 = this.vector(this.a, this.c);
+		const n = this.cross(v1, v2);
+		const un = this.normalize(n);
+		const l = this.vector(this.a, this.light);
+		const ul = this.normalize(l);
+		const dp = this.dotProduct(un, ul);
+		const intensity = (dp+1)/2;
+		this.shade = [
+			parseInt(this.color[0]*intensity),
+			parseInt(this.color[1]*intensity),
+			parseInt(this.color[2]*intensity),
+			this.color[3]
+		];
+		this.test = intensity;
+	}
+	vector(p1, p2) {
+		return [
+			p2[0]-p1[0],
+			p2[1]-p1[1],
+			p2[2]-p1[2]
+		]
+	}
+	cross(v1, v2) {
+		return [
+			(v1[1]*v2[2])-(v1[2]*v2[1]),
+			(v1[2]*v2[0])-(v1[0]*v2[2]),
+			(v1[0]*v2[1])-(v1[1]*v2[0])
+		]
+	}
+	normalize(v) {
+		const m = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
+		return [v[0]/m, v[1]/m, v[2]/m];
+	}
+	dotProduct(v1, v2) {
+		return v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2];
 	}
 	getCenteroid() {
 		return [
 			(this.a[0]+this.b[0]+this.c[0])/3,
 			(this.a[1]+this.b[1]+this.c[1])/3
 		];
-	}
-	getDistance(u, v) {
-		let a = u[0]-v[0];
-		let b = u[1]-v[1];
-		return Math.sqrt(a*a+b*b);
-	}
-	getNormal(a, b, c) {
-		// source: @danthecodingman
-		return [
-			(b[0]-a[0])*(c[2]-a[2])-(b[2]-a[2])*(c[0]-a[0]),
-			(b[1]-a[1])*(c[2]-a[2])-(b[2]-a[2])*(c[1]-a[1])
-		];
-	}
-	shader() {
-		this.normal = this.getNormal(this.a, this.b, this.c);
-		const d = this.getDistance(this.light, this.normal);
 	}
 }

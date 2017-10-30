@@ -1,8 +1,8 @@
-import Entity from '../CanvasEffect/Entity';
+import * as validate from '../CanvasEffect/validate';
 
-export default class Line extends Entity {
+export default class Line {
 	constructor(ctx) {
-		super(ctx);
+		this.ctx = ctx;
 		this.alpha = 0;
 		this.color = [0,0,0,1];
 		this.fade = true;
@@ -11,10 +11,10 @@ export default class Line extends Entity {
 	}
 	init(config) {
 		if (config) {
-			this.color = this.validate.color(config.color) ? config.color : this.color;
-			this.fade = this.validate.boolean(config.fade) ? config.fade : this.fade;
-			this.max = this.validate.number(config.max) ? config.max : this.max;
-			this.width = this.validate.number(config.width) ? config.width : this.width;
+			this.color = validate.color(config.color) ? config.color : this.color;
+			this.fade = validate.boolean(config.fade) ? config.fade : this.fade;
+			this.max = validate.number(config.max) ? config.max : this.max;
+			this.width = validate.number(config.width) ? config.width : this.width;
 		}
 	}
 	update(a, b) {

@@ -1,9 +1,11 @@
-import Entity from '../CanvasEffect/Entity';
+import * as validate from '../CanvasEffect/validate';
 
-export default class Point extends Entity {
+export default class Point {
 	constructor(ctx, pos) {
-		super(ctx);
+		this.ctx = ctx;
 		this.pos = pos;
+		this.cw = this.ctx.canvas.width;
+		this.ch = this.ctx.canvas.height;
 		this.color = [0,0,0,1];
 		this.radius = this.getRandomArbitrary(4, 2);
 		this.velocity = this.getRandomArbitrary(0.2, 0.1);
@@ -11,13 +13,13 @@ export default class Point extends Entity {
 	}
 	init(config) {
 		if (config) {
-			this.color = this.validate.color(config.color) ? config.color : this.color;
-			if (this.validate.array(config.radius, 2)) {
+			this.color = validate.color(config.color) ? config.color : this.color;
+			if (validate.array(config.radius, 2)) {
 				if (config.radius[0] > config.radius[1]) {
 					this.radius = this.getRandomArbitrary(config.radius[0], config.radius[1]);
 				}
 			}
-			if (this.validate.array(config.velocity, 2)) {
+			if (validate.array(config.velocity, 2)) {
 				if (config.velocity[0] > config.velocity[1]) {
 					this.velocity = this.getRandomArbitrary(config.velocity[0], config.velocity[1]);					
 				}

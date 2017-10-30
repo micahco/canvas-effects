@@ -1,6 +1,7 @@
 import CanvasEffect from '../CanvasEffect';
 import Point from './Point';
 import Line from './Line';
+import * as validate from '../CanvasEffect/validate';
 
 export default class Constellations extends CanvasEffect {
 	constructor(config) {
@@ -12,7 +13,7 @@ export default class Constellations extends CanvasEffect {
 		this.init();
 	}
 	init() {
-		if (this.validate.number(this.config.seed)) {
+		if (validate.number(this.config.seed)) {
 			this.complexity = this.getComplexity(this.config.seed);
 		} else {
 			this.complexity = this.getComplexity(this.seed);

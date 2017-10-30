@@ -1,19 +1,17 @@
 import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
-import * as validate from './validate';
 import isMobile from 'ismobilejs';
 
 export default class CanvasEffect {
 	constructor(config) {
 		if (this.constructor === CanvasEffect) {
-            throw new TypeError('Abstract class "CanvasEffect" cannot be instantiated directly.');
-        }
+			throw new TypeError('Abstract class "CanvasEffect" cannot be instantiated directly.');
+		}
 		this.config = config ? config : {};
 		this.canvas;
 		this.ctx;
 		this.delay = 250;
 		this.requestId;
 		this.timer;
-		this.validate = validate;
 		this.createCanvas();
 		this.setCanvasSize();
 	}
@@ -72,24 +70,23 @@ export default class CanvasEffect {
 					let per = height.slice(0, -1);
 					height = (per/100) * window.innerHeight;
 				}
-				//document.body.style.overflowX = 'hidden';
 				if (!isMobile.apple.device) {
 					window.addEventListener('resize', this.debounce.bind(this));
 				}
 			}
 			this.canvas.width = width;
 			this.canvas.height = height;
-        } else {
+		} else {
 			throw new TypeError(`Invalid dimensions: ${width}, ${height}.`);
 		}
 	}
 	debounce() {
 		if (this.requestId) {
-	       cancelAnimationFrame(this.requestId);
-	       this.requestId = undefined;
-	    }
+		   cancelAnimationFrame(this.requestId);
+		   this.requestId = undefined;
+		}
 		clearTimeout(this.timer);
-  		this.timer = setTimeout(this.resize.bind(this), this.delay);
+		this.timer = setTimeout(this.resize.bind(this), this.delay);
 		this.clear();
 	}
 	resize() {

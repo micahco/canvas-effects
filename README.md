@@ -178,9 +178,7 @@ Changes the amount of random points generated based on the area of the element. 
 
 This will set the base color (r, g, b, a) of the polygons.
 
-It is recommended that you use semi-transparent color values (a < 1);
-
-`color: <Number>[4] // Default: [255, 255, 255, 0.5]`
+`color: <Number>[4] // Default: [255, 255, 255, 1]`
 
 **debug**
 
