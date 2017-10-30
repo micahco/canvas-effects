@@ -1,7 +1,15 @@
 import * as validate from '../CanvasEffect/validate';
 
 export default class Point {
-	constructor(ctx, pos) {
+	ctx: CanvasRenderingContext2D;
+	pos: [number, number];
+	cw: number;
+	ch: number;
+	color: [number, number, number, number];
+	radius: number;
+	velocity: number;
+	theta: number;
+	constructor(ctx: CanvasRenderingContext2D, pos: [number, number]) {
 		this.ctx = ctx;
 		this.pos = pos;
 		this.cw = this.ctx.canvas.width;
@@ -11,7 +19,7 @@ export default class Point {
 		this.velocity = this.getRandomArbitrary(0.2, 0.1);
 		this.theta = this.getRandomTheta();
 	}
-	init(config) {
+	init(config): void {
 		if (config) {
 			this.color = validate.color(config.color) ? config.color : this.color;
 			if (validate.array(config.radius, 2)) {
@@ -26,7 +34,7 @@ export default class Point {
 			}
 		}
 	}
-	update() {
+	update(): void {
 		if (this.pos[0] <= 0 + this.radius || this.pos[0] >= this.cw - this.radius) {
 			this.theta = Math.PI - this.theta;
 		}
@@ -36,16 +44,16 @@ export default class Point {
 		this.pos[0] += Math.cos(this.theta) * this.velocity;
 		this.pos[1] += Math.sin(this.theta) * this.velocity;
 	}
-	render() {
+	render(): void {
 		this.ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.color[3]})`;
 		this.ctx.beginPath();
 		this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
 		this.ctx.fill();
 	}
-	getRandomArbitrary(max, min) {
+	getRandomArbitrary(max, min): number {
 		return Math.random() * (max - min) + min;
 	}
-	getRandomTheta() {
+	getRandomTheta(): number {
 		return Math.random() * 2 * Math.PI;
 	}
 }

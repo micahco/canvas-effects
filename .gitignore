@@ -5,3 +5,4 @@
 *.css.map
 /scss
 npm-debug.log
+/dev

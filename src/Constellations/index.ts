@@ -4,7 +4,11 @@ import Line from './Line';
 import * as validate from '../CanvasEffect/validate';
 
 export default class Constellations extends CanvasEffect {
-	constructor(config) {
+	complexity: number;
+	lines: Array<Line>;
+	points: Array<Point>;
+	seed: number;
+	constructor(config: any) {
 		super(config);
 		this.complexity;
 		this.lines;
@@ -12,7 +16,7 @@ export default class Constellations extends CanvasEffect {
 		this.seed = 8000;
 		this.init();
 	}
-	init() {
+	init(): void {
 		if (validate.number(this.config.seed)) {
 			this.complexity = this.getComplexity(this.config.seed);
 		} else {
@@ -23,7 +27,7 @@ export default class Constellations extends CanvasEffect {
 		this.generate();
 		super.init();
 	}
-	update() {
+	update(): void {
 		for (let p = 0; p < this.complexity; p++) {
 			this.points[p].update();
 		}
@@ -39,7 +43,7 @@ export default class Constellations extends CanvasEffect {
 			}
 		}
 	}
-	render() {
+	render(): void {
 		super.render();
 		for (let i = 0; i < this.points.length; i++) {
 			this.points[i].render();
@@ -48,10 +52,7 @@ export default class Constellations extends CanvasEffect {
 			this.lines[j].render();
 		}
 	}
-	getComplexity(seed) {
-		return Math.round(this.canvas.width * this.canvas.height / seed);
-	}
-	generate() {
+	generate(): void {
 		let k = 0;
 		for (let i = 0; i < this.complexity; i++) {
 			const x = Math.random() * this.canvas.width;
@@ -65,4 +66,7 @@ export default class Constellations extends CanvasEffect {
 			}
 		}
 	}
+	getComplexity(seed: number): number {
+		return Math.round(this.canvas.width*this.canvas.height/seed);
+	}	
 }

@@ -1,8 +1,8 @@
-export function initialized(prop) {
+export function initialized(prop: any): boolean {
 	return typeof prop !== 'undefined'
 }
 
-export function array(prop, length) {
+export function array(prop: any, length): boolean {
 	if (!initialized(prop)) {
 		return false;
 	}
@@ -15,7 +15,7 @@ export function array(prop, length) {
 	return true;
 }
 
-export function boolean(prop) {
+export function boolean(prop: any): boolean {
 	if (!initialized(prop)) {
 		return false;
 	}
@@ -25,7 +25,7 @@ export function boolean(prop) {
 	return true;
 }
 
-export function number(prop) {
+export function number(prop: any): boolean {
 	if (!initialized(prop)) {
 		return false;
 	}
@@ -35,7 +35,7 @@ export function number(prop) {
 	return true;
 }
 
-export function color(prop) {
+export function color(prop: any): boolean {
 	if (!initialized(prop)) {
 		return false;
 	}
