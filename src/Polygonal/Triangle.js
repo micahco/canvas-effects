@@ -12,7 +12,8 @@ export default class Triangle {
 		this.c = c;
 		this.debug = false;
 		this.color = [255,255,255,1];
-		this.shade = this.color;
+		this.hue = this.color;
+		this.dark = this.isDark(this.color);
 	}
 	init(config) {
 		this.color = validate.color(config.color) ? config.color : this.color;
@@ -24,9 +25,8 @@ export default class Triangle {
 		this.shader();
 	}
 	render() {
-		this.ctx.fillStyle = `rgba(${this.shade[0]},${this.shade[1]},${this.shade[2]},${this.shade[3]})`;
-		this.ctx.strokeStyle = `rgba(${this.shade[0]},${this.shade[1]},${this.shade[2]},${this.shade[3]})`;
-		this.ctx.strokeStyle = 'black';
+		this.ctx.fillStyle = `rgba(${this.hue[0]},${this.hue[1]},${this.hue[2]},${this.hue[3]})`;
+		this.ctx.strokeStyle = `rgba(${this.hue[0]},${this.hue[1]},${this.hue[2]},${this.hue[3]})`;
 		this.ctx.beginPath();
 		this.ctx.moveTo(this.a[0], this.a[1]);
 		this.ctx.lineTo(this.b[0], this.b[1]);
@@ -38,7 +38,7 @@ export default class Triangle {
 			this.ctx.fillStyle = 'green';
 			const c = this.getCenteroid();
 			this.ctx.fillText(
-				parseFloat(this.test).toFixed(2),
+				parseFloat(this.info).toFixed(2),
 				c[0], c[1]
 			);
 		}
@@ -52,13 +52,13 @@ export default class Triangle {
 		const ul = this.normalize(l);
 		const dp = this.dotProduct(un, ul);
 		const intensity = (dp+1)/2;
-		this.shade = [
-			parseInt(this.color[0]*intensity),
-			parseInt(this.color[1]*intensity),
-			parseInt(this.color[2]*intensity),
-			this.color[3]
-		];
-		this.test = intensity;
+		if (this.dark) {
+			this.hue = this.tint(this.color, intensity);
+		} else {
+			this.hue = this.shade(this.color, intensity);
+		}
+		this.hue = this.shade(this.color, intensity);
+		this.info = intensity;
 	}
 	vector(p1, p2) {
 		return [
@@ -78,6 +78,23 @@ export default class Triangle {
 		const m = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
 		return [v[0]/m, v[1]/m, v[2]/m];
 	}
+	shade(color, i) {
+		return [
+			parseInt(color[0]*i),
+			parseInt(color[1]*i),
+			parseInt(color[2]*i),
+			color[3]
+		];
+
+	}
+	tint(color, i) {
+		return [
+			parseInt((255-color[0])*i),
+			parseInt((255-color[1])*i),
+			parseInt((255-color[2])*i),
+			color[3]
+		];
+	}
 	dotProduct(v1, v2) {
 		return v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2];
 	}
@@ -86,5 +103,8 @@ export default class Triangle {
 			(this.a[0]+this.b[0]+this.c[0])/3,
 			(this.a[1]+this.b[1]+this.c[1])/3
 		];
+	}
+	isDark(color) {
+		return (color[0] + color[1] + color[2]) / 3 > 127;
 	}
 }

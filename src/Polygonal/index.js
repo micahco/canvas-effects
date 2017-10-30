@@ -1,16 +1,18 @@
 import CanvasEffect from '../CanvasEffect';
 import Triangle from './Triangle';
-import Delaunay from 'faster-delaunay';
 import * as validate from '../CanvasEffect/validate';
+
+// TODO: write own algorithm to remove dependency
+import Delaunay from 'faster-delaunay';
 
 export default class Polygonal extends CanvasEffect {
 	constructor(config) {
 		super(config);
 		this.complexity;
 		this.debug = false;
-		this.light = [0,0,1000];
+		this.light = this.getLightSource();
 		this.mouse = true;
-		this.seed = 8000;
+		this.seed = 12000;
 		this.triangles;
 		this.vertices;
 		this.init();
@@ -50,7 +52,7 @@ export default class Polygonal extends CanvasEffect {
 	}
 	elevate(v) {
 		for (let i = 0; i < v.length; i++) {
-			const h = this.getRandomArbitrary(1000, 0);
+			const h = this.getRandomArbitrary(this.canvas.width, 0);
 			if (!v[i][2]) {
 				for (let j = i+1; j < v.length; j++) {
 					if (v[i] == v[j]) {
@@ -64,7 +66,7 @@ export default class Polygonal extends CanvasEffect {
 	}
 	generate() {
 		const p = [];
-		const pad = 200;
+		const pad = (this.canvas.width+this.canvas.height)/10;
 		const cw = this.canvas.width+pad*2;
 		const ch = this.canvas.height+pad*2;
 		const iy = ch/Math.round(Math.sqrt((ch*this.complexity)/cw));
@@ -88,6 +90,13 @@ export default class Polygonal extends CanvasEffect {
 			j++;
 		}
 	}
+	getLightSource() {
+		return [
+			this.canvas.width/2,
+			this.canvas.height/2,
+			(this.canvas.width+this.canvas.height)/2
+		];
+	}
 	getComplexity(seed) {
 		return Math.round(this.canvas.width*this.canvas.height/seed);
 	}
@@ -99,7 +108,7 @@ export default class Polygonal extends CanvasEffect {
 	    return [e.clientX, e.clientY];
 	}
 	onMouseMove(e) {
-		var pos = this.getMousePosition(e);
+		const pos = this.getMousePosition(e);
 		this.light = [
 			(pos[0]/this.canvas.width)*this.light[2],
 			(pos[1]/this.canvas.height)*this.light[2],
