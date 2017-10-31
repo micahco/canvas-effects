@@ -1,5 +1,12 @@
 import * as validate from '../CanvasEffect/validate';
 
+export interface Config {
+	color?: [number, number, number, number];
+	fade?: boolean;
+	max?: number;
+	width?: number;
+}
+
 export default class Line {
 	ctx: CanvasRenderingContext2D;
 	a: [number, number];
@@ -19,7 +26,7 @@ export default class Line {
 		this.max = 100;
 		this.width = 1;
 	}
-	init(config: any): void {
+	init(config: Config): void {
 		if (config) {
 			this.color = validate.color(config.color) ? config.color : this.color;
 			this.fade = validate.boolean(config.fade) ? config.fade : this.fade;
@@ -36,7 +43,7 @@ export default class Line {
 			if (this.fade) {
 				this.alpha = 1 - (this.getDistance() / this.max);
 			} else {
-				this.alpha = 1;
+				this.alpha = this.color[3];
 			}
 		} else {
 			this.alpha = 0;

@@ -1,26 +1,15 @@
 import CanvasEffect from '../CanvasEffect';
-import Point from './Point';
-import Line from './Line';
+import { default as Point, Config as PointConfig } from './Point';
+import { default as Line, Config as LineConfig } from './Line';
 import * as validate from '../CanvasEffect/validate';
 
-interface PointConfig {
-	color?: [number, number, number, number];
-	radius?: [number, number];
-	speed?: [number, number];
-}
-interface LineConfig {
-	color?: [number, number, number, number];
-	fade?: number;
-	max?: number;
-	width?: number;
-}
-export interface Config {
+interface Config {
 	container: string;
 	width: any;
 	height: any;
 	seed?: number;
-	point?: Point;
-	line?: Line;
+	point?: PointConfig;
+	line?: LineConfig;
 }
 
 export default class Constellations extends CanvasEffect<Config> {
@@ -28,7 +17,7 @@ export default class Constellations extends CanvasEffect<Config> {
 	lines: Array<Line>;
 	points: Array<Point>;
 	seed: number;
-	constructor(config: any) {
+	constructor(config: Config) {
 		super(config);
 		this.complexity;
 		this.lines;
@@ -65,11 +54,11 @@ export default class Constellations extends CanvasEffect<Config> {
 	}
 	render(): void {
 		super.render();
-		for (let i = 0; i < this.points.length; i++) {
-			this.points[i].render();
-		}
 		for (let j = 0; j < this.lines.length; j++) {
 			this.lines[j].render();
+		}
+		for (let i = 0; i < this.points.length; i++) {
+			this.points[i].render();
 		}
 	}
 	generate(): void {

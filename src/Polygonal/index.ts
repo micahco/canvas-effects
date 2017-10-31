@@ -3,7 +3,7 @@ import Triangle from './Triangle';
 import * as validate from '../CanvasEffect/validate';
 import * as Delaunator from 'delaunator';
 
-export interface Config {
+interface Config {
 	container: string;
 	width: any;
 	height: any;

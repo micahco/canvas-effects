@@ -66,11 +66,7 @@ export default class Triangle {
 		const ul = this.normalize(l);
 		const dp = this.dotProduct(un, ul);
 		const power = 1-(dp+1)/2;
-		if (this.isDark(this.color)) {
-			this.hue = this.tint(this.color, this.getIntensity(power, this.max));
-		} else {
-			this.hue = this.shade(this.color, this.getIntensity(power, this.max));
-		}
+		this.hue = this.shade(this.color, this.getIntensity(power, this.max));
 	}
 	vector(p1, p2): [number, number, number] {
 		return [
@@ -99,14 +95,6 @@ export default class Triangle {
 		];
 
 	}
-	tint(color, i): [number, number, number, number] {
-		return [
-			Math.floor((255-color[0])*i),
-			Math.floor((255-color[1])*i),
-			Math.floor((255-color[2])*i),
-			color[3]
-		];
-	}
 	getIntensity(power, max): number {
 		return 1-max+max*power;
 	}
@@ -118,8 +106,5 @@ export default class Triangle {
 			(this.a[0]+this.b[0]+this.c[0])/3,
 			(this.a[1]+this.b[1]+this.c[1])/3
 		];
-	}
-	isDark(color): boolean {
-		return (color[0] + color[1] + color[2]) / 3 < 127;
 	}
 }

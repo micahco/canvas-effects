@@ -188,7 +188,7 @@ If true, the position of the light source will move with relation to the mouse p
 
 **max**
 
-A number from 0 to 1 representing the max shade/tint value. If value is 1, then polygons will be completely black when hidden from the light source. If the value is 0, the light source will not affect the polygons at all.
+A number from 0 to 1 representing the max shade value. If value is 1, then polygons will be completely black when hidden from the light source. If the value is 0, the light source will not affect the polygons at all.
 
 `max: <Number> // Default: 0.5`
 
