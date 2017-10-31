@@ -1,7 +1,7 @@
 # canvas-effects *WIP*
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
-A Javascript library of canvas visualizations.
+A Javascript library of canvas visualizations. Written in Typescript.
 
 ## Getting Started
 
@@ -180,19 +180,17 @@ This will set the base color (r, g, b, a) of the polygons.
 
 `color: <Number>[4] // Default: [255, 255, 255, 1]`
 
-**debug**
-
-Allows developer to view the height (z value) of each vertex.
-
-Defaults to red (255,0,0) text and there's currently no way to change it with the config.
-
-`debug: <Boolean> // Default: false`
-
 **mouse**
 
 If true, the position of the light source will move with relation to the mouse pointer.
 
 `mouse: <Boolean> // Default: true`
+
+**max**
+
+A number from 0 to 1 representing the max shade/tint value. If value is 1, then polygons will be completely black when hidden from the light source. If the value is 0, the light source will not affect the polygons at all.
+
+`max: <Number> // Default: 0.5`
 
 ### Example
 
@@ -205,8 +203,8 @@ const foo = new Polygonal({
 	height: '100%',
 	seed: 8000,
 	color: [255, 255, 255, 0.5],
-	debug: false,
-	power: 1000
+	mouse: true,
+	max: 0.5
 });
 ```
 

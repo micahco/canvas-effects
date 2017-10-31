@@ -3,6 +3,12 @@ import * as validate from '../CanvasEffect/validate';
 // math equations: Dan Avila <daniel.avila@yale.edu>
 // light intesity: https://stackoverflow.com/a/31682068/4616986
 
+interface Config {
+	color?: [number, number, number, number];
+	mouse?: boolean;
+	max?: number;
+}
+
 export default class Triangle {
 	ctx: CanvasRenderingContext2D;
 	light: [number, number, number];
@@ -11,7 +17,7 @@ export default class Triangle {
 	c: [number, number, number];
 	color: [number, number, number, number];
 	hue: [number, number, number, number];
-	maxShade: number;
+	max: number;
 	constructor(ctx, light, a, b, c) {
 		this.ctx = ctx;
 		this.light = light;
@@ -20,10 +26,15 @@ export default class Triangle {
 		this.c = c;
 		this.color = [255,255,255,1];
 		this.hue = this.color;
-		this.maxShade = 0.3;
+		this.max = 0.5;
 	}
-	init(config: any): void {
+	init(config: Config): void {
 		this.color = validate.color(config.color) ? config.color : this.color;
+		if (validate.number(config.max)) {
+			if (config.max >= 0 && config.max <= 1) {
+				this.max = config.max;
+			}
+		}
 		this.shader();
 	}
 	update(light: [number, number, number]): void {
@@ -39,6 +50,12 @@ export default class Triangle {
 		this.ctx.lineTo(this.c[0], this.c[1]);
 		this.ctx.fill();
 		this.ctx.stroke();
+		/* debug
+		this.ctx.font = "12px monospace";
+		this.ctx.fillStyle = 'red';
+		const c = this.getCenteroid();
+		this.ctx.fillText("", c[0], c[1]);
+		*/
 	}
 	shader(): void {
 		const v1 = this.vector(this.a, this.b);
@@ -48,8 +65,12 @@ export default class Triangle {
 		const l = this.vector(this.a, this.light);
 		const ul = this.normalize(l);
 		const dp = this.dotProduct(un, ul);
-		const power = (dp+1)/2;
-		this.hue = this.shade(this.color, this.getIntensity(power, this.maxShade));
+		const power = 1-(dp+1)/2;
+		if (this.isDark(this.color)) {
+			this.hue = this.tint(this.color, this.getIntensity(power, this.max));
+		} else {
+			this.hue = this.shade(this.color, this.getIntensity(power, this.max));
+		}
 	}
 	vector(p1, p2): [number, number, number] {
 		return [
@@ -99,6 +120,6 @@ export default class Triangle {
 		];
 	}
 	isDark(color): boolean {
-		return (color[0] + color[1] + color[2]) / 3 > 127;
+		return (color[0] + color[1] + color[2]) / 3 < 127;
 	}
 }

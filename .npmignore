@@ -8,3 +8,4 @@ index.html
 /src
 /dev
 webpack.config.js
+tsconfig.json

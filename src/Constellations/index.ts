@@ -3,7 +3,27 @@ import Point from './Point';
 import Line from './Line';
 import * as validate from '../CanvasEffect/validate';
 
-export default class Constellations extends CanvasEffect {
+interface PointConfig {
+	color?: [number, number, number, number];
+	radius?: [number, number];
+	speed?: [number, number];
+}
+interface LineConfig {
+	color?: [number, number, number, number];
+	fade?: number;
+	max?: number;
+	width?: number;
+}
+export interface Config {
+	container: string;
+	width: any;
+	height: any;
+	seed?: number;
+	point?: Point;
+	line?: Line;
+}
+
+export default class Constellations extends CanvasEffect<Config> {
 	complexity: number;
 	lines: Array<Line>;
 	points: Array<Point>;

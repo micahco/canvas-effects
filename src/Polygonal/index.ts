@@ -3,18 +3,28 @@ import Triangle from './Triangle';
 import * as validate from '../CanvasEffect/validate';
 import * as Delaunator from 'delaunator';
 
-export default class Polygonal extends CanvasEffect {
+export interface Config {
+	container: string;
+	width: any;
+	height: any;
+	seed?: number;
+	color?: [number, number, number, number];
+	mouse?: boolean;
+	max?: number;
+}
+
+export default class Polygonal extends CanvasEffect<Config> {
 	complexity: number;
 	light: [number, number, number];
 	mouse: boolean;
 	seed: number;
 	triangles: Array<Triangle>;
-	constructor(config: any) {
+	constructor(config: Config) {
 		super(config);
 		this.complexity;
 		this.light = this.getLightSource();
 		this.mouse = true;
-		this.seed = 12000;
+		this.seed = 8000;
 		this.triangles;
 		this.init();
 	}
@@ -61,7 +71,8 @@ export default class Polygonal extends CanvasEffect {
 			}
 		}
 		const delaunay = this.triangulate(points);
-		const vertices = this.elevate(delaunay);
+		const height = (this.canvas.height+this.canvas.width)/2;
+		const vertices = this.elevate(delaunay, height);
 		let j = 0;
 		for (let k = 0; k < vertices.length; k+=3) {
 			this.triangles[j] = new Triangle(this.ctx, this.light, vertices[k], vertices[k+1], vertices[k+2]);
@@ -77,16 +88,28 @@ export default class Polygonal extends CanvasEffect {
 		}
 		return t;
 	}
-	elevate(p: Array<[number, number]>): number[][] {
+	elevate(p: Array<[number, number]>, h: number): number[][] {
 		for (let i = 0; i < p.length; i++) {
-			const h = this.getRandomArbitrary(this.canvas.width, 0);
-			if (!p[i][2]) {
-				for (let j = i+1; j < p.length; j++) {
+			if (typeof p[i][2] === 'undefined') {
+				for (let j = i; j < p.length; j++) {
 					if (p[i] == p[j]) {
 						p[j][2] = h;
+						switch (j % 3) {
+							case 0:
+								p[j+1][2] = 0;
+								p[j+2][2] = 0;
+								break;
+							case 1:
+								p[j+1][2] = 0;
+								p[j-1][2] = 0;
+								break;
+							case 2:
+								p[j-1][2] = 0;
+								p[j-2][2] = 0;
+								break;
+						}
 					}
 				}
-				p[i][2] = h;
 			}
 		}
 		return p;

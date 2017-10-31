@@ -1,17 +1,23 @@
 import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
 
-export default abstract class CanvasEffect {
-	readonly config: any;
+interface Config {
+	container: string;
+	width: any;
+	height: any;
+}
+
+export default abstract class CanvasEffect<T extends Config> {
+	readonly config: T;
 	canvas: HTMLCanvasElement;
 	ctx: CanvasRenderingContext2D;
 	requestId: any;
 	delay: number;
 	timer: number;
-	constructor(config: any) {
-		this.config = config ? config : {};
+	constructor(config: T) {
+		this.config = config;
 		this.canvas;
 		this.ctx;
-		this.delay = 500;
+		this.delay = 200;
 		this.requestId;
 		this.timer;
 		this.createCanvas();
@@ -50,10 +56,7 @@ export default abstract class CanvasEffect {
 	createCanvas(): void {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
-		if (this.config.backgroundColor) {
-			this.canvas.style.backgroundColor = this.config.backgroundColor;
-		}
-		const container: HTMLElement = document.querySelector(this.config.container);
+		const container: Element = document.querySelector(this.config.container);
 		if (container && container.nodeName == 'DIV') {
 			container.appendChild(this.canvas);
 		} else {
