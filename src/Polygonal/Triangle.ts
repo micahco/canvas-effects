@@ -1,13 +1,8 @@
 import * as validate from '../CanvasEffect/validate';
+import { Config } from '../Polygonal';
 
 // math equations: Dan Avila <daniel.avila@yale.edu>
 // light intesity: https://stackoverflow.com/a/31682068/4616986
-
-interface Config {
-	color?: [number, number, number, number];
-	mouse?: boolean;
-	max?: number;
-}
 
 export default class Triangle {
 	ctx: CanvasRenderingContext2D;
@@ -18,6 +13,10 @@ export default class Triangle {
 	color: [number, number, number, number];
 	hue: [number, number, number, number];
 	max: number;
+	stroke: {
+		color?: [number, number, number, number];
+		width?: number;
+	}
 	constructor(ctx, light, a, b, c) {
 		this.ctx = ctx;
 		this.light = light;
@@ -27,6 +26,7 @@ export default class Triangle {
 		this.color = [255,255,255,1];
 		this.hue = this.color;
 		this.max = 0.5;
+		this.stroke = {};
 	}
 	init(config: Config): void {
 		this.color = validate.color(config.color) ? config.color : this.color;
@@ -35,7 +35,14 @@ export default class Triangle {
 				this.max = config.max;
 			}
 		}
-		this.shader();
+		if (config.stroke) {
+			if (validate.color(config.stroke.color)) {
+				this.stroke.color = config.stroke.color;
+			}
+			if (validate.number(config.stroke.width)) {
+				this.stroke.width = config.stroke.width;
+			}
+		}
 	}
 	update(light: [number, number, number]): void {
 		this.light = light;
@@ -43,19 +50,20 @@ export default class Triangle {
 	}
 	render(): void {
 		this.ctx.fillStyle = `rgba(${this.hue[0]},${this.hue[1]},${this.hue[2]},${this.hue[3]})`;
-		this.ctx.strokeStyle = `rgba(${this.hue[0]},${this.hue[1]},${this.hue[2]},${this.hue[3]})`;
+		if (this.stroke.color) {
+			this.ctx.strokeStyle = `rgba(${this.stroke.color[0]},${this.stroke.color[1]},${this.stroke.color[2]},${this.stroke.color[3]})`;
+			if (this.stroke.width) {
+				this.ctx.lineWidth = this.stroke.width;
+			}
+		} else {
+			this.ctx.strokeStyle = `rgba(${this.hue[0]},${this.hue[1]},${this.hue[2]},${this.hue[3]})`;
+		}
 		this.ctx.beginPath();
 		this.ctx.moveTo(this.a[0], this.a[1]);
 		this.ctx.lineTo(this.b[0], this.b[1]);
 		this.ctx.lineTo(this.c[0], this.c[1]);
 		this.ctx.fill();
 		this.ctx.stroke();
-		/* debug
-		this.ctx.font = "12px monospace";
-		this.ctx.fillStyle = 'red';
-		const c = this.getCenteroid();
-		this.ctx.fillText("", c[0], c[1]);
-		*/
 	}
 	shader(): void {
 		const v1 = this.vector(this.a, this.b);

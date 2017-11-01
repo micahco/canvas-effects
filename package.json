@@ -2,10 +2,11 @@
   "name": "canvas-effects",
   "description": "modular canvas visualizations",
   "version": "0.1.4",
-  "main": "lib/index.js",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server",
-    "build": "./node_modules/.bin/tsc"
+    "build": "rm -r ./lib && ./node_modules/.bin/tsc"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
   },
   "dependencies": {
     "@types/delaunator": "^1.0.0",
-    "delaunator": "^1.0.4"
+    "delaunator": "^1.0.4",
+    "fast-simplex-noise": "^3.2.0",
+    "open-simplex-noise": "^1.4.0"
   }
 }

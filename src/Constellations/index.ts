@@ -3,7 +3,7 @@ import { default as Point, Config as PointConfig } from './Point';
 import { default as Line, Config as LineConfig } from './Line';
 import * as validate from '../CanvasEffect/validate';
 
-interface Config {
+export interface Config {
 	container: string;
 	width: any;
 	height: any;
@@ -76,6 +76,6 @@ export default class Constellations extends CanvasEffect<Config> {
 		}
 	}
 	getComplexity(seed: number): number {
-		return Math.round(this.canvas.width*this.canvas.height/seed);
+		return Math.floor(this.canvas.width*this.canvas.height/seed);
 	}	
 }

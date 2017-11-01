@@ -1,6 +1,6 @@
 import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
 
-interface Config {
+export interface Config {
 	container: string;
 	width: any;
 	height: any;

@@ -2,8 +2,9 @@ import CanvasEffect from '../CanvasEffect';
 import Triangle from './Triangle';
 import * as validate from '../CanvasEffect/validate';
 import * as Delaunator from 'delaunator';
+import OpenSimplexNoise from 'open-simplex-noise';
 
-interface Config {
+export interface Config {
 	container: string;
 	width: any;
 	height: any;
@@ -11,6 +12,10 @@ interface Config {
 	color?: [number, number, number, number];
 	mouse?: boolean;
 	max?: number;
+	stroke?: {
+		color?: [number, number, number, number];
+		width?: number;
+	}
 }
 
 export default class Polygonal extends CanvasEffect<Config> {
@@ -54,10 +59,10 @@ export default class Polygonal extends CanvasEffect<Config> {
 		}
 	}
 	generate(): void {
-		const points: Array<[number, number]> = [];
+		let points: number[][] = [];
 		const pad = (this.canvas.width+this.canvas.height)/10;
-		const cw = this.canvas.width+pad*2;
-		const ch = this.canvas.height+pad*2;
+		const cw = Math.floor(this.canvas.width+pad*2);
+		const ch = Math.floor(this.canvas.height+pad*2);
 		const iy = ch/Math.round(Math.sqrt((ch*this.complexity)/cw));
 		const ix = cw/Math.round(this.complexity/Math.sqrt((ch*this.complexity)/cw));
 		let i = 0;
@@ -70,49 +75,30 @@ export default class Polygonal extends CanvasEffect<Config> {
 				i++;
 			}
 		}
-		const delaunay = this.triangulate(points);
 		const height = (this.canvas.height+this.canvas.width)/2;
-		const vertices = this.elevate(delaunay, height);
+		points = this.triangulate(points);
+		points = this.elevate(points, height);
 		let j = 0;
-		for (let k = 0; k < vertices.length; k+=3) {
-			this.triangles[j] = new Triangle(this.ctx, this.light, vertices[k], vertices[k+1], vertices[k+2]);
+		for (let k = 0; k < points.length; k+=3) {
+			this.triangles[j] = new Triangle(this.ctx, this.light, points[k], points[k+1], points[k+2]);
 			this.triangles[j].init(this.config);
 			j++;
 		}
 	}
-	triangulate(p: Array<[number, number]>): Array<[number, number]> {
-		const d = new Delaunator(p).triangles;
+	triangulate(points: number[][]): Array<[number, number]> {
+		const d = new Delaunator(points).triangles;
 		const t = [];
 		for (var i = 0; i < d.length; i ++) {
-			t.push(p[d[i]]);
+			t.push(points[d[i]]);
 		}
 		return t;
 	}
-	elevate(p: Array<[number, number]>, h: number): number[][] {
-		for (let i = 0; i < p.length; i++) {
-			if (typeof p[i][2] === 'undefined') {
-				for (let j = i; j < p.length; j++) {
-					if (p[i] == p[j]) {
-						p[j][2] = h;
-						switch (j % 3) {
-							case 0:
-								p[j+1][2] = 0;
-								p[j+2][2] = 0;
-								break;
-							case 1:
-								p[j+1][2] = 0;
-								p[j-1][2] = 0;
-								break;
-							case 2:
-								p[j-1][2] = 0;
-								p[j-2][2] = 0;
-								break;
-						}
-					}
-				}
-			}
+	elevate(points: number[][], height: number): number[][] {
+		const simplex = new OpenSimplexNoise(this.seed);
+		for (let i = 0; i < points.length; i++) {
+			points[i][2] = ((simplex.noise2D(points[i][0], points[i][1])+1)/2)*height;
 		}
-		return p;
+		return points;
 	}
 	getLightSource(): [number, number, number] {
 		return [
@@ -122,10 +108,16 @@ export default class Polygonal extends CanvasEffect<Config> {
 		];
 	}
 	getComplexity(seed: number): number {
-		return Math.round(this.canvas.width*this.canvas.height/seed);
+		return Math.floor(this.canvas.width*this.canvas.height/seed);
 	}
 	getRandomArbitrary(max: number, min: number): number {
 		return Math.random()*(max-min)+min;
+	}
+	getCenteroid(a, b, c): [number, number] {
+		return [
+			(a[0]+b[0]+c[0])/3,
+			(a[1]+b[1]+c[1])/3
+		];
 	}
 	getMousePosition(e: MouseEvent): [number, number] {
 		const rect: ClientRect = this.canvas.getBoundingClientRect();

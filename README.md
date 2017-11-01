@@ -192,6 +192,22 @@ A number from 0 to 1 representing the max shade value. If value is 1, then polyg
 
 `max: <Number> // Default: 0.5`
 
+#### stroke
+
+The stroke property is an object that allows the user to configure the strokes of the polygons. By default this property is not initialized and therefore the stroke is the same color as the polygon fill.
+
+**color**
+
+Sets the color (r, g, b, a) of the stroke.
+
+`color: <Number>[4] // Default: undefined`
+
+**width**
+
+Sets the width of the stroke.
+
+`width: <Number> // Default: undefined`
+
 ### Example
 
 ```
@@ -204,7 +220,11 @@ const foo = new Polygonal({
 	seed: 8000,
 	color: [255, 255, 255, 0.5],
 	mouse: true,
-	max: 0.5
+	max: 0.5,
+	stroke: {
+		color: [0,0,0,1],
+		width: 0
+	}
 });
 ```
 
