@@ -28,7 +28,6 @@
   "dependencies": {
     "@types/delaunator": "^1.0.0",
     "delaunator": "^1.0.4",
-    "fast-simplex-noise": "^3.2.0",
     "open-simplex-noise": "^1.4.0"
   }
 }

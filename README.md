@@ -1,4 +1,4 @@
-# canvas-effects *WIP*
+# canvas-effects
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
 A Javascript library of canvas visualizations. Written in Typescript.
@@ -23,9 +23,18 @@ const foo = new Effect({
 });
 ```
 
+
+
+
+
+
+
+
+
+
 # Config
 
-These are global parameters that **must** be included in the config of every effect.
+These are **required** properties that must be present in the config for every effect.
 
 #### container
 
@@ -41,7 +50,7 @@ const foo = new Effect({
 
 Declares the desired width and height of the element.
 
-Can either be a fixed px value or a percentage.
+Can either be a fixed px value (number) or a percentage (string).
 
 ```
 const foo = new Effect({
@@ -55,7 +64,11 @@ const bar = new Effect({
 });
 ```
 
-All config options listed from this point on are **optional**.
+All config properties listed from this point on are **optional**.
+
+
+
+
 
 
 
@@ -72,11 +85,11 @@ const foo = new Constellations({
 });
 ```
 
-#### seed
+**seed**
 
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
 
-`seed: <Number> // Default: 8000`
+`seed: <number> // Default: 8000`
 
 #### point
 
@@ -86,19 +99,19 @@ The point property is an object that allows the user to configure the vertices.
 
 Sets the color (r, g, b, a) of the vertice.
 
-`color: <Number>[4] // Default: [0, 0, 0, 1]`
+`color: <number>[4] // Default: [0, 0, 0, 1]`
 
 **radius**
 
 Sets the range (max, min) of the size of the vertices.
 
-`radius: <Number>[2] // Default: [4, 2]`
+`radius: <number>[2] // Default: [4, 2]`
 
 **velocity**
 
 Sets the range (max, min) of the velocity at which the vertices travel.
 
-`velocity: <Number>[2] // Default: [0.2, 0.1]`
+`velocity: <number>[2] // Default: [0.2, 0.1]`
 
 #### line
 
@@ -108,26 +121,26 @@ The line property is an object that allows the user to configure the lines conne
 
 Sets the color (r, g, b, a) of the line.
 
-`color: <Number>[4] // Default: [0, 0, 0, 1]`
+`color: <number>[4] // Default: [0, 0, 0, 1]`
 
 **fade**
 
 If true, the lines will slowly disappear as the become larger.
 
-`fade: <Boolean> // Default: true`
+`fade: <boolean> // Default: true`
 
 
 **max**
 
 Sets the maximum length at which the line fades away and is no longer rendered.
 
-`max: <Number> // Default: 100`
+`max: <number> // Default: 100`
 
 **width**
 
 Sets the width of the line.
 
-`width: <Number> // Default: 1`
+`width: <number> // Default: 1`
 
 ### Example
 
@@ -158,6 +171,10 @@ const foo = new Constellations({
 
 
 
+
+
+
+
 # Polygonal
 
 ```
@@ -172,25 +189,25 @@ const foo = new Polygonal({
 
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
 
-`seed: <Number> // Default: 8000`
+`seed: <number> // Default: 8000`
 
 **color**
 
 This will set the base color (r, g, b, a) of the polygons.
 
-`color: <Number>[4] // Default: [255, 255, 255, 1]`
+`color: <number>[4] // Default: [255, 255, 255, 1]`
 
 **mouse**
 
 If true, the position of the light source will move with relation to the mouse pointer.
 
-`mouse: <Boolean> // Default: true`
+`mouse: <boolean> // Default: true`
 
 **max**
 
 A number from 0 to 1 representing the max shade value. If value is 1, then polygons will be completely black when hidden from the light source. If the value is 0, the light source will not affect the polygons at all.
 
-`max: <Number> // Default: 0.5`
+`max: <number> // Default: 0.5`
 
 #### stroke
 
@@ -200,13 +217,13 @@ The stroke property is an object that allows the user to configure the strokes o
 
 Sets the color (r, g, b, a) of the stroke.
 
-`color: <Number>[4] // Default: undefined`
+`color: <number>[4] // Default: undefined`
 
 **width**
 
 Sets the width of the stroke.
 
-`width: <Number> // Default: undefined`
+`width: <number> // Default: undefined`
 
 ### Example
 
@@ -233,13 +250,13 @@ const foo = new Polygonal({
 
 
 
+
+
+
+
 # Credits
 
 Math Formulas: [@danthecodingman](https://github.com/danthecodingman)
-
-
-
-
 
 
 # License

@@ -685,10 +685,6 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
-fast-simplex-noise@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/fast-simplex-noise/-/fast-simplex-noise-3.2.0.tgz#ae0b3cd7b9c2a056ecc72c2f7440cf7d0e3bca96"
-
 faye-websocket@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.10.0.tgz#4e492f8d04dfb6f89003507f6edbf2d501e7c6f4"
