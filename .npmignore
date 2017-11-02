@@ -1,7 +1,7 @@
 .DS_Store
 npm-debug.log
+webpack.config.js
+tsconfig.json
 /node_modules
 /src
 /dev
-webpack.config.js
-tsconfig.json

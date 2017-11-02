@@ -9,10 +9,6 @@ Download and install the latest published version from npm:
 
 `npm install --save canvas-effects`
 
-Or you can test the version from Github:
-
-`npm install --save getmicah/canvas-effects`
-
 Then import the effects you want into your project:
 
 ```
