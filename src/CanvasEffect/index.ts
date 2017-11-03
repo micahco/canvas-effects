@@ -7,37 +7,35 @@ export interface Config {
 }
 
 export default abstract class CanvasEffect<T extends Config> {
-	readonly config: T;
-	canvas: HTMLCanvasElement;
-	ctx: CanvasRenderingContext2D;
-	requestId: any;
-	delay: number;
-	timer: number;
+	protected readonly config: T;
+	protected canvas: HTMLCanvasElement;
+	protected ctx: CanvasRenderingContext2D;
+	private requestId: any;
+	private delay: number;
+	private fps: number;
+	private timer: number;
 	constructor(config: T) {
 		this.config = config;
-		this.canvas;
-		this.ctx;
 		this.delay = 200;
-		this.requestId;
-		this.timer;
+		this.fps = 60;
 		this.createCanvas();
 		this.setCanvasSize();
 	}
-	init(): void {
+	protected init(): void {
 		if (!this.requestId) {
 			this.main();
 		}
 	}
-	main(): void {
-		this.requestId = requestAnimFrame(this.main.bind(this));
+	protected abstract update(): void;
+	protected render(): void {
+		this.clear();
+	}
+	private main(): void {
+		this.requestId = requestAnimFrame(this.main.bind(this), this.fps);
 		this.update();
 		this.render();
 	}
-	abstract update(): void;
-	render(): void {
-		this.clear();
-	}
-	debounce(): void {
+	private debounce(): void {
 		if (this.requestId) {
 		   cancelAnimationFrame(this.requestId);
 		   this.requestId = undefined;
@@ -46,14 +44,14 @@ export default abstract class CanvasEffect<T extends Config> {
 		this.timer = setTimeout(this.resize.bind(this), this.delay);
 		this.clear();
 	}
-	resize(): void {
+	private resize(): void {
 		this.setCanvasSize();
 		this.init();
 	}
-	clear(): void {
+	private clear(): void {
 		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
-	createCanvas(): void {
+	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
 		const container: Element = document.querySelector(this.config.container);
@@ -63,7 +61,7 @@ export default abstract class CanvasEffect<T extends Config> {
 			throw new TypeError(`Invalid container: ${this.config.container}.`);
 		}
 	}
-	hasValidDimensions(w: any, h: any): boolean {
+	private hasValidDimensions(w: any, h: any): boolean {
 		if (typeof w == 'number' || typeof w == 'string') {
 			if (typeof w == 'string' && w.slice(-1) != '%') {
 				return false;
@@ -78,7 +76,7 @@ export default abstract class CanvasEffect<T extends Config> {
 		}
 		return false;
 	}
-	setCanvasSize(): void {
+	private setCanvasSize(): void {
 		let width: any = this.config.width;
 		let height: any = this.config.height;
 		if (this.hasValidDimensions(width, height)) {

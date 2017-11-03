@@ -7,14 +7,14 @@ export interface Config {
 }
 
 export default class Point {
-	ctx: CanvasRenderingContext2D;
-	pos: [number, number];
-	cw: number;
-	ch: number;
-	color: [number, number, number, number];
-	radius: number;
-	velocity: number;
-	theta: number;
+	private ctx: CanvasRenderingContext2D;
+	private pos: [number, number];
+	private cw: number;
+	private ch: number;
+	private color: [number, number, number, number];
+	private radius: number;
+	private velocity: number;
+	private theta: number;
 	constructor(ctx: CanvasRenderingContext2D, pos: [number, number]) {
 		this.ctx = ctx;
 		this.pos = pos;
@@ -56,10 +56,13 @@ export default class Point {
 		this.ctx.arc(this.pos[0], this.pos[1], this.radius, 0, 2 * Math.PI);
 		this.ctx.fill();
 	}
-	getRandomArbitrary(max, min): number {
+	public getPosition() {
+		return this.pos;
+	}
+	private getRandomArbitrary(max, min): number {
 		return Math.random() * (max - min) + min;
 	}
-	getRandomTheta(): number {
+	private getRandomTheta(): number {
 		return Math.random() * 2 * Math.PI;
 	}
 }

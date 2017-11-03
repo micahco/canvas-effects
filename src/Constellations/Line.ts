@@ -8,14 +8,14 @@ export interface Config {
 }
 
 export default class Line {
-	ctx: CanvasRenderingContext2D;
-	a: [number, number];
-	b: [number, number];
-	alpha: number;
-	color: [number, number, number, number];
-	fade: boolean;
-	max: number;
-	width: number;
+	private ctx: CanvasRenderingContext2D;
+	private a: [number, number];
+	private b: [number, number];
+	private alpha: number;
+	private color: [number, number, number, number];
+	private fade: boolean;
+	private max: number;
+	private width: number;
 	constructor(ctx: CanvasRenderingContext2D) {
 		this.ctx = ctx;
 		this.a;
@@ -57,7 +57,7 @@ export default class Line {
 			this.ctx.stroke();
 		}
 	}
-	getDistance(): number {
+	private getDistance(): number {
 		return Math.sqrt((this.a[0]-this.b[0])*(this.a[0]-this.b[0]) + (this.a[1]-this.b[1])*(this.a[1]-this.b[1]));
 	}
 }

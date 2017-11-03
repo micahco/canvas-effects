@@ -6,7 +6,7 @@
   "types": "./lib/index.d.ts",
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server",
-    "build": "rm -r ./lib && ./node_modules/.bin/tsc"
+    "build": "rm -r ./lib; ./node_modules/.bin/tsc"
   },
   "repository": {
     "type": "git",

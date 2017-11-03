@@ -1,8 +1,8 @@
-export function requestAnimFrame(callback) {
+export function requestAnimFrame(callback: any, fps: number) {
 	return requestAnimationFrame(callback) ||
 	webkitRequestAnimationFrame(callback) ||
 	function(callback){
-		setTimeout(callback, 1000 / 60);
+		setTimeout(callback, 1000 / fps);
 	};
 }
 
