@@ -4,7 +4,7 @@ import { default as Line, Config as LineConfig } from './Line';
 import * as validate from '../CanvasEffect/validate';
 
 export interface Config {
-	container: string;
+	container: string | Element;
 	width: any;
 	height: any;
 	seed?: number;

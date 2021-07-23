@@ -5,7 +5,7 @@ import * as Delaunator from 'delaunator';
 import OpenSimplexNoise from 'open-simplex-noise';
 
 export interface Config {
-	container: string;
+	container: string | Element;
 	width: any;
 	height: any;
 	seed?: number;

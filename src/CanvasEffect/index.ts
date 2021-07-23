@@ -1,7 +1,7 @@
 import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
 
 export interface Config {
-	container: string;
+	container: string | Element;
 	width: any;
 	height: any;
 }
@@ -54,7 +54,7 @@ export default abstract class CanvasEffect<T extends Config> {
 	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
-		const container: Element = document.querySelector(this.config.container);
+		const container: Element = this.config.container instanceof Element ? this.config.container : document.querySelector(this.config.container);
 		if (container && container.nodeName == 'DIV') {
 			container.appendChild(this.canvas);
 		} else {
