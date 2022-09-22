@@ -1,12 +1,12 @@
 import * as validate from '../CanvasEffect/validate';
-import { LineConfig, Coord } from '../types';
+import { LineConfig, ColorRGBA } from '../types';
 
 export default class Line {
 	private ctx: CanvasRenderingContext2D;
-	private a: Coord;
-	private b: Coord;
+	private a: [number, number];
+	private b: [number, number];
 	private alpha: number;
-	private color: [number, number, number, number];
+	private color: ColorRGBA;
 	private fade: boolean;
 	private max: number;
 	private width: number;
@@ -36,7 +36,7 @@ export default class Line {
 			}
 		}
 	}
-	update(a: Coord, b: Coord): void {
+	update(a: [number, number], b: [number, number]): void {
 		this.a = a;
 		this.b = b;
 	}

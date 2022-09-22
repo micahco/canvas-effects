@@ -55,11 +55,11 @@ export default abstract class CanvasEffect<T extends Config> {
 	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
-		const container: Element | null = document.querySelector(this.config.container);
-		if (container && container.nodeName == 'DIV') {
-			container.appendChild(this.canvas);
+		const el: Element | null = document.querySelector(this.config.selector);
+		if (el) {
+			el.appendChild(this.canvas);
 		} else {
-			throw new TypeError(`Invalid container: ${this.config.container}.`);
+			throw new TypeError(`Invalid selector: ${this.config.selector}.`);
 		}
 	}
 	private setCanvasSize(): void {

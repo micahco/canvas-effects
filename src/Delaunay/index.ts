@@ -1,5 +1,5 @@
 import CanvasEffect from '../CanvasEffect';
-import { DelaunayConfig, Point } from '../types';
+import { DelaunayConfig, Point3D} from '../types';
 import Triangle from './Triangle';
 import * as validate from '../CanvasEffect/validate';
 import { makeNoise2D } from "open-simplex-noise";
@@ -10,7 +10,7 @@ export default class Delaunay extends CanvasEffect<DelaunayConfig> {
 	private seed: number;
 	private apex: number;
 	private complexity: number;
-	private light: [number, number, number];
+	private light: Point3D;
 	private simplex: Noise2D;
 	private triangles: Triangle[];
 	constructor(config: DelaunayConfig) {
@@ -46,7 +46,7 @@ export default class Delaunay extends CanvasEffect<DelaunayConfig> {
 		}
 	}
 	private generate(): void {
-		let points: Point[] = [];
+		let points: Point3D[] = [];
 		const pad = (this.canvas!.width+this.canvas!.height)/10;
 		const cw = Math.floor(this.canvas!.width+pad*2);
 		const ch = Math.floor(this.canvas!.height+pad*2);
@@ -67,20 +67,20 @@ export default class Delaunay extends CanvasEffect<DelaunayConfig> {
 			this.triangles[i].init(this.config);
 		}
 	}
-	private triangulate(points: Point[]): Point[] {
+	private triangulate(points: Point3D[]): Point3D[] {
 		let tp: number[] = [];
-		points.forEach((coord) => {
-			tp.push(coord[0])
-			tp.push(coord[1])
+		points.forEach((p) => {
+			tp.push(p[0])
+			tp.push(p[1])
 		})
 		const d = new Delaunator(tp).triangles;
-		const t: Point[] = [];
+		const t: Point3D[] = [];
 		for (var i = 0; i < d.length; i++) {
 			t.push(points[d[i]]);
 		}
 		return t;
 	}
-	private getLightSource(height: number): [number, number, number] {
+	private getLightSource(height: number): Point3D{
 		return [
 			this.canvas!.width/2,
 			this.canvas!.height/2,
@@ -96,7 +96,7 @@ export default class Delaunay extends CanvasEffect<DelaunayConfig> {
 	private getRandomArbitrary(max: number, min: number): number {
 		return Math.random()*(max-min)+min;
 	}
-	private getCenteroid(a: Point, b: Point, c: Point): [number, number] {
+	private getCenteroid(a: Point3D, b: Point3D, c: Point3D): [number, number] {
 		return [
 			(a[0]+b[0]+c[0])/3,
 			(a[1]+b[1]+c[1])/3

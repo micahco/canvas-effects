@@ -5,22 +5,33 @@ A Javascript library of canvas visualizations. Written in Typescript.
 
 ## Getting Started
 
-Download and install the latest published version from npm:
+install:
 
 `yarn add canvas-effects`
 
-Then import the effects you want into your project:
+usage:
 
 ```
-import { Efect } from 'canvas-effects';
+import { Stars, Delaunay } from 'canvas-effects'
 
-const foo = new Effect({
-	// ...
+const foo = new Stars({
+	selector: '#stars',
+	width: 500,
+	height: 500,
+	point: {
+		color: [184, 142, 141, 1]
+	},
+	line: {
+		color: [216, 210, 225, 1]
+	}
+});
+
+const bar = new Delaunay({
+	selector: '#delaunay',
+	width: Infinity,
+	height: Infinity
 });
 ```
-
-
-
 
 
 
@@ -30,196 +41,136 @@ const foo = new Effect({
 
 # Config
 
-These are **required** properties that must be present in the config for every effect.
+These are the required properties.
 
-#### container
+**selector** : string
 
-A CSS selector that points to a **\<div\>** element in your html.
+**width** : number
 
-```
-const foo = new Effect({
-	container: '#selector'
-});
-```
+**height** : number
 
-#### width / height
 
-Declares the desired width and height of the element.
-
-Can either be a fixed px value (number) or a percentage (string).
+Setting the width or height value to `Infinity` will fit the element to the page.
 
 ```
 const foo = new Effect({
+	selector: '#selector'
 	width: 500,
 	height: 500
 });
 
 const bar = new Effect({
-	width: '100%',
+	selector: '.selector'
+	width: Infinity,
 	height: 400
 });
 ```
 
-All config properties listed from this point on are **optional**.
+All config properties listed from this point on are *optional*.
 
 
 
 
 
+# Stars
 
-
-
-
-
-# Constellations
-
-```
-import { Constellations } from 'canvas-effects';
-
-const foo = new Constellations({
-	// ...
-});
-```
-
-**seed**
+**seed** : number
 
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
 
-`seed: <number> // Default: 8000`
+	Default: 8000
 
-#### point
+####  point (object)
 
-The point property is an object that allows the user to configure the vertices.
+**color** : [number, number, number, number]
 
-**color**
+ColorRGBA [r, g, b, a] of point.
 
-Sets the color (r, g, b, a) of the vertice.
+	Default: [0, 0, 0, 1]
 
-`color: <number>[4] // Default: [0, 0, 0, 1]`
+**radius** : [number, number]
 
-**radius**
+Range [max, min] of point radius.
 
-Sets the range (max, min) of the size of the vertices.
+	Default: [4, 2]
 
-`radius: <number>[2] // Default: [4, 2]`
+**velocity** : [number, number]
 
-**velocity**
+Range [max, min] of the velocity at which the vertices travel.
 
-Sets the range (max, min) of the velocity at which the vertices travel.
-
-`velocity: <number>[2] // Default: [0.2, 0.1]`
+	Default: [0.2, 0.1]`
 
 #### line
 
-The line property is an object that allows the user to configure the lines connecting two vertices.
+**color** : [number, number, number, number]
 
-**color**
+ColorRGBA [r, g, b, a] of line.
 
-Sets the color (r, g, b, a) of the line.
+	Default: [0, 0, 0, 1]
 
-`color: <number>[4] // Default: [0, 0, 0, 1]`
+**fade** : boolean
 
-**fade**
+If true, the lines will slowly disappear as they become larger.
 
-If true, the lines will slowly disappear as the become larger.
-
-`fade: <boolean> // Default: true`
+	Default: true`
 
 
-**max**
+**max** : number
 
-Sets the maximum length at which the line fades away and is no longer rendered.
+Length at which the lines disappear.
 
-`max: <number> // Default: 100`
+	Default: 100
 
-**width**
+**width** : number
 
 Sets the width of the line.
 
-`width: <number> // Default: 1`
-
-### Example
-
-```
-import { Constellations } from 'canvas-effects';
-
-const foo = new Constellations({
-	container: '#bar',
-	width: '100%',
-	height: '100%',
-	seed: 8000,
-	point: {
-		color: [0, 0, 0, 1],
-		radius: [4, 2],
-		speed: [0.2, 0.1]
-	},
-	line: {
-		color: [0, 0, 0, 1],
-		fade: 0.05,
-		max: 100,
-		width: 1
-	}
-});
-```
-
-
-
-
-
-
+	Default: 1`
 
 
 
 
 # Polygonal
 
-```
-import { Polygonal } from 'canvas-effects';
-
-const foo = new Polygonal({
-	// ...
-});
-```
-
-**seed**
+**seed** : number
 
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
 
-`seed: <number> // Default: 16000`
+	Default: 8000
 
-**color**
+**color** : [number, number, number, number]
 
-This will set the base color (r, g, b, a) of the polygons.
+ColorRGBA [r, g, b, a].
 
-`color: <number>[4] // Default: [255, 255, 255, 1]`
+	Default: [0, 0, 0, 1]
 
-**mouse**
+**mouse** : boolean
 
-If true, the position of the light source will move with relation to the mouse pointer.
+If true, the light source will move with the user's mouse.
 
-`mouse: <boolean> // Default: true`
+	Default: true
 
-**max**
+**max** : number
 
 A number from 0 to 1 representing the max shade value. If value is 1, then polygons will be completely black when hidden from the light source. If the value is 0, the light source will not affect the polygons at all.
 
-`max: <number> // Default: 0.5`
+	Default: 0.5
 
 #### stroke
 
 The stroke property is an object that allows the user to configure the strokes of the polygons. By default this property is not initialized and therefore the stroke is the same color as the polygon fill.
 
-**color**
+**color** : [number, number, number, number]
 
-Sets the color (r, g, b, a) of the stroke.
+ColorRGBA [r, g, b, a] of the stroke.
 
-`color: <number>[4] // Default: undefined`
+	Default: undefined
 
-**width**
+**width** : number
 
 Sets the width of the stroke.
 
-`width: <number> // Default: undefined`
+	Default: undefined`
 
 ### Example
 
@@ -227,7 +178,7 @@ Sets the width of the stroke.
 import { Polygonal } from 'canvas-effects';
 
 const foo = new Polygonal({
-	container: '#bar',
+	selector: '#bar',
 	width: '100%',
 	height: '100%',
 	seed: 8000,

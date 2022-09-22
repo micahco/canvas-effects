@@ -1,12 +1,12 @@
 import * as validate from '../CanvasEffect/validate';
-import { PointConfig, Color } from '../types';
+import { PointConfig, ColorRGBA } from '../types';
 
 export default class Point {
 	private ctx: CanvasRenderingContext2D;
 	private pos: [number, number];
 	private cw: number;
 	private ch: number;
-	private color: Color;
+	private color: ColorRGBA;
 	private radius: number;
 	private velocity: number;
 	private theta: number;

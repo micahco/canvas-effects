@@ -1,5 +1,5 @@
 import * as validate from '../CanvasEffect/validate';
-import { DelaunayConfig, Point, Color } from '../types';
+import { DelaunayConfig, Point3D, ColorRGBA } from '../types';
 
 /*
  * SOURCES
@@ -9,18 +9,18 @@ import { DelaunayConfig, Point, Color } from '../types';
 
 export default class Triangle {
 	ctx: CanvasRenderingContext2D;
-	light: Point; 
-	a: Point; 
-	b: Point;
-	c: Point;
-	color: Color;
-	hue: Color;
+	light: Point3D; 
+	a: Point3D; 
+	b: Point3D;
+	c: Point3D;
+	color: ColorRGBA;
+	hue: ColorRGBA;
 	max: number; // 0-1; 0 = lightest, 1 = darkest
 	stroke: {
-		color?: Color;
+		color?: ColorRGBA;
 		width?: number;
 	}
-	constructor(ctx: CanvasRenderingContext2D, light: Point, a: Point, b: Point, c: Point) {
+	constructor(ctx: CanvasRenderingContext2D, light: Point3D, a: Point3D, b: Point3D, c: Point3D) {
 		this.ctx = ctx;
 		this.light = light;
 		this.a = a;
@@ -49,7 +49,7 @@ export default class Triangle {
 			}
 		}
 	}
-	update(light: Point): void {
+	update(light: Point3D): void {
 		this.light = light;
 		this.shader();
 	}
@@ -81,25 +81,25 @@ export default class Triangle {
 		const power = 1-(dp+1)/2;
 		this.hue = this.shade(this.color, this.getIntensity(power, this.max));
 	}
-	vector(p1: number[], p2: number[]): Point {
+	vector(p1: number[], p2: number[]): Point3D{
 		return [
 			p2[0]-p1[0],
 			p2[1]-p1[1],
 			p2[2]-p1[2]
 		]
 	}
-	cross(v1: number[], v2: number[]): Point {
+	cross(v1: number[], v2: number[]): Point3D{
 		return [
 			(v1[1]*v2[2])-(v1[2]*v2[1]),
 			(v1[2]*v2[0])-(v1[0]*v2[2]),
 			(v1[0]*v2[1])-(v1[1]*v2[0])
 		]
 	}
-	normalize(v: Point): Point {
+	normalize(v: Point3D): Point3D{
 		const m = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
 		return [v[0]/m, v[1]/m, v[2]/m];
 	}
-	shade(color: number[], i: number): Color {
+	shade(color: number[], i: number): ColorRGBA {
 		return [
 			Math.floor(color[0]*i),
 			Math.floor(color[1]*i),
