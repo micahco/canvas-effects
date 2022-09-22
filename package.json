@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/getmicah/canvas-effects.git"
+    "url": "git+https://github.com/micahco/canvas-effects.git"
   },
   "author": "Micah Cowell",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/getmicah/canvas-effects/issues"
+    "url": "https://github.com/micahco/canvas-effects/issues"
   },
-  "homepage": "https://github.com/getmicah/canvas-effects#readme",
+  "homepage": "https://github.com/micahco/canvas-effects#readme",
   "devDependencies": {
     "awesome-typescript-loader": "^3.2.3",
     "source-map-loader": "^0.2.3",

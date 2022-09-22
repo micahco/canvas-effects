@@ -1,7 +1,7 @@
-import Constellations from './Constellations';
-import Polygonal from './Polygonal';
+import Stars from './Stars';
+import Delaunay from './Delaunay';
 
 export {
-	Constellations,
-	Polygonal
+	Stars,
+	Delaunay
 }

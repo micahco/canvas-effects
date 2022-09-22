@@ -1,23 +1,15 @@
 import CanvasEffect from '../CanvasEffect';
-import { default as Point, Config as PointConfig } from './Point';
-import { default as Line, Config as LineConfig } from './Line';
+import { StarsConfig } from '../types';
+import Point from './Point';
+import Line from './Line';
 import * as validate from '../CanvasEffect/validate';
 
-export interface Config {
-	container: string;
-	width: any;
-	height: any;
-	seed?: number;
-	point?: PointConfig;
-	line?: LineConfig;
-}
-
-export default class Constellations extends CanvasEffect<Config> {
+export default class Stars extends CanvasEffect<StarsConfig> {
 	private complexity: number;
 	private lines: Array<Line>;
 	private points: Array<Point>;
 	private seed: number;
-	constructor(config: Config) {
+	constructor(config: StarsConfig) {
 		super(config);
 		this.complexity;
 		this.lines;

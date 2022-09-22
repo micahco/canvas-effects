@@ -1,10 +1,5 @@
 import * as validate from '../CanvasEffect/validate';
-
-export interface Config {
-	color?: [number, number, number, number];
-	radius?: [number, number];
-	velocity?: [number, number];
-}
+import { PointConfig } from '../types';
 
 export default class Point {
 	private ctx: CanvasRenderingContext2D;
@@ -25,7 +20,7 @@ export default class Point {
 		this.velocity = this.getRandomArbitrary(0.2, 0.1);
 		this.theta = this.getRandomTheta();
 	}
-	init(config: Config): void {
+	init(config: PointConfig): void {
 		if (config) {
 			this.color = validate.color(config.color) ? config.color : this.color;
 			if (validate.array(config.radius, 2)) {

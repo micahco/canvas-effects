@@ -1,24 +1,11 @@
 import CanvasEffect from '../CanvasEffect';
+import { DelaunayConfig } from '../types';
 import Triangle from './Triangle';
 import * as validate from '../CanvasEffect/validate';
 import * as Delaunator from 'delaunator';
 import OpenSimplexNoise from 'open-simplex-noise';
 
-export interface Config {
-	container: string;
-	width: any;
-	height: any;
-	seed?: number;
-	color?: [number, number, number, number];
-	mouse?: boolean;
-	max?: number;
-	stroke?: {
-		color?: [number, number, number, number];
-		width?: number;
-	}
-}
-
-export default class Polygonal extends CanvasEffect<Config> {
+export default class Delaunay extends CanvasEffect<DelaunayConfig> {
 	private apex: number;
 	private complexity: number;
 	private light: [number, number, number];
@@ -26,7 +13,7 @@ export default class Polygonal extends CanvasEffect<Config> {
 	private seed: number;
 	private simplex: OpenSimplexNoise;
 	private triangles: Array<Triangle>;
-	constructor(config: Config) {
+	constructor(config: DelaunayConfig) {
 		super(config);
 		this.apex = this.getApexHeight();
 		this.light = this.getLightSource(this.apex);

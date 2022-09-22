@@ -1,8 +1,11 @@
 import * as validate from '../CanvasEffect/validate';
-import { Config } from '../Polygonal';
+import { DelaunayConfig } from '../types';
 
-// math equations: Dan Avila <daniel.avila@yale.edu>
-// light intesity: https://stackoverflow.com/a/31682068/4616986
+/*
+ * SOURCES
+ * math equations: Dan Avila (https://github.com/danthecodingman)
+ * light intesity: https://stackoverflow.com/a/31682068/4616986
+ */
 
 export default class Triangle {
 	ctx: CanvasRenderingContext2D;
@@ -28,7 +31,7 @@ export default class Triangle {
 		this.max = 0.5;
 		this.stroke = {};
 	}
-	init(config: Config): void {
+	init(config: DelaunayConfig): void {
 		this.color = validate.color(config.color) ? config.color : this.color;
 		if (validate.number(config.max)) {
 			if (config.max >= 0 && config.max <= 1) {
