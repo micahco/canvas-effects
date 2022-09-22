@@ -19,12 +19,12 @@
   },
   "homepage": "https://github.com/micahco/canvas-effects#readme",
   "devDependencies": {
+    "@types/delaunator": "^1.0.0",
     "awesome-typescript-loader": "^3.2.3",
     "source-map-loader": "^0.2.3",
     "typescript": "^2.5.3",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
-    "@types/delaunator": "^1.0.0"
+    "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
     "delaunator": "^1.0.4",
