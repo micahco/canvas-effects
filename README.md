@@ -7,7 +7,7 @@ A Javascript library of canvas visualizations. Written in Typescript.
 
 Download and install the latest published version from npm:
 
-`npm install --save canvas-effects`
+`yarn add canvas-effects`
 
 Then import the effects you want into your project:
 

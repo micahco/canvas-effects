@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-	entry: './dev/index.ts',
+	entry: './example/index.ts',
 	mode: 'development',
 	module: {
 		rules: [
@@ -22,7 +22,7 @@ module.exports = {
 	},
 	devServer: {
 		static: {
-			directory: path.join(__dirname, 'dev'),
+			directory: path.join(__dirname, 'example'),
 		},
 		compress: true,
 		port: 9000

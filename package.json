@@ -13,7 +13,7 @@
     "url": "git+https://github.com/micahco/canvas-effects.git"
   },
   "author": "Micah Cowell",
-  "license": "MIT",
+  "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/micahco/canvas-effects/issues"
   },

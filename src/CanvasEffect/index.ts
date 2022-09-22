@@ -62,39 +62,22 @@ export default abstract class CanvasEffect<T extends Config> {
 			throw new TypeError(`Invalid container: ${this.config.container}.`);
 		}
 	}
-	private hasValidDimensions(w: any, h: any): boolean {
-		if (typeof w == 'number' || typeof w == 'string') {
-			if (typeof w == 'string' && w.slice(-1) != '%') {
-				return false;
-			}
-			return true;
-		}
-		if (typeof h == 'number' || typeof h == 'string') {
-			if (typeof h == 'string' && h.slice(-1) != '%') {
-				return false;
-			}
-			return true;
-		}
-		return false;
-	}
 	private setCanvasSize(): void {
-		let width: any = this.config.width;
-		let height: any = this.config.height;
-		if (this.hasValidDimensions(width, height)) {
-			if (typeof width == 'string' || typeof height == 'string') {
-				let per: number = width.slice(0, -1);
-				if (typeof width == 'string') {
-					width = (per/100) * window.innerWidth;
-				}
-				if (typeof height == 'string') {
-					height = (per/100) * window.innerHeight;
-				}
-				window.addEventListener('resize', this.debounce.bind(this));
-			}
-			this.canvas!.width = width;
-			this.canvas!.height = height;
-		} else {
-			throw new TypeError(`Invalid dimensions: ${width}, ${height}.`);
+		let width = this.config.width;
+		let height = this.config.height;
+		let listen = false;
+		if (!isFinite(width)) {
+			width = window.innerWidth;
+			listen = true;
 		}
+		if (!isFinite(height)) {
+			height = window.innerHeight;
+			listen = true;
+		}
+		if (listen) {
+			window.addEventListener('resize', this.debounce.bind(this));
+		}
+		this.canvas!.width = width;
+		this.canvas!.height = height;
 	}
 }

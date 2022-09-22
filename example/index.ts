@@ -3,14 +3,14 @@ import { StarsConfig, DelaunayConfig } from '../src/types';
 
 const sc: StarsConfig = {
 	container: '#stars',
-	width: 1000,
-	height: 1000
+	width: Infinity,
+	height: Infinity
 }
 const sta = new Stars(sc);
 
 const dc: DelaunayConfig = {
 	container: '#delaunay',
-	width: 1000,
-	height: 1000
+	width: Infinity,
+	height: Infinity
 }
 const del = new Delaunay(dc);

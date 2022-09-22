@@ -1,7 +1,7 @@
 export interface Config {
 	container: string;
-	width: any;
-	height: any;
+	width: number;
+	height: number;
 }
 
 
@@ -18,9 +18,6 @@ export type Color = [number, number, number, number]; // [R,G,B,A]
  */
 
 export interface StarsConfig extends Config {
-	container: string;
-	width: any;
-	height: any;
 	seed?: number;
 	point?: PointConfig;
 	line?: LineConfig;
