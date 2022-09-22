@@ -71,7 +71,7 @@ Changes the amount of random points generated based on the area of the element. 
 	Default: 8000
 
 
-####  point (object)
+***point*** : {Object}
 
 **color** : [number, number, number, number]
 
@@ -92,7 +92,7 @@ Range [max, min] of the velocity at which the vertices travel.
 	Default: [0.2, 0.1]`
 
 
-#### line
+***line*** : {Object}
 
 **color** : [number, number, number, number]
 
@@ -146,7 +146,7 @@ A number from 0 to 1 representing the max shade value. If value is 1, then polyg
 
 	Default: 0.5
 
-#### stroke
+***stroke*** : {Object}
 
 The stroke property is an object that allows the user to configure the strokes of the polygons. By default this property is not initialized and therefore the stroke is the same color as the polygon fill.
 
@@ -161,7 +161,6 @@ ColorRGBA [r, g, b, a] of the stroke.
 Sets the width of the stroke.
 
 	Default: undefined`
-
 
 
 ## Credits
