@@ -2,7 +2,7 @@ export function initialized(prop: any): boolean {
 	return typeof prop !== 'undefined'
 }
 
-export function array(prop: any, length): boolean {
+export function array(prop: any, length: number): boolean {
 	if (!initialized(prop)) {
 		return false;
 	}

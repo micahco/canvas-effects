@@ -1,5 +1,5 @@
 import * as validate from '../CanvasEffect/validate';
-import { DelaunayConfig } from '../types';
+import { DelaunayConfig, Point, Color } from '../types';
 
 /*
  * SOURCES
@@ -9,18 +9,18 @@ import { DelaunayConfig } from '../types';
 
 export default class Triangle {
 	ctx: CanvasRenderingContext2D;
-	light: [number, number, number];
-	a: [number, number, number];
-	b: [number, number, number];
-	c: [number, number, number];
-	color: [number, number, number, number];
-	hue: [number, number, number, number];
-	max: number;
+	light: Point; 
+	a: Point; 
+	b: Point;
+	c: Point;
+	color: Color;
+	hue: Color;
+	max: number; // 0-1; 0 = lightest, 1 = darkest
 	stroke: {
-		color?: [number, number, number, number];
+		color?: Color;
 		width?: number;
 	}
-	constructor(ctx, light, a, b, c) {
+	constructor(ctx: CanvasRenderingContext2D, light: Point, a: Point, b: Point, c: Point) {
 		this.ctx = ctx;
 		this.light = light;
 		this.a = a;
@@ -32,8 +32,10 @@ export default class Triangle {
 		this.stroke = {};
 	}
 	init(config: DelaunayConfig): void {
-		this.color = validate.color(config.color) ? config.color : this.color;
-		if (validate.number(config.max)) {
+		if (config.color && validate.color(config.color)) {
+			this.color = config.color;
+		}
+		if (config.max && validate.number(config.max)) {
 			if (config.max >= 0 && config.max <= 1) {
 				this.max = config.max;
 			}
@@ -47,7 +49,7 @@ export default class Triangle {
 			}
 		}
 	}
-	update(light: [number, number, number]): void {
+	update(light: Point): void {
 		this.light = light;
 		this.shader();
 	}
@@ -79,25 +81,25 @@ export default class Triangle {
 		const power = 1-(dp+1)/2;
 		this.hue = this.shade(this.color, this.getIntensity(power, this.max));
 	}
-	vector(p1, p2): [number, number, number] {
+	vector(p1: number[], p2: number[]): Point {
 		return [
 			p2[0]-p1[0],
 			p2[1]-p1[1],
 			p2[2]-p1[2]
 		]
 	}
-	cross(v1, v2): [number, number, number] {
+	cross(v1: number[], v2: number[]): Point {
 		return [
 			(v1[1]*v2[2])-(v1[2]*v2[1]),
 			(v1[2]*v2[0])-(v1[0]*v2[2]),
 			(v1[0]*v2[1])-(v1[1]*v2[0])
 		]
 	}
-	normalize(v): [number, number, number] {
+	normalize(v: Point): Point {
 		const m = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
 		return [v[0]/m, v[1]/m, v[2]/m];
 	}
-	shade(color, i): [number, number, number, number] {
+	shade(color: number[], i: number): Color {
 		return [
 			Math.floor(color[0]*i),
 			Math.floor(color[1]*i),
@@ -106,10 +108,10 @@ export default class Triangle {
 		];
 
 	}
-	getIntensity(power, max): number {
+	getIntensity(power: number, max: number): number {
 		return 1-max+max*power;
 	}
-	dotProduct(v1, v2): number {
+	dotProduct(v1: number[], v2: number[]): number {
 		return v1[0]*v2[0]+v1[1]*v2[1]+v1[2]*v2[2];
 	}
 	getCenteroid(): [number, number] {

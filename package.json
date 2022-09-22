@@ -1,7 +1,7 @@
 {
   "name": "canvas-effects",
   "description": "modular canvas visualizations",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
@@ -19,15 +19,16 @@
   },
   "homepage": "https://github.com/micahco/canvas-effects#readme",
   "devDependencies": {
-    "@types/delaunator": "^1.0.0",
-    "awesome-typescript-loader": "^3.2.3",
-    "source-map-loader": "^0.2.3",
-    "typescript": "^2.5.3",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2"
+    "@types/delaunator": "^5.0.0",
+    "ts-loader": "^9.4.1",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
-    "delaunator": "^1.0.4",
-    "open-simplex-noise": "^1.4.0"
+    "delaunator": "^5.0.0",
+    "open-simplex-noise": "^2.5.0"
   }
 }

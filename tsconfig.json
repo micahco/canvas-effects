@@ -2,7 +2,10 @@
 	"compilerOptions": {
 		"target": "es5",
 		"outDir": "./lib",
-		"declaration": true
+		"esModuleInterop": true,
+		"declaration": true,
+		"strict": true,
+		"noImplicitAny": true
 	},
 	"include": [
 		"./src/**/*"

@@ -5,23 +5,16 @@ import Line from './Line';
 import * as validate from '../CanvasEffect/validate';
 
 export default class Stars extends CanvasEffect<StarsConfig> {
+	private seed: number;
 	private complexity: number;
 	private lines: Array<Line>;
 	private points: Array<Point>;
-	private seed: number;
 	constructor(config: StarsConfig) {
 		super(config);
-		this.complexity;
-		this.lines;
-		this.points;
 		this.seed = 8000;
-		this.init();
-	}
-	protected init(): void {
-		if (validate.number(this.config.seed)) {
-			this.complexity = this.getComplexity(this.config.seed);
-		} else {
-			this.complexity = this.getComplexity(this.seed);
+		this.complexity = this.getComplexity(this.seed);
+		if (config.seed && validate.number(config.seed)) {
+			this.complexity = this.getComplexity(config.seed);
 		}
 		this.lines = [];
 		this.points = [];
@@ -54,18 +47,22 @@ export default class Stars extends CanvasEffect<StarsConfig> {
 	private generate(): void {
 		let k = 0;
 		for (let i = 0; i < this.complexity; i++) {
-			const x = Math.random() * this.canvas.width;
-			const y = Math.random() * this.canvas.height;
-			this.points[i] = new Point(this.ctx, [x,y]);
-			this.points[i].init(this.config.point);
+			const x = Math.random() * this.canvas!.width;
+			const y = Math.random() * this.canvas!.height;
+			this.points[i] = new Point(this.ctx!, [x,y]);
+			if (this.config.point) {
+				this.points[i].init(this.config.point);
+			} else {
+				this.points[i].init();
+			}
 			for (let j = i+1; j < this.complexity; j++) {
-				this.lines[k] = new Line(this.ctx);
+				this.lines[k] = new Line(this.ctx!);
 				this.lines[k].init(this.config.line);
 				k++;
 			}
 		}
 	}
 	private getComplexity(seed: number): number {
-		return Math.floor(this.canvas.width*this.canvas.height/seed);
+		return Math.floor(this.canvas!.width*this.canvas!.height/seed);
 	}	
 }

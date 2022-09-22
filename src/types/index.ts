@@ -1,8 +1,17 @@
-interface Config {
+export interface Config {
 	container: string;
 	width: any;
 	height: any;
 }
+
+
+/*
+ * GENERIC
+ */
+export type Coord = [number, number]; // [x,y]
+export type Point = [number, number, number]; // [x,y,z]
+export type Color = [number, number, number, number]; // [R,G,B,A]
+
 
 /*
  * STARS
@@ -29,6 +38,7 @@ export interface LineConfig {
 	max?: number;
 	width?: number;
 }
+
 
 /*
  * DELAUNAY

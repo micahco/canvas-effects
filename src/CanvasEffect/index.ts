@@ -1,21 +1,18 @@
 import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
-
-export interface Config {
-	container: string;
-	width: any;
-	height: any;
-}
+import { Config } from '../types';
 
 export default abstract class CanvasEffect<T extends Config> {
 	protected readonly config: T;
-	protected canvas: HTMLCanvasElement;
-	protected ctx: CanvasRenderingContext2D;
+	protected canvas: HTMLCanvasElement | null;
+	protected ctx: CanvasRenderingContext2D | null;
 	private requestId: any;
 	private delay: number;
 	private fps: number;
-	private timer: number;
+	private timer?: number;
 	constructor(config: T) {
 		this.config = config;
+		this.canvas = null;
+		this.ctx = null
 		this.delay = 200;
 		this.fps = 60;
 		this.createCanvas();
@@ -40,8 +37,10 @@ export default abstract class CanvasEffect<T extends Config> {
 		   cancelAnimationFrame(this.requestId);
 		   this.requestId = undefined;
 		}
-		clearTimeout(this.timer);
-		this.timer = setTimeout(this.resize.bind(this), this.delay);
+		if (this.timer != null) {
+			window.clearTimeout(this.timer);
+		}
+		this.timer = window.setTimeout(this.resize.bind(this), this.delay);
 		this.clear();
 	}
 	private resize(): void {
@@ -49,12 +48,14 @@ export default abstract class CanvasEffect<T extends Config> {
 		this.init();
 	}
 	private clear(): void {
-		this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		if (this.ctx != null) {
+			this.ctx.clearRect(0, 0, this.canvas!.width, this.canvas!.height);
+		}
 	}
 	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
-		const container: Element = document.querySelector(this.config.container);
+		const container: Element | null = document.querySelector(this.config.container);
 		if (container && container.nodeName == 'DIV') {
 			container.appendChild(this.canvas);
 		} else {
@@ -90,8 +91,8 @@ export default abstract class CanvasEffect<T extends Config> {
 				}
 				window.addEventListener('resize', this.debounce.bind(this));
 			}
-			this.canvas.width = width;
-			this.canvas.height = height;
+			this.canvas!.width = width;
+			this.canvas!.height = height;
 		} else {
 			throw new TypeError(`Invalid dimensions: ${width}, ${height}.`);
 		}

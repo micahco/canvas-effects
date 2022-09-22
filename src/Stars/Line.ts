@@ -1,10 +1,10 @@
 import * as validate from '../CanvasEffect/validate';
-import { LineConfig } from '../types';
+import { LineConfig, Coord } from '../types';
 
 export default class Line {
 	private ctx: CanvasRenderingContext2D;
-	private a: [number, number];
-	private b: [number, number];
+	private a: Coord;
+	private b: Coord;
 	private alpha: number;
 	private color: [number, number, number, number];
 	private fade: boolean;
@@ -12,23 +12,31 @@ export default class Line {
 	private width: number;
 	constructor(ctx: CanvasRenderingContext2D) {
 		this.ctx = ctx;
-		this.a;
-		this.b;
+		this.a = [0,0];
+		this.b = [0,0];
 		this.alpha = 0;
 		this.color = [0,0,0,1];
 		this.fade = true;
 		this.max = 100;
 		this.width = 1;
 	}
-	init(config: LineConfig): void {
+	init(config?: LineConfig): void {
 		if (config) {
-			this.color = validate.color(config.color) ? config.color : this.color;
-			this.fade = validate.boolean(config.fade) ? config.fade : this.fade;
-			this.max = validate.number(config.max) ? config.max : this.max;
-			this.width = validate.number(config.width) ? config.width : this.width;
+			if (config.color && validate.color(config.color)) {
+				this.color = config.color;
+			}
+			if (config.fade && validate.boolean(config.fade)) {
+				this.fade = config.fade;
+			}
+			if (config.max && validate.number(config.max)) {
+				this.max = config.max;
+			}
+			if (config.width && validate.number(config.width)) {
+				this.width = config.width;
+			}
 		}
 	}
-	update(a, b): void {
+	update(a: Coord, b: Coord): void {
 		this.a = a;
 		this.b = b;
 	}

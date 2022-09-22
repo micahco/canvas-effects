@@ -1,12 +1,12 @@
 import * as validate from '../CanvasEffect/validate';
-import { PointConfig } from '../types';
+import { PointConfig, Color } from '../types';
 
 export default class Point {
 	private ctx: CanvasRenderingContext2D;
 	private pos: [number, number];
 	private cw: number;
 	private ch: number;
-	private color: [number, number, number, number];
+	private color: Color;
 	private radius: number;
 	private velocity: number;
 	private theta: number;
@@ -20,15 +20,17 @@ export default class Point {
 		this.velocity = this.getRandomArbitrary(0.2, 0.1);
 		this.theta = this.getRandomTheta();
 	}
-	init(config: PointConfig): void {
+	init(config?: PointConfig): void {
 		if (config) {
-			this.color = validate.color(config.color) ? config.color : this.color;
-			if (validate.array(config.radius, 2)) {
+			if (config.color && validate.color(config.color)) {
+				this.color = config.color;
+			}
+			if (config.radius && validate.array(config.radius, 2)) {
 				if (config.radius[0] > config.radius[1]) {
 					this.radius = this.getRandomArbitrary(config.radius[0], config.radius[1]);
 				}
 			}
-			if (validate.array(config.velocity, 2)) {
+			if (config.velocity && validate.array(config.velocity, 2)) {
 				if (config.velocity[0] > config.velocity[1]) {
 					this.velocity = this.getRandomArbitrary(config.velocity[0], config.velocity[1]);					
 				}
@@ -54,7 +56,7 @@ export default class Point {
 	public getPosition() {
 		return this.pos;
 	}
-	private getRandomArbitrary(max, min): number {
+	private getRandomArbitrary(max: number, min: number): number {
 		return Math.random() * (max - min) + min;
 	}
 	private getRandomTheta(): number {
