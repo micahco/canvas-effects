@@ -1,5 +1,4 @@
 # canvas-effects
-[![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
 A Javascript library of canvas visualizations. Written in Typescript.
 
@@ -34,11 +33,6 @@ const bar = new Delaunay({
 ```
 
 
-
-
-
-
-
 # Config
 
 These are the required properties.
@@ -48,7 +42,6 @@ These are the required properties.
 **width** : number
 
 **height** : number
-
 
 Setting the width or height value to `Infinity` will fit the element to the page.
 
@@ -69,9 +62,6 @@ const bar = new Effect({
 All config properties listed from this point on are *optional*.
 
 
-
-
-
 # Stars
 
 **seed** : number
@@ -79,6 +69,7 @@ All config properties listed from this point on are *optional*.
 Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
 
 	Default: 8000
+
 
 ####  point (object)
 
@@ -99,6 +90,7 @@ Range [max, min] of point radius.
 Range [max, min] of the velocity at which the vertices travel.
 
 	Default: [0.2, 0.1]`
+
 
 #### line
 
@@ -126,8 +118,6 @@ Length at which the lines disappear.
 Sets the width of the line.
 
 	Default: 1`
-
-
 
 
 # Polygonal
@@ -172,42 +162,12 @@ Sets the width of the stroke.
 
 	Default: undefined`
 
-### Example
-
-```
-import { Polygonal } from 'canvas-effects';
-
-const foo = new Polygonal({
-	selector: '#bar',
-	width: '100%',
-	height: '100%',
-	seed: 8000,
-	color: [255, 255, 255, 0.5],
-	mouse: true,
-	max: 0.5,
-	stroke: {
-		color: [0,0,0,1],
-		width: 0
-	}
-});
-```
 
 
+## Credits
 
+Math Formulas: [Daniel Avila](https://github.com/danthecodingman)
 
+## License
 
-
-
-
-
-
-# Credits
-
-Math Formulas: [@danthecodingman](https://github.com/danthecodingman)
-
-
-# License
-
-Everything is under the [MIT License](https://opensource.org/licenses/MIT).
-
-Copyright (c) 2017 Micah Cowell
+[BSD-2-Clause](LICENSE)
