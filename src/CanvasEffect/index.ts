@@ -1,15 +1,15 @@
-import { requestAnimFrame, cancelAnimFrame } from './requestAnimationFrame';
+import { requestAnimFrame } from './requestAnimationFrame';
 import { Config } from '../types';
 
-export default abstract class CanvasEffect<T extends Config> {
-	protected readonly config: T;
+export default abstract class CanvasEffect<TConfig extends Config> {
+	protected readonly config: TConfig;
 	protected canvas: HTMLCanvasElement | null;
 	protected ctx: CanvasRenderingContext2D | null;
 	private requestId: any;
 	private delay: number;
 	private fps: number;
 	private timer?: number;
-	constructor(config: T) {
+	constructor(config: TConfig) {
 		this.config = config;
 		this.canvas = null;
 		this.ctx = null

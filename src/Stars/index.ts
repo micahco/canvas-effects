@@ -57,7 +57,9 @@ export default class Stars extends CanvasEffect<StarsConfig> {
 			}
 			for (let j = i+1; j < this.complexity; j++) {
 				this.lines[k] = new Line(this.ctx!);
-				this.lines[k].init(this.config.line);
+				if (this.config.line) {
+					this.lines[k].init(this.config.line);
+				}
 				k++;
 			}
 		}

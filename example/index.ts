@@ -9,12 +9,13 @@ const foo = new Stars({
 	},
 	line: {
 		color: [216, 210, 225, 1],
-		fade: false // FIX
+		fade: false
 	}
 });
 
 const bar = new Delaunay({
 	selector: '#delaunay',
 	width: Infinity,
-	height: Infinity
+	height: Infinity,
+	color: [43, 45, 66, 1]
 });

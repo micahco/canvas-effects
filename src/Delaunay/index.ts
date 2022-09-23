@@ -23,7 +23,6 @@ export default class Delaunay extends CanvasEffect<DelaunayConfig> {
 		this.complexity = this.getComplexity(this.seed);
 		this.light = this.getLightSource(this.apex);
 		if (!validate.boolean(config.mouse) || config.mouse === true) {
-			console.log('MOUSE')
 			this.canvas!.addEventListener('mousemove', this.onMouseMove.bind(this), false);	
 		}
 		this.simplex = makeNoise2D(Date.now());

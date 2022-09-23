@@ -25,8 +25,8 @@ export default class Line {
 			if (config.color && validate.color(config.color)) {
 				this.color = config.color;
 			}
-			if (config.fade && validate.boolean(config.fade)) {
-				this.fade = config.fade;
+			if (validate.boolean(config.fade)) {
+				this.fade = config.fade!;
 			}
 			if (config.max && validate.number(config.max)) {
 				this.max = config.max;
