@@ -1,5 +1,6 @@
+
 export interface Config {
-	selector: string;
+	element: Element | string | null;
 	width: number;
 	height: number;
 }

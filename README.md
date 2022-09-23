@@ -15,22 +15,26 @@ usage:
 ```
 import { Stars, Delaunay } from 'canvas-effects'
 
+const el = document.getElementById('stars');
+
 const foo = new Stars({
-	selector: '#stars',
-	width: 500,
-	height: 500,
+	element: el,
+	width: Infinity,
+	height: Infinity,
 	point: {
 		color: [184, 142, 141, 1]
 	},
 	line: {
-		color: [216, 210, 225, 1]
+		color: [216, 210, 225, 1],
+		fade: false
 	}
 });
 
 const bar = new Delaunay({
-	selector: '#delaunay',
+	element: '#delaunay',
 	width: Infinity,
-	height: Infinity
+	height: Infinity,
+	color: [43, 45, 66, 1]
 });
 ```
 
@@ -39,7 +43,9 @@ const bar = new Delaunay({
 
 These are the required properties.
 
-**selector** : string
+**element** : Element | string | null
+
+Can either provide an html element (Element) or a query selector (string).
 
 **width** : number
 
@@ -49,13 +55,13 @@ Setting the width or height value to `Infinity` will fit the element to the page
 
 ```
 const foo = new Effect({
-	selector: '#selector'
+	element: '#element'
 	width: 500,
 	height: 500
 });
 
 const bar = new Effect({
-	selector: '.selector'
+	element: '.selector'
 	width: Infinity,
 	height: 400
 });

@@ -1,7 +1,9 @@
 import { Stars, Delaunay } from '../src/index'
 
+const el = document.getElementById('stars');
+
 const foo = new Stars({
-	selector: '#stars',
+	element: el,
 	width: Infinity,
 	height: Infinity,
 	point: {
@@ -14,7 +16,7 @@ const foo = new Stars({
 });
 
 const bar = new Delaunay({
-	selector: '#delaunay',
+	element: '#delaunay',
 	width: Infinity,
 	height: Infinity,
 	color: [43, 45, 66, 1]

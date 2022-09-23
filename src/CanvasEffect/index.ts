@@ -55,11 +55,16 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
 		this.ctx = this.canvas.getContext('2d');
-		const el: Element | null = document.querySelector(this.config.selector);
-		if (el) {
+		let el: Element | null = null;
+		if (typeof this.config.element === 'string') {
+			el = document.querySelector(this.config.element);
+		} else if (this.config.element instanceof Element) {
+			el = this.config.element;
+		}
+		if (el !== null) {
 			el.appendChild(this.canvas);
 		} else {
-			throw new TypeError(`Invalid selector: ${this.config.selector}.`);
+			throw new TypeError(`Invalid config.element: ${this.config.element}.`);
 		}
 	}
 	private setCanvasSize(): void {
