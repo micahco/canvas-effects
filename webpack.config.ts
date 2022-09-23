@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-	entry: './page/index.ts',
+	entry: './docs/index.ts',
 	mode: 'development',
 	module: {
 		rules: [
@@ -18,11 +18,11 @@ module.exports = {
 	output: {
 		filename: 'bundle.js',
 		publicPath: '/',
-		path: path.join(__dirname, 'page'),
+		path: path.join(__dirname, 'docs'),
 	},
 	devServer: {
 		static: {
-			directory: path.join(__dirname, 'page'),
+			directory: path.join(__dirname, 'docs'),
 		},
 		compress: true,
 		port: 9000

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "./node_modules/.bin/webpack-dev-server",
     "build": "rm -r ./lib; ./node_modules/.bin/tsc",
-    "page": "./node_modules/.bin/webpack --mode=production"
+    "demo": "./node_modules/.bin/webpack --mode=production"
   },
   "repository": {
     "type": "git",
