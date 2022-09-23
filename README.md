@@ -2,6 +2,8 @@
 
 A Javascript library of canvas visualizations. Written in Typescript.
 
+[DEMO](https://micahco.github.io/canvas-effects)
+
 ## Getting Started
 
 install:

@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-	entry: './example/index.ts',
+	entry: './page/index.ts',
 	mode: 'development',
 	module: {
 		rules: [
@@ -16,13 +16,13 @@ module.exports = {
 		extensions: ['.tsx', '.ts', '.js'],
 	},
 	output: {
-		filename: 'bundle.min.js',
+		filename: 'bundle.js',
 		publicPath: '/',
-		path: __dirname
+		path: path.join(__dirname, 'page'),
 	},
 	devServer: {
 		static: {
-			directory: path.join(__dirname, 'example'),
+			directory: path.join(__dirname, 'page'),
 		},
 		compress: true,
 		port: 9000
