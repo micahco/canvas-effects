@@ -71,11 +71,12 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		let width = this.config.width;
 		let height = this.config.height;
 		let listen = false;
-		if (!isFinite(width)) {
+		var isMobile = ('ontouchstart' in document.documentElement && /mobi/i.test(navigator.userAgent));
+		if (!isFinite(width) && !isMobile) {
 			width = window.innerWidth;
 			listen = true;
 		}
-		if (!isFinite(height)) {
+		if (!isFinite(height) && !isMobile) {
 			height = window.innerHeight;
 			listen = true;
 		}
