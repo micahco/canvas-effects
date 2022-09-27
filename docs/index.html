@@ -9,23 +9,30 @@
 		html, body {
 			margin: 0;
 			padding: 0;
-			background-color: #34435E;
+			overflow-x: hidden;
 		}
 		header {
+			background-color: aliceblue;
 			position: fixed;
 			top: 0; right: 0;
-			background-color: lavender;
-			color: #34435E;
 			font-family: monospace;
 			font-size: 2em;
-			opacity: 0.8;
+		}
+		h1 {
+			background-color: aliceblue;
+			position: absolute;
+			margin: 0;
+			font-family: monospace;
+			font-size: 2em;
 		}
 	</style>
 </head>
 <body>
 	<header>canvas-effects <a href="https://github.com/micahco/canvas-effects">github</a></header>
-	<div id="stars"></div>
-	<div id="delaunay"></div>
+	<main>
+		<div id="stars"><h1>stars</h1></div>
+		<div id="delaunay"><h1>delaunay</h1></div>
+	</main>
 	<script src="bundle.js"></script>
 </body>
 </html>

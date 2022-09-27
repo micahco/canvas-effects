@@ -3,16 +3,16 @@ import { Config } from '../types';
 
 export default abstract class CanvasEffect<TConfig extends Config> {
 	protected readonly config: TConfig;
-	protected canvas: HTMLCanvasElement | null;
-	protected ctx: CanvasRenderingContext2D | null;
+	public canvas: HTMLCanvasElement;
+	protected ctx: CanvasRenderingContext2D;
 	private requestId: any;
 	private delay: number;
 	private fps: number;
 	private timer?: number;
 	constructor(config: TConfig) {
 		this.config = config;
-		this.canvas = null;
-		this.ctx = null
+		this.canvas = <HTMLCanvasElement>{};
+		this.ctx = <CanvasRenderingContext2D>{};
 		this.delay = 200;
 		this.fps = 60;
 		this.createCanvas();
@@ -54,18 +54,7 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 	}
 	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
-		this.ctx = this.canvas.getContext('2d');
-		let el: Element | null = null;
-		if (typeof this.config.container === 'string') {
-			el = document.querySelector(this.config.container);
-		} else if (this.config.container instanceof Element) {
-			el = this.config.container;
-		}
-		if (el !== null) {
-			el.appendChild(this.canvas);
-		} else {
-			throw new TypeError(`Invalid config.container: ${this.config.container}.`);
-		}
+		this.ctx = this.canvas.getContext('2d')!;
 	}
 	private setCanvasSize(): void {
 		let width = this.config.width;

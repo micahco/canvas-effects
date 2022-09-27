@@ -13,12 +13,9 @@ install:
 usage:
 
 ```
-import { Stars, Delaunay } from 'canvas-effects'
+import { Stars } from 'canvas-effects'
 
-const div = document.getElementById('stars');
-
-const foo = new Stars({
-	container: div,
+const stars = new Stars({
 	width: Infinity,
 	height: Infinity,
 	point: {
@@ -30,24 +27,17 @@ const foo = new Stars({
 	}
 });
 
-const bar = new Delaunay({
-	container: '#delaunay',
-	width: Infinity,
-	height: Infinity,
-	color: [43, 45, 66, 1]
-});
+const el = document.getElementById('stars');
+if (el != null) {
+	el.appendChild(stars.canvas);
+}
+
 ```
 
 
 # Config
 
 These are the required properties.
-
-**container** : Element | string | null
-
-Container in which the canvas will be inserted.
-
-Can either provide an html element (Element) or a query selector (string).
 
 **width** : number
 
@@ -57,13 +47,11 @@ Setting the width or height value to `Infinity` will fit the element to the page
 
 ```
 const foo = new Effect({
-	container: '#element'
 	width: 500,
 	height: 500
 });
 
 const bar = new Effect({
-	container: '.selector'
 	width: Infinity,
 	height: 400
 });

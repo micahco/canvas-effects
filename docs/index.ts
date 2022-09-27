@@ -1,23 +1,19 @@
 import { Stars, Delaunay } from '../src/index'
 
-const el = document.getElementById('stars');
-
-const foo = new Stars({
-	container: el,
+const stars = new Stars({
 	width: Infinity,
-	height: Infinity,
-	point: {
-		color: [184, 142, 141, 1]
-	},
-	line: {
-		color: [216, 210, 225, 1],
-		fade: false
-	}
+	height: Infinity
 });
+const starsContainer = document.getElementById('stars');
+if (starsContainer != null) {
+	starsContainer.appendChild(stars.canvas);
+}
 
-const bar = new Delaunay({
-	container: '#delaunay',
+const delaunay = new Delaunay({
 	width: Infinity,
-	height: Infinity,
-	color: [43, 45, 66, 1]
+	height: Infinity
 });
+const delaunayContainer = document.getElementById('delaunay');
+if (delaunayContainer != null) {
+	delaunayContainer.appendChild(delaunay.canvas);
+}
