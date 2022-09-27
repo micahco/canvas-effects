@@ -1,6 +1,6 @@
 
 export interface Config {
-	element: Element | string | null;
+	container: Element | string | null;
 	width: number;
 	height: number;
 }

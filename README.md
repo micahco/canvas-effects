@@ -15,10 +15,10 @@ usage:
 ```
 import { Stars, Delaunay } from 'canvas-effects'
 
-const el = document.getElementById('stars');
+const div = document.getElementById('stars');
 
 const foo = new Stars({
-	element: el,
+	container: div,
 	width: Infinity,
 	height: Infinity,
 	point: {
@@ -31,7 +31,7 @@ const foo = new Stars({
 });
 
 const bar = new Delaunay({
-	element: '#delaunay',
+	container: '#delaunay',
 	width: Infinity,
 	height: Infinity,
 	color: [43, 45, 66, 1]
@@ -43,7 +43,9 @@ const bar = new Delaunay({
 
 These are the required properties.
 
-**element** : Element | string | null
+**container** : Element | string | null
+
+Container in which the canvas will be inserted.
 
 Can either provide an html element (Element) or a query selector (string).
 
@@ -55,13 +57,13 @@ Setting the width or height value to `Infinity` will fit the element to the page
 
 ```
 const foo = new Effect({
-	element: '#element'
+	container: '#element'
 	width: 500,
 	height: 500
 });
 
 const bar = new Effect({
-	element: '.selector'
+	container: '.selector'
 	width: Infinity,
 	height: 400
 });
@@ -74,7 +76,7 @@ All config properties listed from this point on are *optional*.
 
 **seed** : number
 
-Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
+Changes the amount of random points generated based on the size of the canvas. A smaller number will produce more points, resulting in lower performance.
 
 	Default: 8000
 
@@ -132,7 +134,7 @@ Sets the width of the line.
 
 **seed** : number
 
-Changes the amount of random points generated based on the area of the element. A smaller number will produce more points, resulting in lower performance.
+Changes the amount of random points generated based on the sized of the canvas. A smaller number will produce more points, resulting in lower performance.
 
 	Default: 8000
 
