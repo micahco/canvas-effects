@@ -1,8 +1,11 @@
 # canvas-effects
 
+
 A Javascript library of canvas visualizations. Written in Typescript.
 
 [DEMO](https://micahco.github.io/canvas-effects)
+
+[![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
 ## Getting Started
 
