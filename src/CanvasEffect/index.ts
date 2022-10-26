@@ -54,6 +54,7 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 	}
 	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
+		this.canvas.innerHTML = '<a href="https://html.spec.whatwg.org/multipage/canvas.html"><pre><canvas></pre></a>'
 		this.ctx = this.canvas.getContext('2d')!;
 	}
 	private setCanvasSize(): void {

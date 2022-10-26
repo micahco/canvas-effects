@@ -2,7 +2,13 @@ import { Stars, Delaunay } from '../src/index'
 
 const stars = new Stars({
 	width: Infinity,
-	height: Infinity
+	height: Infinity,
+	point: {
+		color: [100, 100, 100, 1]
+	},
+	line: {
+		color: [100, 100, 100, 1]
+	}
 });
 const starsContainer = document.getElementById('stars');
 if (starsContainer != null) {
@@ -11,7 +17,8 @@ if (starsContainer != null) {
 
 const delaunay = new Delaunay({
 	width: Infinity,
-	height: Infinity
+	height: Infinity,
+	color: [50, 50, 50, 1]
 });
 const delaunayContainer = document.getElementById('delaunay');
 if (delaunayContainer != null) {
