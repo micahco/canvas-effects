@@ -1,8 +1,0 @@
-/node_modules
-/src
-/dev
-.DS_Store
-npm-debug.log
-webpack.config.js
-tsconfig.json
-yarn.lock
