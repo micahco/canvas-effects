@@ -9,6 +9,7 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 	private delay: number;
 	private fps: number;
 	private timer?: number;
+
 	constructor(config: TConfig) {
 		this.config = config;
 		this.canvas = <HTMLCanvasElement>{};
@@ -18,20 +19,25 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		this.createCanvas();
 		this.setCanvasSize();
 	}
+
 	protected init(): void {
 		if (!this.requestId) {
 			this.main();
 		}
 	}
+
 	protected abstract update(): void;
+
 	protected render(): void {
 		this.clear();
 	}
+
 	private main(): void {
 		this.requestId = requestAnimFrame(this.main.bind(this), this.fps);
 		this.update();
 		this.render();
 	}
+
 	private debounce(): void {
 		if (this.requestId) {
 		   cancelAnimationFrame(this.requestId);
@@ -43,20 +49,24 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		this.timer = window.setTimeout(this.resize.bind(this), this.delay);
 		this.clear();
 	}
+
 	private resize(): void {
 		this.setCanvasSize();
 		this.init();
 	}
+
 	private clear(): void {
 		if (this.ctx != null) {
 			this.ctx.clearRect(0, 0, this.canvas!.width, this.canvas!.height);
 		}
 	}
+
 	private createCanvas(): void {
 		this.canvas = document.createElement('canvas');
 		this.canvas.innerHTML = '<a href="https://html.spec.whatwg.org/multipage/canvas.html"><pre><canvas></pre></a>'
 		this.ctx = this.canvas.getContext('2d')!;
 	}
+	
 	private setCanvasSize(): void {
 		let width = this.config.width;
 		let height = this.config.height;

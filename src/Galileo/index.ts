@@ -1,15 +1,15 @@
 import CanvasEffect from '../CanvasEffect';
-import { StarsConfig } from '../types';
+import { GalileoConfig } from '../types';
 import Point from './Point';
 import Line from './Line';
 import * as validate from '../CanvasEffect/validate';
 
-export default class Stars extends CanvasEffect<StarsConfig> {
+export default class Galileo extends CanvasEffect<GalileoConfig> {
 	private seed: number;
 	private complexity: number;
 	private lines: Array<Line>;
 	private points: Array<Point>;
-	constructor(config: StarsConfig) {
+	constructor(config: GalileoConfig) {
 		super(config);
 		this.seed = 8000;
 		this.complexity = this.getComplexity(this.seed);

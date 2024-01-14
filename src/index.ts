@@ -1,7 +1,7 @@
-import Stars from './Stars';
 import Delaunay from './Delaunay';
+import Galileo from './Galileo';
 
 export {
-	Stars,
-	Delaunay
+	Delaunay,
+	Galileo,
 }

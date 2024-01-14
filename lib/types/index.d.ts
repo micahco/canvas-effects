@@ -4,7 +4,7 @@ export interface Config {
 }
 export type Point3D = [number, number, number];
 export type ColorRGBA = [number, number, number, number];
-export interface StarsConfig extends Config {
+export interface GalileoConfig extends Config {
     seed?: number;
     point?: PointConfig;
     line?: LineConfig;
