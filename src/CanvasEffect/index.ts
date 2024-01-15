@@ -3,20 +3,19 @@ import { Config } from '../types';
 
 export default abstract class CanvasEffect<TConfig extends Config> {
 	protected readonly config: TConfig;
-	public canvas: HTMLCanvasElement;
-	protected ctx: CanvasRenderingContext2D;
+	protected canvas: HTMLCanvasElement;
+	protected ctx: CanvasRenderingContext2D | null;
 	private requestId: any;
 	private delay: number;
 	private fps: number;
 	private timer?: number;
 
-	constructor(config: TConfig) {
+	constructor(item: HTMLCanvasElement, config: TConfig) {
 		this.config = config;
-		this.canvas = <HTMLCanvasElement>{};
-		this.ctx = <CanvasRenderingContext2D>{};
+		this.canvas = item;
+		this.ctx = item.getContext('2d');
 		this.delay = 200;
 		this.fps = 60;
-		this.createCanvas();
 		this.setCanvasSize();
 	}
 
@@ -26,28 +25,17 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		}
 	}
 
-	protected abstract update(): void;
+	protected abstract render(): void;
 
-	protected render(): void {
-		this.clear();
+	protected clear(): void {
+		if (this.ctx != null) {
+			this.ctx.clearRect(0, 0, this.canvas!.width, this.canvas!.height);
+		}
 	}
 
 	private main(): void {
 		this.requestId = requestAnimFrame(this.main.bind(this), this.fps);
-		this.update();
 		this.render();
-	}
-
-	private debounce(): void {
-		if (this.requestId) {
-		   cancelAnimationFrame(this.requestId);
-		   this.requestId = undefined;
-		}
-		if (this.timer != null) {
-			window.clearTimeout(this.timer);
-		}
-		this.timer = window.setTimeout(this.resize.bind(this), this.delay);
-		this.clear();
 	}
 
 	private resize(): void {
@@ -55,18 +43,6 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		this.init();
 	}
 
-	private clear(): void {
-		if (this.ctx != null) {
-			this.ctx.clearRect(0, 0, this.canvas!.width, this.canvas!.height);
-		}
-	}
-
-	private createCanvas(): void {
-		this.canvas = document.createElement('canvas');
-		this.canvas.innerHTML = '<a href="https://html.spec.whatwg.org/multipage/canvas.html"><pre><canvas></pre></a>'
-		this.ctx = this.canvas.getContext('2d')!;
-	}
-	
 	private setCanvasSize(): void {
 		let width = this.config.width;
 		let height = this.config.height;
@@ -85,5 +61,17 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		}
 		this.canvas!.width = width;
 		this.canvas!.height = height;
+	}
+
+	private debounce(): void {
+		if (this.requestId) {
+		   cancelAnimationFrame(this.requestId);
+		   this.requestId = undefined;
+		}
+		if (this.timer != null) {
+			window.clearTimeout(this.timer);
+		}
+		this.timer = window.setTimeout(this.resize.bind(this), this.delay);
+		this.clear();
 	}
 }

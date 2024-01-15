@@ -51,7 +51,15 @@ export default class Triangle {
 	}
 	update(light: Point3D): void {
 		this.light = light;
-		this.shader();
+		const v1 = this.vector(this.a, this.b);
+		const v2 = this.vector(this.a, this.c);
+		const n = this.cross(v1, v2);
+		const un = this.normalize(n);
+		const l = this.vector(this.a, this.light);
+		const ul = this.normalize(l);
+		const dp = this.dotProduct(un, ul);
+		const power = 1-(dp+1)/2;
+		this.hue = this.shade(this.color, this.getIntensity(power, this.max));
 	}
 	render(): void {
 		this.ctx.fillStyle = `rgba(${this.hue[0]},${this.hue[1]},${this.hue[2]},${this.hue[3]})`;
@@ -69,17 +77,6 @@ export default class Triangle {
 		this.ctx.lineTo(this.c[0], this.c[1]);
 		this.ctx.fill();
 		this.ctx.stroke();
-	}
-	shader(): void {
-		const v1 = this.vector(this.a, this.b);
-		const v2 = this.vector(this.a, this.c);
-		const n = this.cross(v1, v2);
-		const un = this.normalize(n);
-		const l = this.vector(this.a, this.light);
-		const ul = this.normalize(l);
-		const dp = this.dotProduct(un, ul);
-		const power = 1-(dp+1)/2;
-		this.hue = this.shade(this.color, this.getIntensity(power, this.max));
 	}
 	vector(p1: number[], p2: number[]): Point3D{
 		return [

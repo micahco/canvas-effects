@@ -14,8 +14,8 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 	private simplex: Noise2D;
 	private triangles: Triangle[];
 
-	constructor(config: DelaunayConfig) {
-		super(config);
+	constructor(item: HTMLCanvasElement, config: DelaunayConfig) {
+		super(item, config);
 		this.seed = 16000;
 		if (config.seed && validate.number(config.seed)) {
 			this.seed = config.seed;
@@ -36,15 +36,10 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 		super.init();
 	}
 
-	protected update(): void {
+	protected render(): void {
+		super.clear();
 		for (let i = 0; i < this.triangles.length; i++) {
 			this.triangles[i].update(this.light);
-		}
-	}
-
-	protected render(): void {
-		super.render();
-		for (let i = 0; i < this.triangles.length; i++) {
 			this.triangles[i].render();
 		}
 	}
