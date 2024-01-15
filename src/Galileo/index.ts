@@ -4,7 +4,7 @@ import Point from './Point';
 import Line from './Line';
 import * as validate from '../CanvasEffect/validate';
 
-export default class Galileo extends CanvasEffect<GalileoConfig> {
+export class Galileo extends CanvasEffect<GalileoConfig> {
 	private seed: number;
 	private complexity: number;
 	private lines: Array<Line>;

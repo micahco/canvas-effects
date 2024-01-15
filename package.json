@@ -2,10 +2,10 @@
   "name": "canvas-effects",
   "description": "modular canvas visualizations",
   "version": "0.2.2",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "/lib"
+    "/dist"
   ],
   "scripts": {
     "start": "./node_modules/.bin/tsc -w",
@@ -16,7 +16,7 @@
     "url": "git+https://github.com/micahco/canvas-effects.git"
   },
   "author": "Micah Cowell",
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/micahco/canvas-effects/issues"
   },

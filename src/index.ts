@@ -1,7 +1,2 @@
-import Delaunay from './Delaunay';
-import Galileo from './Galileo';
-
-export {
-	Delaunay,
-	Galileo,
-}
+export { Delaunay } from './Delaunay';
+export { Galileo } from './Galileo';

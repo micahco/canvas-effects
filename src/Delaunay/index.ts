@@ -6,7 +6,7 @@ import { makeNoise2D } from "open-simplex-noise";
 import type { Noise2D } from 'open-simplex-noise/lib/2d';
 import Delaunator from 'delaunator';
 
-export default class Delaunay extends CanvasEffect<DelaunayConfig> {
+export class Delaunay extends CanvasEffect<DelaunayConfig> {
 	private seed: number;
 	private apex: number;
 	private complexity: number;
