@@ -36,6 +36,10 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 		super.init();
 	}
 
+	protected update(config: DelaunayConfig): void {
+		console.log('update config')
+	}
+
 	protected render(): void {
 		super.clear();
 		for (let i = 0; i < this.triangles.length; i++) {

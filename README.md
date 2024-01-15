@@ -1,7 +1,5 @@
 # canvas-effects
 
-Modular canvas visualizations. Written in Typescript.
-
 [DEMO](https://micahco.github.io/canvas-effects)
 
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
@@ -10,14 +8,16 @@ Modular canvas visualizations. Written in Typescript.
 
 install:
 
-`yarn add canvas-effects`
+`npm install canvas-effects`
 
 usage:
 
 ```
-import { Stars } from 'canvas-effects'
+import { Galileo } from 'canvas-effects'
 
-const stars = new Stars({
+const el = document.getElementById('galileo');
+
+new Galileo(el, {
 	width: Infinity,
 	height: Infinity,
 	point: {
@@ -28,11 +28,6 @@ const stars = new Stars({
 		fade: false
 	}
 });
-
-const el = document.getElementById('stars');
-if (el != null) {
-	el.appendChild(stars.canvas);
-}
 
 ```
 

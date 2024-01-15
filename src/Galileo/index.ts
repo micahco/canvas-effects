@@ -9,6 +9,7 @@ export class Galileo extends CanvasEffect<GalileoConfig> {
 	private complexity: number;
 	private lines: Array<Line>;
 	private points: Array<Point>;
+
 	constructor(item: HTMLCanvasElement, config: GalileoConfig) {
 		super(item, config);
 		this.seed = 8000;
@@ -21,6 +22,13 @@ export class Galileo extends CanvasEffect<GalileoConfig> {
 		this.generate();
 		super.init();
 	}
+
+	protected update(config: GalileoConfig): void {
+		console.log('update config')
+		console.log(config)
+		this.config = config
+	}
+
 	protected render(): void {
 		super.clear();
 		for (let p = 0; p < this.complexity; p++) {

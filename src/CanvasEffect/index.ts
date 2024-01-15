@@ -2,7 +2,7 @@ import { requestAnimFrame } from './requestAnimationFrame';
 import { Config } from '../types';
 
 export default abstract class CanvasEffect<TConfig extends Config> {
-	protected readonly config: TConfig;
+	protected config: TConfig;
 	protected canvas: HTMLCanvasElement;
 	protected ctx: CanvasRenderingContext2D | null;
 	private requestId: any;
@@ -25,6 +25,7 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		}
 	}
 
+	protected abstract update(config: TConfig): void;
 	protected abstract render(): void;
 
 	protected clear(): void {
