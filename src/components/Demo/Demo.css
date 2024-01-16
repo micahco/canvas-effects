@@ -1,0 +1,6 @@
+.demo label {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
