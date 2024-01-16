@@ -23,10 +23,24 @@ export class Galileo extends CanvasEffect<GalileoConfig> {
 		super.init();
 	}
 
-	protected update(config: GalileoConfig): void {
-		console.log('update config')
-		console.log(config)
+	public updateConfig(config: GalileoConfig): void {
 		this.config = config
+		if (config.point) {
+			for (let p = 0; p < this.points.length; p++) {
+				this.points[p].init(config.point)
+			}
+		}
+		if (config.line) {
+			for (let l = 0; l < this.lines.length; l++) {
+				this.lines[l].init(config.line)
+			}
+		}		
+		if ((config.seed != this.config.seed) && config.seed && validate.number(config.seed)) {
+			this.complexity = this.getComplexity(config.seed);
+			this.lines = [];
+			this.points = [];
+			this.generate();
+		}
 	}
 
 	protected render(): void {

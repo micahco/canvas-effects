@@ -25,7 +25,7 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		}
 	}
 
-	protected abstract update(config: TConfig): void;
+	public abstract updateConfig(config: TConfig): void;
 	protected abstract render(): void;
 
 	protected clear(): void {

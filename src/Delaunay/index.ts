@@ -36,7 +36,7 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 		super.init();
 	}
 
-	protected update(config: DelaunayConfig): void {
+	public updateConfig(config: DelaunayConfig): void {
 		console.log('update config')
 	}
 
