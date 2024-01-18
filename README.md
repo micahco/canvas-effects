@@ -1,6 +1,6 @@
 # canvas-effects
 
-A modular HTML Canvas library
+A modular HTML Canvas library.
 
 [DEMO (React)](https://micahco.github.io/canvas-effects)
 
