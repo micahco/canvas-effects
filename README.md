@@ -1,6 +1,8 @@
 # canvas-effects
 
-[DEMO](https://micahco.github.io/canvas-effects)
+A modular HTML Canvas library
+
+[DEMO (React)](https://micahco.github.io/canvas-effects)
 
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
@@ -15,9 +17,9 @@ usage:
 ```
 import { Galileo } from 'canvas-effects'
 
-const el = document.getElementById('galileo');
+const canvas = document.getElementById('canvas');
 
-new Galileo(el, {
+new Galileo(canvas, {
 	width: Infinity,
 	height: Infinity,
 	point: {
@@ -31,8 +33,15 @@ new Galileo(el, {
 
 ```
 
+# Usage
 
-# Config
+```
+import { Effect } from 'canvas-effects'
+
+new Effect(HTMLCanvasElement, Config);
+```
+
+## Config
 
 These are the required properties.
 
@@ -40,24 +49,18 @@ These are the required properties.
 
 **height** : number
 
-Setting the width or height value to `Infinity` will fit the element to the page.
+Setting the width or height value to `Infinity` will fill the respective viewport.
 
 ```
-const foo = new Effect({
-	width: 500,
-	height: 500
-});
-
-const bar = new Effect({
+const foo = new Effect(canvas, {
 	width: Infinity,
-	height: 400
+	height: 500
 });
 ```
 
 All config properties listed from this point on are *optional*.
 
-
-# Stars
+### Galileo
 
 **seed** : number
 
@@ -76,15 +79,15 @@ ColorRGBA [r, g, b, a] of point.
 
 **radius** : [number, number]
 
-Range [max, min] of point radius.
+Range tuple [max, min] of point radius.
 
 	Default: [4, 2]
 
 **velocity** : [number, number]
 
-Range [max, min] of the velocity at which the vertices travel.
+Range tuple [max, min] of the velocity at which the vertices travel.
 
-	Default: [0.2, 0.1]`
+	Default: [0.2, 0.1]
 
 
 ***line*** : {Object}
@@ -99,7 +102,7 @@ ColorRGBA [r, g, b, a] of line.
 
 If true, the lines will slowly disappear as they become larger.
 
-	Default: true`
+	Default: true
 
 
 **max** : number
@@ -112,10 +115,10 @@ Length at which the lines disappear.
 
 Sets the width of the line.
 
-	Default: 1`
+	Default: 1
 
 
-# Polygonal
+### Delaunay
 
 **seed** : number
 
@@ -160,8 +163,8 @@ Sets the width of the stroke.
 
 ## Credits
 
-Math Formulas: [Daniel Avila](https://github.com/danthecodingman)
+Some math: [Daniel Avila](https://github.com/danthecodingman)
 
 ## License
 
-[BSD-2-Clause](LICENSE)
+[MIT](LICENSE)

@@ -24,7 +24,6 @@ export class Galileo extends CanvasEffect<GalileoConfig> {
 	}
 
 	public updateConfig(config: GalileoConfig): void {
-		this.config = config
 		if (config.point) {
 			for (let p = 0; p < this.points.length; p++) {
 				this.points[p].init(config.point)
@@ -34,8 +33,9 @@ export class Galileo extends CanvasEffect<GalileoConfig> {
 			for (let l = 0; l < this.lines.length; l++) {
 				this.lines[l].init(config.line)
 			}
-		}		
+		}
 		if ((config.seed != this.config.seed) && config.seed && validate.number(config.seed)) {
+			this.config = config
 			this.complexity = this.getComplexity(config.seed);
 			this.lines = [];
 			this.points = [];

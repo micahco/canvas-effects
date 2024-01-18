@@ -1,21 +1,14 @@
+export type Point3D= [number, number, number]; // [x,y,z]
+export type ColorRGBA = [number, number, number, number]; // [R,G,B,A]
 
 export interface Config {
 	width: number;
 	height: number;
 }
 
-
-/*
- * GENERIC
- */
-export type Point3D= [number, number, number]; // [x,y,z]
-export type ColorRGBA = [number, number, number, number]; // [R,G,B,A]
-
-
 /*
  * Galileo
  */
-
 export interface GalileoConfig extends Config {
 	seed?: number;
 	point?: PointConfig;
@@ -33,11 +26,9 @@ export interface LineConfig {
 	width?: number;
 }
 
-
 /*
  * DELAUNAY
  */
-
 export interface DelaunayConfig extends Config {
 	seed?: number;
 	color?: ColorRGBA;
