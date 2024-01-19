@@ -1,6 +1,8 @@
 import * as validate from '../CanvasEffect/validate';
 import { PointConfig, ColorRGBA } from '../types';
 
+const VELOCITY_MOD = 0.01;
+
 export default class Point {
 	private ctx: CanvasRenderingContext2D;
 	private pos: [number, number];
@@ -15,9 +17,9 @@ export default class Point {
 		this.pos = pos;
 		this.cw = this.ctx.canvas.width;
 		this.ch = this.ctx.canvas.height;
-		this.color = [0,0,0,1];
-		this.radius = this.getRandomArbitrary(4, 2);
-		this.velocity = this.getRandomArbitrary(0.2, 0.1);
+		this.color = [0, 0, 0, 1];
+		this.radius = this.getRandomArbitrary(2);
+		this.velocity = this.getRandomArbitrary(10);
 		this.theta = this.getRandomTheta();
 	}
 	init(config?: PointConfig): void {
@@ -25,15 +27,11 @@ export default class Point {
 			if (config.color && validate.color(config.color)) {
 				this.color = config.color;
 			}
-			if (config.radius && validate.array(config.radius, 2)) {
-				if (config.radius[0] > config.radius[1]) {
-					this.radius = this.getRandomArbitrary(config.radius[0], config.radius[1]);
-				}
+			if (config.radius && validate.number(config.radius)) {
+				this.radius = this.getRandomArbitrary(config.radius);
 			}
-			if (config.velocity && validate.array(config.velocity, 2)) {
-				if (config.velocity[0] > config.velocity[1]) {
-					this.velocity = this.getRandomArbitrary(config.velocity[0], config.velocity[1]);					
-				}
+			if (config.velocity && validate.number(config.velocity)) {
+				this.velocity = this.getRandomArbitrary(config.velocity)
 			}
 		}
 	}
@@ -42,10 +40,10 @@ export default class Point {
 			this.theta = Math.PI - this.theta;
 		}
 		if (this.pos[1] <= 0 + this.radius || this.pos[1] >= this.ch - this.radius) {
-			this.theta = 2*Math.PI - this.theta;
+			this.theta = (2 * Math.PI) - this.theta;
 		}
-		this.pos[0] += Math.cos(this.theta) * this.velocity;
-		this.pos[1] += Math.sin(this.theta) * this.velocity;
+		this.pos[0] += Math.cos(this.theta) * this.velocity * VELOCITY_MOD;
+		this.pos[1] += Math.sin(this.theta) * this.velocity * VELOCITY_MOD;
 	}
 	render(): void {
 		this.ctx.fillStyle = `rgba(${this.color[0]},${this.color[1]},${this.color[2]},${this.color[3]})`;
@@ -56,7 +54,10 @@ export default class Point {
 	public getPosition() {
 		return this.pos;
 	}
-	private getRandomArbitrary(max: number, min: number): number {
+	private getRandomArbitrary(n: number): number {
+		const margin = 0.2
+		const max = n + (n * margin)
+		const min = n - (n * margin)
 		return Math.random() * (max - min) + min;
 	}
 	private getRandomTheta(): number {

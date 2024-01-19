@@ -16,7 +16,7 @@ export default class Triangle {
 	c: Point3D;
 	color: ColorRGBA;
 	hue: ColorRGBA;
-	max: number; // 0-1; 0 = lightest, 1 = darkest
+	shade: number; // 0-1; 0 = lightest, 1 = darkest
 	stroke: {
 		color?: ColorRGBA;
 		width?: number;
@@ -29,16 +29,16 @@ export default class Triangle {
 		this.c = c;
 		this.color = [255,255,255,1];
 		this.hue = this.color;
-		this.max = 0.5;
+		this.shade = 0.5;
 		this.stroke = {};
 	}
 	init(config: DelaunayConfig): void {
 		if (config.color && validate.color(config.color)) {
 			this.color = config.color;
 		}
-		if (config.max && validate.number(config.max)) {
-			if (config.max >= 0 && config.max <= 1) {
-				this.max = config.max;
+		if (config.shade && validate.number(config.shade)) {
+			if (config.shade >= 0 && config.shade <= 1) {
+				this.shade = config.shade;
 			}
 		}
 		if (config.stroke) {
@@ -60,7 +60,7 @@ export default class Triangle {
 		const ul = this.normalize(l);
 		const dp = this.dotProduct(un, ul);
 		const power = 1-(dp+1)/2;
-		this.hue = this.shade(this.color, this.getIntensity(power, this.max));
+		this.hue = this.getShadeColor(this.color, this.getIntensity(power, this.shade));
 	}
 	render(): void {
 		this.ctx.fillStyle = helpers.colorStyle(this.hue);
@@ -101,7 +101,7 @@ export default class Triangle {
 			v[2] / m
 		];
 	}
-	shade(color: number[], value: number): ColorRGBA {
+	getShadeColor(color: number[], value: number): ColorRGBA {
 		return [
 			Math.floor(color[0] * value),
 			Math.floor(color[1] * value),

@@ -16,16 +16,13 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 
 	constructor(item: HTMLCanvasElement, config: DelaunayConfig) {
 		super(item, config);
-		this.seed = 16000;
+		this.seed = 5000;
 		if (config.seed && validate.number(config.seed)) {
 			this.seed = config.seed;
 		}
 		this.apex = this.getApexHeight();
 		this.complexity = this.getComplexity(this.seed);
-		this.light = this.getLightSource(this.apex);
-		if (!validate.boolean(config.mouse) || config.mouse === true) {
-			this.canvas!.addEventListener('mousemove', this.onMouseMove.bind(this), false);	
-		}
+		this.light = this.getCenterLight(this.apex);
 		this.simplex = makeNoise2D(Date.now());
 		this.triangles = [];
 		this.init();
@@ -33,11 +30,46 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 
 	protected init(): void {
 		this.generate()	
+		this.canvas!.addEventListener('mousemove', this.onMouseMove.bind(this), false);
 		super.init();
 	}
 
 	public updateConfig(config: DelaunayConfig): void {
-		console.log('update config')
+		super.updateConfig(config)
+		if (config.seed && validate.number(config.seed) && (config.seed != this.config.seed)) {
+			this.config.seed = config.seed
+			this.complexity = this.getComplexity(config.seed);
+			this.triangles = []
+			this.generate();
+		}
+		if (config.color && validate.color(config.color)) {
+			this.config.color = config.color
+		}
+		if (validate.boolean(config.mouse)) {
+			this.config.mouse = config.mouse
+		}
+		if (config.shade && validate.number(config.shade)) {
+			this.config.shade = config.shade
+		}
+		if (config.stroke && config.stroke.color && validate.color(config.stroke.color)) {
+			if (this.config.stroke) {
+				this.config.stroke.color = config.stroke.color
+			} else {
+				this.config.stroke = {color: config.stroke.color}
+			}
+		}
+		if (config.stroke && config.stroke.width && validate.number(config.stroke.width)) {
+			if (this.config.stroke) {
+				this.config.stroke.width = config.stroke.width
+			} else {
+				this.config.stroke = {width: config.stroke.width}
+			}
+		}
+		if (config.color || config.stroke) {
+			for (let t = 0; t < this.triangles.length; t++) {
+				this.triangles[t].init(config)
+			}
+		}
 	}
 
 	protected render(): void {
@@ -89,7 +121,7 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 		return t;
 	}
 
-	private getLightSource(height: number): Point3D{
+	private getCenterLight(height: number): Point3D{
 		return [
 			this.canvas!.width/2,
 			this.canvas!.height/2,
@@ -102,7 +134,7 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 	}
 
 	private getComplexity(seed: number): number {
-		return Math.floor(this.canvas!.width*this.canvas!.height/seed);
+		return Math.floor((this.canvas!.width * this.canvas!.height * 5) / (seed));
 	}
 
 	private getRandomArbitrary(max: number, min: number): number {
@@ -122,7 +154,9 @@ export class Delaunay extends CanvasEffect<DelaunayConfig> {
 	}
 	
 	private onMouseMove(e: MouseEvent): void {
-		const pos = this.getMousePosition(e);
-		this.light = [pos[0], pos[1], this.light[2]];
+		if (this.config.mouse) {
+			const pos = this.getMousePosition(e);
+			this.light = [pos[0], pos[1], this.light[2]];
+		}
 	}
 }

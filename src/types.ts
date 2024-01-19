@@ -2,8 +2,8 @@ export type Point3D= [number, number, number]; // [x,y,z]
 export type ColorRGBA = [number, number, number, number]; // [R,G,B,A]
 
 export interface Config {
-	width: number;
 	height: number;
+	width: number;
 }
 
 /*
@@ -16,8 +16,8 @@ export interface GalileoConfig extends Config {
 }
 export interface PointConfig {
 	color?: ColorRGBA;
-	radius?: [number, number];
-	velocity?: [number, number];
+	radius?: number;
+	velocity?: number;
 }
 export interface LineConfig {
 	color?: ColorRGBA;
@@ -33,7 +33,7 @@ export interface DelaunayConfig extends Config {
 	seed?: number;
 	color?: ColorRGBA;
 	mouse?: boolean;
-	max?: number;
+	shade?: number;
 	stroke?: {
 		color?: ColorRGBA;
 		width?: number;

@@ -6,40 +6,16 @@ A modular HTML Canvas library.
 
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
-## Getting Started
 
-install:
-
-`npm install canvas-effects`
-
-usage:
-
-```
-import { Galileo } from 'canvas-effects'
-
-const canvas = document.getElementById('canvas');
-
-new Galileo(canvas, {
-	width: Infinity,
-	height: Infinity,
-	point: {
-		color: [184, 142, 141, 1]
-	},
-	line: {
-		color: [216, 210, 225, 1],
-		fade: false
-	}
-});
-
-```
-
-# Usage
+## Usage
 
 ```
 import { Effect } from 'canvas-effects'
 
 new Effect(HTMLCanvasElement, Config);
+
 ```
+
 
 ## Config
 
@@ -52,13 +28,15 @@ These are the required properties.
 Setting the width or height value to `Infinity` will fill the respective viewport.
 
 ```
-const foo = new Effect(canvas, {
+const foo = new Effect(bar, {
 	width: Infinity,
 	height: 500
 });
+
 ```
 
 All config properties listed from this point on are *optional*.
+
 
 ### Galileo
 
@@ -68,33 +46,31 @@ Changes the amount of random points generated based on the size of the canvas. A
 
 	Default: 8000
 
-
 ***point*** : {Object}
 
 **color** : [number, number, number, number]
 
-ColorRGBA [r, g, b, a] of point.
+RGBA value of point.
 
 	Default: [0, 0, 0, 1]
 
-**radius** : [number, number]
+**radius** : number
 
 Range tuple [max, min] of point radius.
 
-	Default: [4, 2]
+	Default: 2
 
-**velocity** : [number, number]
+**velocity** : number
 
 Range tuple [max, min] of the velocity at which the vertices travel.
 
-	Default: [0.2, 0.1]
-
+	Default: 10
 
 ***line*** : {Object}
 
 **color** : [number, number, number, number]
 
-ColorRGBA [r, g, b, a] of line.
+RGBA value of line.
 
 	Default: [0, 0, 0, 1]
 
@@ -103,7 +79,6 @@ ColorRGBA [r, g, b, a] of line.
 If true, the lines will slowly disappear as they become larger.
 
 	Default: true
-
 
 **max** : number
 
@@ -136,9 +111,9 @@ ColorRGBA [r, g, b, a].
 
 If true, the light source will move with the user's mouse.
 
-	Default: true
+	Default: false
 
-**max** : number
+**shade** : number
 
 A number from 0 to 1 representing the max shade value. If value is 1, then polygons will be completely black when hidden from the light source. If the value is 0, the light source will not affect the polygons at all.
 
@@ -158,7 +133,7 @@ ColorRGBA [r, g, b, a] of the stroke.
 
 Sets the width of the stroke.
 
-	Default: undefined`
+	Default: undefined
 
 
 ## Credits

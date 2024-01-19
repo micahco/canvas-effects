@@ -1,5 +1,6 @@
 import { requestAnimFrame } from './requestAnimationFrame';
 import { Config } from '../types';
+import * as validate from './validate';
 
 export default abstract class CanvasEffect<TConfig extends Config> {
 	protected config: TConfig;
@@ -25,7 +26,14 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		}
 	}
 
-	public abstract updateConfig(config: TConfig): void;
+	public updateConfig(config: TConfig): void {
+		if (config.width && (config.width === Infinity || validate.number(config.width))) {
+			this.config.width = config.width
+		}
+		if (config.height && (config.height === Infinity || validate.number(config.height))) {
+			this.config.height = config.height
+		}
+	}
 	protected abstract render(): void;
 
 	protected clear(): void {
