@@ -1,0 +1,2 @@
+body{font-family:system-ui}main{padding:2em 0}footer{margin:2em 0}.gallery{display:flex;flex-direction:column;gap:4em}.demo{display:flex;gap:4rem;overflow-x:hidden}.demo>div{display:flex;flex-direction:column;justify-content:center}.demo>canvas{border:2px dotted}.config{bottom:0;line-height:1.5}.config .property{align-items:center;display:inline-flex;gap:1ch}.config .value{font-weight:700}
+/*# sourceMappingURL=main.7cf2d56b.css.map*/
