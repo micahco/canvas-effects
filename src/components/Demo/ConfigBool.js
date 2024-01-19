@@ -1,12 +1,13 @@
 const ConfigBool = (props) => {
-
     const handleChange = (e) => {
         props.setValue(!props.value)
     }
 
     return (
-        <label htmlFor={props.name}>
-            {String(props.value)}
+        <label htmlFor={props.name} className="property">
+            <span className="value">
+                {String(props.value)}
+            </span>
             <input
                 type="checkbox"
                 id={props.name}

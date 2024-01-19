@@ -1,36 +1,36 @@
 import { useState, useEffect } from 'react'
 import { useDebounce } from 'hooks/useDebounce'
+import { RGBAToHex, hexToRGBA } from 'helpers/colors'
 
-const RGBAToHex = (rgba) => '#' + rgba.slice(0, -1).map(x => {
-    const hex = x.toString(16)
-    return hex.length === 1 ? '0' + hex : hex
-  }).join('')
-
-const hexToRGB = hex =>
-    hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
-                ,(m, r, g, b) => '#' + r + r + g + g + b + b)
-        .substring(1).match(/.{2}/g)
-        .map(x => parseInt(x, 16))
 
 const ConfigColor = (props) => {
-    const [color, setColor] = useState(RGBAToHex(props.value))
-    const debouncedColor = useDebounce(color, 300)
+    const { name, value, setValue } = props
+    const [hexValue, setHexValue] = useState('')
+    const debouncedHexValue = useDebounce(hexValue, 300)
 
     useEffect(() => {
-        props.setValue([...hexToRGB(color), 1])
-    }, [debouncedColor])
+        if (value) {
+            setHexValue(RGBAToHex(value))
+        }
+    }, [value])
+
+    useEffect(() => {
+        if (debouncedHexValue) {
+            setValue(hexToRGBA(debouncedHexValue))
+        }
+    }, [debouncedHexValue, setValue])
 
     return (
-        <label htmlFor={props.name}>
-            [{String(props.value)}]
+        <div className='property'>
+            <span className='value'>[{String(value)}]</span>
             <input
                 type='color'
-                id={props.name}
-                name={props.name}
-                value={color}
-                onChange={e => setColor(e.target.value)}
+                id={name}
+                name={name}
+                value={hexValue}
+                onChange={e => setHexValue(e.target.value)}
             />
-        </label>
+        </div>
     )
 }
 

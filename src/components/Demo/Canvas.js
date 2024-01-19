@@ -1,20 +1,21 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useEffect } from 'react'
 
 const Canvas = (props) => {
+	const { config, effect } = props
 	const canvasRef = useRef(null)
 	const effectRef = useRef(null)
 
 	useEffect(() => {
 		if (effectRef.current) {
-			effectRef.current.updateConfig(props.config)
+			effectRef.current.updateConfig(config)
 		}
-	}, [props.config])
+	}, [config])
 
 	useEffect(() => {
-		if (canvasRef.current) {
-			effectRef.current = new props.effect(canvasRef.current, props.config)
+		if (canvasRef.current && !effectRef.current) {
+			effectRef.current = new effect(canvasRef.current, config)
 		}
-	}, [])
+	})
 
 	return <canvas ref={canvasRef} />
 }

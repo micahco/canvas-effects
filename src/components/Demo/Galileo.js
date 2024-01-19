@@ -1,46 +1,46 @@
-import './Demo.css'
 import React, { useState } from 'react'
 import { Galileo } from 'canvas-effects'
 import Canvas from './Canvas'
-import ConfigRange from './ConfigRange'
-import ConfigTupleRange from './ConfigTupleRange'
 import ConfigBool from './ConfigBool'
+import ConfigInc from './ConfigInc'
 import ConfigColor from './ConfigColor'
 
-const GalileoDemo = props => {
-    const [seedValue, setSeedValue] = useState(8000)
+const GalileoDemo = (props) => {
+    const [seedValue, setSeedValue] = useState(5000)
     const [pointColor, setPointColor] = useState([0, 0, 0, 1])
-    const [pointRadius, setPointRadius] = useState([4, 2])
-    const [pointVelocity, setPointVelocity] = useState([0.2, 0.1])
+    const [pointRadius, setPointRadius] = useState(2)
+    const [pointVelocity, setPointVelocity] = useState(10)
     const [lineColor, setLineColor] = useState([0, 0, 0, 1])
     const [lineFade, setLineFade] = useState(true)
     const [lineMax, setLineMax] = useState(100)
     const [lineWidth, setLineWidth] = useState(1)
 
     return (
-        <article className='demo'>
-            <h2>Galileo</h2>
-            <pre>{`
-new Galileo(HTMLCanvasElement, {
+        <article className='demo galileo'>
+            <div>
+                <h2>Galileo</h2>
+                <pre className='config'>{`
+{
     height: 500,
-    width: Infinity,
-    seed: `}<ConfigRange name="seed" range={[1000, 15000]} value={seedValue} setValue={setSeedValue} step={1000} />{`
+    width: 1000,
+    seed: `}<ConfigInc value={seedValue} setValue={setSeedValue} step={2000} max={9000} min={2000} />{`
     point: {
-        color: `}<ConfigColor value={pointColor} setValue={setPointColor} />{`
-        radius: `}<ConfigTupleRange name="galileo-point-radius" tuple={pointRadius} setTuple={setPointRadius} min={-4} max={4} step={0.5} />{`
-        velocity: ${pointVelocity}
+        color: `}<ConfigColor name='galileo-point-color' value={pointColor} setValue={setPointColor} />{`
+        radius: `}<ConfigInc name="galileo-point-radius" value={pointRadius} setValue={setPointRadius} min={1} max={5} step={1} />{`
+        velocity: `}<ConfigInc name="galileo-point-velocity" value={pointVelocity} setValue={setPointVelocity} min={10} max={510} step={100} />{`
     },
     line: {
-        color: `}<ConfigColor value={lineColor} setValue={setLineColor} />{`
+        color: `}<ConfigColor name='galileo-line-color' value={lineColor} setValue={setLineColor} />{`
         fade: `}<ConfigBool value={lineFade} setValue={setLineFade} />{`
-        max: `}<ConfigRange name="galileo-line-max" range={[50, 500]} value={lineMax} setValue={setLineMax} step={50} />{`
-        width: `}<ConfigRange name="galileo-line-width" range={[1, 5]} value={lineWidth} setValue={setLineWidth} step={1} />{`
+        max: `}<ConfigInc value={lineMax} setValue={setLineMax} step={100} max={500} min={100} />{`
+        width: `}<ConfigInc value={lineWidth} setValue={setLineWidth} step={1} max={5} min={1} />{`
     }
-});
-            `}</pre>
+}
+                `}</pre>
+            </div>
             <Canvas effect={Galileo} config={{
                 height: 500,
-                width: Infinity,
+                width: 1000,
                 seed: seedValue,
                 point: {
                     color: pointColor,

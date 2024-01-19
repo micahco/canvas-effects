@@ -1,17 +1,25 @@
 import './App.css';
 import GalileoDemo from 'components/Demo/Galileo';
+import DelaunayDemo from 'components/Demo/Delaunay';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>canvas-effects demo</h1>
+      <header className="header">
+        <h1>canvas-effects</h1>
+        <p>A modular HTML Canvas library.</p>
+        <a href="https://badge.fury.io/js/canvas-effects"><img src="https://badge.fury.io/js/canvas-effects.svg" alt="npm version" height="18"/></a>
+        <p><a href="https://github.com/micahco/canvas-effects">GitHub</a></p>
       </header>
       <main>
-        <section>
+        <section className='gallery'>
           <GalileoDemo />
+          <DelaunayDemo />
         </section>
       </main>
+      <footer>
+        <p>&copy; 2024 Micah Cowell.</p>
+      </footer>
     </div>
   );
 }
