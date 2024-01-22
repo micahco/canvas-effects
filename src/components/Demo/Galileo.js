@@ -17,7 +17,7 @@ const GalileoDemo = (props) => {
 
     return (
         <article className='demo galileo'>
-            <div>
+            <div className='left'>
                 <h2>Galileo</h2>
                 <pre className='config'>{`
 {
@@ -38,22 +38,24 @@ const GalileoDemo = (props) => {
 }
                 `}</pre>
             </div>
-            <Canvas effect={Galileo} config={{
-                height: 500,
-                width: 1000,
-                seed: seedValue,
-                point: {
-                    color: pointColor,
-                    radius: pointRadius,
-                    velocity: pointVelocity
-                },
-                line: {
-                    color: lineColor,
-                    fade: lineFade,
-                    max: lineMax,
-                    width: lineWidth
-                }
-            }} />
+            <div className='right'>
+                <Canvas effect={Galileo} config={{
+                    height: 500,
+                    width: 1000,
+                    seed: seedValue,
+                    point: {
+                        color: pointColor,
+                        radius: pointRadius,
+                        velocity: pointVelocity
+                    },
+                    line: {
+                        color: lineColor,
+                        fade: lineFade,
+                        max: lineMax,
+                        width: lineWidth
+                    }
+                }} />
+            </div>
         </article>
     )
 }

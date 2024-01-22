@@ -15,7 +15,7 @@ const DelaunayDemo = (props) => {
 
     return (
         <article className='demo delaunay'>
-            <div>
+            <div className='left'>
                 <h2>Delaunay</h2>
                 <pre className='config'>{`
 {
@@ -32,18 +32,20 @@ const DelaunayDemo = (props) => {
 }
                 `}</pre>
             </div>
-            <Canvas effect={Delaunay} config={{
-                height: 500,
-                width: 1000,
-                seed: seedValue,
-                color: color,
-                mouse: mouse,
-                shade: shade,
-                stroke: {
-                    color: strokeColor,
-                    width: strokeWidth
-                }
-            }} />
+            <div className='right'>
+                <Canvas effect={Delaunay} config={{
+                    height: 500,
+                    width: 1000,
+                    seed: seedValue,
+                    color: color,
+                    mouse: mouse,
+                    shade: shade,
+                    stroke: {
+                        color: strokeColor,
+                        width: strokeWidth
+                    }
+                }} />
+            </div>
         </article>
     )
 }

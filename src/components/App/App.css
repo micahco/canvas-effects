@@ -13,23 +13,29 @@ footer {
 .gallery {
     display: flex;
     flex-direction: column;
-    gap: 4em;
+    gap: 2em;
 }
 
 .demo {
     display: flex;
-    gap: 4rem;
-    overflow-x: hidden;
+    gap: 1em;
 }
 
-.demo > div {
+.demo .left {
+    flex-basis: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.demo > canvas {
+.demo h2 {
+    margin: 0;
+}
+
+.demo canvas {
     border: 2px dotted;
+    flex-grow: 1;
+    max-width: 800px;
 }
 
 .config {

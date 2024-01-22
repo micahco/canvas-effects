@@ -27,7 +27,7 @@ const ConfigColor = (props) => {
                 type='color'
                 id={name}
                 name={name}
-                value={hexValue}
+                value={hexValue || "#000000"}
                 onChange={e => setHexValue(e.target.value)}
             />
         </div>
