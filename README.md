@@ -1,6 +1,6 @@
 # canvas-effects
 
-A modular HTML Canvas library.
+A modular HTML Canvas library
 
 [DEMO (React)](https://micahco.github.io/canvas-effects)
 
@@ -12,7 +12,7 @@ A modular HTML Canvas library.
 ```
 import { Effect } from 'canvas-effects'
 
-new Effect(HTMLCanvasElement, Config);
+new Effect(HTMLCanvasElement, Config)
 
 ```
 
@@ -31,7 +31,7 @@ Setting the width or height value to `Infinity` will fill the respective viewpor
 const foo = new Effect(bar, {
 	width: Infinity,
 	height: 500
-});
+})
 
 ```
 

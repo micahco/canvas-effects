@@ -1,2 +1,2 @@
-export { Delaunay } from './Delaunay';
-export { Galileo } from './Galileo';
+export { Delaunay } from './Delaunay'
+export { Galileo } from './Galileo'
