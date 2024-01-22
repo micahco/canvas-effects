@@ -23,17 +23,17 @@ const GalileoDemo = (props) => {
 {
     height: 500,
     width: 1000,
-    seed: `}<ConfigInc value={seedValue} setValue={setSeedValue} step={2000} max={9000} min={2000} />{`
+    `}<ConfigInc label='seed' value={seedValue} setValue={setSeedValue} step={2000} max={9000} min={2000} />{`
     point: {
-        color: `}<ConfigColor name='galileo-point-color' value={pointColor} setValue={setPointColor} />{`
-        radius: `}<ConfigInc name="galileo-point-radius" value={pointRadius} setValue={setPointRadius} min={1} max={5} step={1} />{`
-        velocity: `}<ConfigInc name="galileo-point-velocity" value={pointVelocity} setValue={setPointVelocity} min={10} max={510} step={100} />{`
+        `}<ConfigColor name='galileo-point-color' label='color' value={pointColor} setValue={setPointColor} />{`
+        `}<ConfigInc name="galileo-point-radius" label='radius' value={pointRadius} setValue={setPointRadius} min={1} max={5} step={1} />{`
+        `}<ConfigInc name="galileo-point-velocity" label='velocity' value={pointVelocity} setValue={setPointVelocity} min={10} max={510} step={100} />{`
     },
     line: {
-        color: `}<ConfigColor name='galileo-line-color' value={lineColor} setValue={setLineColor} />{`
-        fade: `}<ConfigBool value={lineFade} setValue={setLineFade} />{`
-        max: `}<ConfigInc value={lineMax} setValue={setLineMax} step={100} max={500} min={100} />{`
-        width: `}<ConfigInc value={lineWidth} setValue={setLineWidth} step={1} max={5} min={1} />{`
+        `}<ConfigColor name='galileo-line-color' label='color' value={lineColor} setValue={setLineColor} />{`
+        `}<ConfigBool label='fade' value={lineFade} setValue={setLineFade} />{`
+        `}<ConfigInc label='max' value={lineMax} setValue={setLineMax} step={100} max={500} min={100} />{`
+        `}<ConfigInc label='width' value={lineWidth} setValue={setLineWidth} step={1} max={5} min={1} />{`
     }
 }
                 `}</pre>

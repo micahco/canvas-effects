@@ -4,7 +4,7 @@ import { RGBAToHex, hexToRGBA } from 'helpers/colors'
 
 
 const ConfigColor = (props) => {
-    const { name, value, setValue } = props
+    const { name, label, value, setValue } = props
     const [hexValue, setHexValue] = useState('')
     const debouncedHexValue = useDebounce(hexValue, 300)
 
@@ -21,7 +21,8 @@ const ConfigColor = (props) => {
     }, [debouncedHexValue, setValue])
 
     return (
-        <div className='property'>
+        <label className='property' htmlFor={name}>
+            {label}:
             <span className='value'>[{String(value)}]</span>
             <input
                 type='color'
@@ -30,7 +31,7 @@ const ConfigColor = (props) => {
                 value={hexValue || "#000000"}
                 onChange={e => setHexValue(e.target.value)}
             />
-        </div>
+        </label>
     )
 }
 

@@ -1,5 +1,5 @@
 const ConfigInc = (props) => {
-    const { value, setValue, step, max, min } = props
+    const { label, value, setValue, step, max, min } = props
 
     const handleClick = (e) => {
         if (value === undefined) {
@@ -13,6 +13,7 @@ const ConfigInc = (props) => {
 
     return (
         <div className="property">
+            <span className="label">{label}:</span>
             <span className="value">{String(props.value)}</span>
             <div>
                 <input type="button" onClick={handleClick} value="-" disabled={value <= min ? "disabled" : ""} />

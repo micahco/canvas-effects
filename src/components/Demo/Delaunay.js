@@ -21,13 +21,13 @@ const DelaunayDemo = (props) => {
 {
     height: 500,
     width: 1000,
-    seed: `}<ConfigInc value={seedValue} setValue={setSeedValue} step={1000} max={12000} min={3000} />{`
-    color: `}<ConfigColor name='delaunay-color' value={color} setValue={setColor} />{`
-    mouse: `}<ConfigBool value={mouse} setValue={setMouse} />{`
-    shade: `}<ConfigInc value={shade} setValue={setShade} step={0.25} max={1} min={0.25} />{`
+    `}<ConfigInc label='seed' value={seedValue} setValue={setSeedValue} step={1000} max={12000} min={3000} />{`
+    `}<ConfigColor name='delaunay-color' label='color' value={color} setValue={setColor} />{`
+    `}<ConfigBool label='mouse' value={mouse} setValue={setMouse} />{`
+    `}<ConfigInc label='shade' value={shade} setValue={setShade} step={0.25} max={1} min={0.25} />{`
     stroke: {
-        color: `}<ConfigColor name='delaunay-stroke-color' value={strokeColor} setValue={setStrokeColor} />{`
-        width: `}<ConfigInc value={strokeWidth} setValue={setStrokeWidth} step={1} max={5} min={1} />{`
+        `}<ConfigColor name='delaunay-stroke-color' label='color' value={strokeColor} setValue={setStrokeColor} />{`
+        `}<ConfigInc label='width' value={strokeWidth} setValue={setStrokeWidth} step={1} max={5} min={1} />{`
     }
 }
                 `}</pre>

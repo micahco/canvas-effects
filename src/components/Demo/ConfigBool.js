@@ -1,18 +1,21 @@
 const ConfigBool = (props) => {
+    const { name, label, value, setValue } = props
+
     const handleChange = (e) => {
-        props.setValue(!props.value)
+        setValue(!value)
     }
 
     return (
-        <label htmlFor={props.name} className="property">
+        <label htmlFor={name} className="property">
+            {label}:
             <span className="value">
-                {String(props.value)}
+                {String(value)}
             </span>
             <input
                 type="checkbox"
-                id={props.name}
-                name={props.name}
-                checked={props.value}
+                id={name}
+                name={name}
+                checked={value}
                 onChange={handleChange}
             /> 
         </label>
