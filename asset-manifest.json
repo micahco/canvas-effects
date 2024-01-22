@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/canvas-effects/static/css/main.ce89d2f6.css",
-    "main.js": "/canvas-effects/static/js/main.834c2bc4.js",
+    "main.js": "/canvas-effects/static/js/main.bb3d26a4.js",
     "static/js/787.fb103bff.chunk.js": "/canvas-effects/static/js/787.fb103bff.chunk.js",
     "index.html": "/canvas-effects/index.html",
     "main.ce89d2f6.css.map": "/canvas-effects/static/css/main.ce89d2f6.css.map",
-    "main.834c2bc4.js.map": "/canvas-effects/static/js/main.834c2bc4.js.map",
+    "main.bb3d26a4.js.map": "/canvas-effects/static/js/main.bb3d26a4.js.map",
     "787.fb103bff.chunk.js.map": "/canvas-effects/static/js/787.fb103bff.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ce89d2f6.css",
-    "static/js/main.834c2bc4.js"
+    "static/js/main.bb3d26a4.js"
   ]
 }
