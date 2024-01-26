@@ -6,7 +6,6 @@ A modular HTML Canvas library
 
 [![npm version](https://badge.fury.io/js/canvas-effects.svg)](https://badge.fury.io/js/canvas-effects)
 
-
 ## Usage
 
 ```
@@ -15,7 +14,6 @@ import { Effect } from 'canvas-effects'
 new Effect(HTMLCanvasElement, Config)
 
 ```
-
 
 ## Config
 
@@ -37,14 +35,13 @@ const foo = new Effect(bar, {
 
 All config properties listed from this point on are *optional*.
 
-
 ### Galileo
 
 **seed** : number
 
 Changes the amount of random points generated based on the size of the canvas. A smaller number will produce more points, resulting in lower performance.
 
-	Default: 8000
+	Default: 5000
 
 ***point*** : {Object}
 
@@ -92,14 +89,13 @@ Sets the width of the line.
 
 	Default: 1
 
-
 ### Delaunay
 
 **seed** : number
 
 Changes the amount of random points generated based on the sized of the canvas. A smaller number will produce more points, resulting in lower performance.
 
-	Default: 8000
+	Default: 5000
 
 **color** : [number, number, number, number]
 
@@ -134,7 +130,6 @@ ColorRGBA [r, g, b, a] of the stroke.
 Sets the width of the stroke.
 
 	Default: undefined
-
 
 ## Credits
 
