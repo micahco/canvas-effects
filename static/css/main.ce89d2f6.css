@@ -1,2 +1,0 @@
-body{font-family:system-ui}main{padding:2em 0}footer{margin:2em 0}.gallery{display:flex;flex-direction:column;gap:2em}.demo{display:flex;gap:1em}.demo .left{display:flex;flex-basis:300px;flex-direction:column;justify-content:center}.demo h2{margin:0}.demo canvas{border:2px dotted;flex-grow:1;max-width:800px}.config{bottom:0;line-height:1.5}.config .property{align-items:center;display:inline-flex;gap:1ch}.config .value{font-weight:700}
-/*# sourceMappingURL=main.ce89d2f6.css.map*/
