@@ -133,7 +133,7 @@ Sets the width of the stroke.
 
 ## Credits
 
-Some math: [Daniel Avila](https://github.com/danthecodingman)
+[Daniel Avila](https://github.com/danthecodingman)
 
 ## License
 

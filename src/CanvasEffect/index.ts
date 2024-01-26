@@ -70,7 +70,6 @@ export default abstract class CanvasEffect<TConfig extends Config> {
 		if (listen) {
 			window.addEventListener('resize', this.debounce.bind(this))
 		}
-		console.log(height, width)
 		this.canvas!.height = height
 		this.canvas!.width = width
 	}
