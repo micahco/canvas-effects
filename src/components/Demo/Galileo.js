@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Galileo } from 'canvas-effects'
 import Canvas from './Canvas'
 import ConfigBool from './ConfigBool'
@@ -15,9 +15,27 @@ const GalileoDemo = (props) => {
     const [lineMax, setLineMax] = useState(100)
     const [lineWidth, setLineWidth] = useState(1)
 
+    useEffect(() => {
+        if (props.darkTheme) {
+            if (pointColor.toString() === '0,0,0,1') {
+                setPointColor([255, 255, 255, 1])
+            }
+            if (lineColor.toString() === '0,0,0,1') {
+                setLineColor([255, 255, 255, 1])
+            }
+        } else {
+            if (pointColor.toString() === '255,255,255,1') {
+                setPointColor([0, 0, 0, 1])
+            }
+            if (lineColor.toString() === '255,255,255,1') {
+                setLineColor([0, 0, 0, 1])
+            }
+        }
+    }, [props.darkTheme])
+
     return (
-        <article className='demo galileo'>
-            <div className='left'>
+        <div className='demo'>
+            <div>
                 <h2>Galileo</h2>
                 <pre className='config'>{`
 {
@@ -38,7 +56,7 @@ const GalileoDemo = (props) => {
 }
                 `}</pre>
             </div>
-            <div className='right'>
+            <div>
                 <Canvas effect={Galileo} config={{
                     height: 500,
                     width: 1000,
@@ -56,7 +74,7 @@ const GalileoDemo = (props) => {
                     }
                 }} />
             </div>
-        </article>
+        </div>
     )
 }
 

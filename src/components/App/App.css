@@ -1,3 +1,11 @@
+:root {
+    color-scheme: light;
+}
+
+.dark {
+    color-scheme: dark;
+}
+
 body {
     font-family: system-ui;
 }
@@ -11,21 +19,17 @@ footer {
 }
 
 .gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 2em;
+    display: table;
 }
 
 .demo {
-    display: flex;
-    gap: 1em;
+    display: table-row;
 }
 
-.demo .left {
-    flex-basis: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.demo > div {
+    display: table-cell;
+    vertical-align: top;
+    padding: 2em 0;
 }
 
 .demo h2 {
@@ -34,8 +38,7 @@ footer {
 
 .demo canvas {
     border: 2px dotted;
-    flex-grow: 1;
-    max-width: 800px;
+    margin-left: 4em;
 }
 
 .config {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Delaunay } from 'canvas-effects'
 import Canvas from './Canvas'
 import ConfigBool from './ConfigBool'
@@ -13,9 +13,21 @@ const DelaunayDemo = (props) => {
     const [strokeColor, setStrokeColor] = useState(undefined)
     const [strokeWidth, setStrokeWidth] = useState(undefined)
 
+    useEffect(() => {
+        if (props.darkTheme) {
+            if (color.toString() === '255,255,255,1') {
+                setColor([155, 155, 155, 1])
+            }
+        } else {
+            if (color.toString() === '155,155,155,1') {
+                setColor([255, 255, 255, 1])
+            }
+        }
+    }, [props.darkTheme])
+    
     return (
-        <article className='demo delaunay'>
-            <div className='left'>
+        <div className='demo'>
+            <div>
                 <h2>Delaunay</h2>
                 <pre className='config'>{`
 {
@@ -32,7 +44,7 @@ const DelaunayDemo = (props) => {
 }
                 `}</pre>
             </div>
-            <div className='right'>
+            <div>
                 <Canvas effect={Delaunay} config={{
                     height: 500,
                     width: 1000,
@@ -46,7 +58,7 @@ const DelaunayDemo = (props) => {
                     }
                 }} />
             </div>
-        </article>
+        </div>
     )
 }
 
